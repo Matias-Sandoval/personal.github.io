@@ -15,9 +15,29 @@ body {
 }
 
 .container p {
-    font-size: 14px; /* Cambiar el tamaño de fuente según prefieras */
+    font-size: 16px; /* Cambiar el tamaño de fuente según prefieras */
     color: white;
 }
+
+
+
+/* Estilos para el botón de Instagram */
+.instagram-button {
+    display: block;
+    width: 120px;
+    height: 40px;
+    background-color: #405DE6; /* Color de fondo del botón */
+    color: white; /* Color del texto */
+    text-align: center;
+    line-height: 40px; /* Centrar verticalmente el texto */
+    text-decoration: none; /* Quitar subrayado del enlace */
+    margin: 20px auto; /* Margen para centrar el botón */
+    border-radius: 5px; /* Bordes redondeados */
+    font-weight: bold; /* Texto en negrita */
+}
+
+
+
 
 body::after {
     content: "";
