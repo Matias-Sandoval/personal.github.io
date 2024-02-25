@@ -15,6 +15,7 @@ body {
 }
 
 .container p {
+    font-size: 14px; /* Cambiar el tamaño de fuente según prefieras */
     color: white;
 }
 
