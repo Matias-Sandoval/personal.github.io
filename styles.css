@@ -7,14 +7,14 @@ body {
     max-width: 800px;
     margin: 0 auto;
     padding: 20px;
-    color: rgb(139, 124, 124);
+    color: white;
 }
 
 .container h1 {
     color: white;
 }
 
-.container p {
+.container h6 {
     color: white;
 }
 
@@ -30,4 +30,3 @@ body::after {
     pointer-events: none; /* Para que no afecte a la interacción con la página */
     z-index: -1; /* Para estar detrás de todo el contenido */
 }
-
