@@ -20,7 +20,7 @@ body {
 
 body::after {
     content: "";
-    background-image: radial-gradient(white 2px, transparent 3px);
+    background-image: radial-gradient(rgb(123, 120, 120) 2px, transparent 3px);
     background-size: 30px 30px; /* Tamaño de los puntitos */
     position: fixed;
     top: 0;
