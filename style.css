@@ -211,8 +211,8 @@ a{
 	}
 }
 html{
-	background-color:#f3e1e1;
-	color:#100b0b;
+	background-color:#fff;
+	color:#1b1d2a;
 	font-weight:normal;
 	font-family:"Geist Mono","SF Mono",SFMono-Regular,ui-monospace,"DejaVu Sans Mono",Menlo,Consolas,monospace;
 	line-height:1.25;
@@ -229,7 +229,7 @@ html{
 }
 @media (prefers-color-scheme: dark){
 	html{
-		background-color:#070707;
+		background-color:#000000;
 		color:#e3e2df;
 	}
 }
