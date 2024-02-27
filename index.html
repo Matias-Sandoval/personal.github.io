@@ -1,27 +1,117 @@
 <!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Matias Sandoval</title>
-    <link rel="stylesheet" href="styles.css">
+<html lang="en-GB">
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8">
+    <title>Matias Sandoval</title>  
+
+
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Matias Sandoval">
+    <meta property="og:image" content="">
+    <meta property="og:description" content="">
+    <meta property="og:site_name" content="Matias Sandoval">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="@MatiasSandovalJ">
+    <meta name="twitter:creator" content="">
+    <meta name="twitter:title" content="Matias Sandoval">
+    <meta name="twitter:description" content="">
+    <meta name="twitter:image" content="">
 
 
     <link rel="icon" href="/fotos/perfil2.png" type="image/x-icon">
     <!-- Opcionalmente, también puedes agregar un icono para dispositivos móviles -->
     <link rel="apple-touch-icon" href="/fotos/perfil2.png">
 
+    <link crossorigin="anonymous" rel="preload" href="/assets/fonts/GeistMono-Regular.woff2" as="font" type="font/woff2">
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body class="home">
 
-</head>
-<body>
-    <div class="container">
-        <h1>Matias Sandoval</h1>
-        <p>Hello World! I'm a computer science student and here I will be sharing my projects!</p>
-    </div>
-    <!-- Instragram -->
-    <a href="https://www.instagram.com/matisandovalsoy" class="instagram-button">Instagram</a>
-     <!-- Nueva imagen -->
-     <!-- <img src="/Users/matiassandoval/Desktop/website/personal/fotos/planeta2.png" alt="Foto Personal" class="profile-image"> -->
 
-</body>
+
+    <header>
+      <h1>Matias Sandoval<span>Student</span></h1>
+    </header>
+    <main>
+      <p>Hello World! I'm a computer science student and here I will be sharing my projects! You can follow me on <a href="https://twitter.com/MatiasSandovalJ">Twitter</a> or <a href="https://www.instagram.com/matisandovalsoy/"><span style="background-image: -webkit-linear-gradient(45deg, #FFD700, #FF0000); background-image: linear-gradient(20deg, #ff0000, #ffdd00); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;">Instagram</span></a>.</p>
+
+
+
+      <!--
+      <div class="section-title">
+        <p class="title">Icons</p>
+      </div>
+      <p>I make iOS and macOS app icons for folks building fun software. If you’d like to commission an icon, <a href="/cdn-cgi/l/email-protection#c3aba6ba83a2a7a2aeb4abaab7a0b1aca5b7eda0acaefcb0b6a1a9a6a0b7fe82b3b3e6f1f3aaa0acade6f1f3aaadb2b6aab1ba">send me an email</a>.</p>
+      -->
+
+
+
+      
+      <div class="section-title">
+        <p class="title">Software</p>
+      </div>
+      <p>Currently, I'm trying to work on my first project, an iOS app, learning a little bit every day. In college, I'm working with Assembler, Haskell, C, and C++.</p>
+
+      
+      <div class="section-title">
+        <p class="title">Timeline</p>
+      </div>
+      <div class="work">
+        <div class="key-value">
+          <span class="key">Now</span>
+          <span class="value">Taking a break</span>
+        </div>
+        <div class="key-value">
+          <span class="key">2022–2024</span>
+          <span class="value">University</span>
+        </div>
+        <div class="key-value">
+          <span class="key">2020-2022</span>
+          <span class="value">Web Development Course</span>
+        </div>
+      </div>
+      <!--
+        <div class="section-title">
+          <p class="title">Featured In</p>
+        </div>
+
+      <div class="key-value">
+        <span class="key">2023</span>
+        <span class="value"><a href="https://www.appiconbook.com/">The macOS App Icon Book</a></span>
+      </div>
+      -->
+    </main>
+    <footer>
+      <p>Enquiries → <a id="emailLink" href="">Envíame un correo</a></p>
+      <!-- <p>Last updated: February 24, 2024</p> -->
+    </footer>
+
+
+  </body>
 </html>
+
+
+
+
+<script>
+  // Función para codificar la dirección de correo electrónico
+  function codificarEmail(correo) {
+    var emailCodificado = "";
+    for (var i = 0; i < correo.length; i++) {
+      emailCodificado += "&#" + correo.charCodeAt(i) + ";";
+    }
+    return emailCodificado;
+  }
+
+  // Dirección de correo electrónico sin codificar
+  var direccionCorreo = "hey@matisandoval.com";
+
+  // Codificar la dirección de correo electrónico
+  var correoCodificado = codificarEmail(direccionCorreo);
+
+  // Actualizar el href y el texto del enlace de correo electrónico
+  var emailLink = document.getElementById("emailLink");
+  emailLink.setAttribute("href", "mailto:" + direccionCorreo);
+  emailLink.innerHTML = correoCodificado;
+</script>
