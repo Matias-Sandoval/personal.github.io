@@ -46,18 +46,24 @@
 
 
     
+    
 <style>
-  /* Estilos previos... */
+  @keyframes gradient-animation {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
 
-  .confetti {
-    position: fixed;
-    width: 10px;
-    height: 10px;
-    background-color: #f2d74e;
-    position: absolute;
-    left: 50%;
-    animation: confetti 5s ease-in-out -2s infinite;
-    transform-origin: left top;
+  .moving-gradient {
+    background-image: linear-gradient(45deg, #8A2BE2, #00BFFF, #8A2BE2, #00BFFF);
+    background-size: 300% 300%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-fill-color: transparent;
+    text-decoration: underline;
+    text-decoration-color: #8A2BE2;
+    animation: gradient-animation 5s ease infinite;
   }
 </style>
 
@@ -65,45 +71,12 @@
   <h1>Matias Sandoval
     <span>
       Student at 
-      <a href="https://www.unc.edu.ar" class="moving-gradient" id="unc-link">
+      <a href="https://www.unc.edu.ar" class="moving-gradient">
         UNC
       </a>
     </span>
   </h1>
 </header>
-
-<script>
-function createConfetti() {
-  const colors = ['#f2d74e', '#95c3de', '#ff9a91', '#f2af29', '#99c1de'];
-  for (let i = 0; i < 50; i++) {
-    const confetti = document.createElement('div');
-    confetti.className = 'confetti';
-    confetti.style.left = Math.random() * 100 + 'vw';
-    confetti.style.animationDelay = Math.random() * 5 + 's';
-    confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
-    document.body.appendChild(confetti);
-  }
-}
-
-document.getElementById('unc-link').addEventListener('click', function(e) {
-  e.preventDefault();
-  createConfetti();
-  setTimeout(() => window.location.href = 'https://www.unc.edu.ar', 2000);
-});
-</script>
-
-<style>
-  @keyframes confetti {
-    0% { transform: rotateZ(15deg) rotateY(0deg) translate(0,0); }
-    25% { transform: rotateZ(5deg) rotateY(360deg) translate(-5vw,20vh); }
-    50% { transform: rotateZ(15deg) rotateY(720deg) translate(5vw,60vh); }
-    75% { transform: rotateZ(5deg) rotateY(1080deg) translate(-10vw,80vh); }
-    100% { transform: rotateZ(15deg) rotateY(1440deg) translate(10vw,110vh); }
-  }
-</style>
-
-
-    
 
 
 
