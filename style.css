@@ -384,19 +384,30 @@ footer p{
 
 
 
-/* AGREGADO PARA QUE LAS 2 IMAGENES VERTICALES ESTEN JUNTAS */
+/* AGREGADO PARA QUE LAS 2 IMAGENES VERTICALES ESTEN JUNTAS y tambien se mantenga la horizontal de abajo*/
+
 
 .image-container {
     display: flex;
+    flex-wrap: wrap;
     justify-content: space-between;
     gap: 20px;
-    /* Ajusta este valor para controlar el espacio entre las imágenes */
+    margin-bottom: 20px;
 }
 
 .responsive-image {
-    max-width: 48%;
-    /* Ajusta este valor si necesitas que las imágenes sean más pequeñas o grandes */
+    width: 100%;
     height: auto;
+    object-fit: cover;
+    max-height: 500px;
+    /* Ajusta esto según tus necesidades */
 }
+
+
+.image-container:has(img + img) .responsive-image {
+    width: calc(50% - 10px);
+    /* 10px es la mitad del gap */
+}
+
 
 /* FIN*/
