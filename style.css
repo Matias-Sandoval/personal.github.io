@@ -387,23 +387,36 @@ footer p{
 }
 
 /* Ajustes para pantallas pequeñas */
+/* Ajuste para pantallas pequeñas */
+@media screen and (max-width: 640px) {
+    .links-container {
+        padding: 1 1.5em;
+        /* Aplica el mismo padding que otros elementos en móviles */
+    }
+}
+
+.image-container {
+    max-width: 100%;
+    margin: 2em auto;
+    text-align: center;
+}
+
+.responsive-image {
+    max-width: 100%;
+    height: auto;
+}
+
 @media screen and (max-width: 640px) {
     .image-container {
         margin: 1em auto;
     }
-    
-    .links-container {
-        padding: 1em 1.5em;
-    }
-    
-    .image-container.vertical-pair {
-        flex-direction: row;
-        justify-content: center;
-        align-items: flex-start;
-    }
-    
-    .image-container.vertical-pair .responsive-image {
-        width: calc(50% - 5px);
-    }
 }
+
+.image-container {
+    max-width: 600px;
+    /* O el ancho máximo que prefieras */
+    margin: 2em auto;
+    text-align: center;
+}
+
 
