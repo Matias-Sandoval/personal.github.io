@@ -345,23 +345,17 @@ footer p{
 
 
 
-
-
-
-
-
 /* Estilos generales */
 .image-container {
     max-width: 100%;
     margin: 2em auto;
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
+    justify-content: center;
     gap: 20px;
 }
 
 .responsive-image {
-    width: 100%;
     height: auto;
     object-fit: cover;
     max-height: 500px;
@@ -371,16 +365,22 @@ footer p{
 .image-container.vertical-pair {
     max-width: 600px;
     display: flex;
-    flex-wrap: nowrap; /* Evita que las imágenes se envuelvan */
+    flex-wrap: nowrap;
+    justify-content: center;
 }
 
 .image-container.vertical-pair .responsive-image {
     width: calc(50% - 10px);
+    max-width: 280px; /* Ajusta este valor según sea necesario */
 }
 
 /* Estilos para la imagen horizontal */
 .image-container.horizontal {
     max-width: 600px;
+}
+
+.image-container.horizontal .responsive-image {
+    width: 100%;
 }
 
 /* Ajustes para pantallas pequeñas */
@@ -394,13 +394,14 @@ footer p{
     }
     
     .image-container.vertical-pair {
-        flex-direction: column; /* Cambia la dirección a columna en pantallas pequeñas */
-        align-items: center; /* Centra las imágenes */
+        flex-direction: row; /* Mantiene las imágenes en fila */
+        justify-content: center;
+        align-items: flex-start; /* Alinea las imágenes desde arriba */
     }
     
     .image-container.vertical-pair .responsive-image {
-        width: 100%; /* Ocupa todo el ancho disponible */
-        max-width: 300px; /* Limita el ancho máximo para mantener la proporción */
+        width: calc(50% - 5px); /* Reduce el espacio entre imágenes */
+        max-width: none; /* Elimina el max-width para permitir que se ajusten */
     }
 }
 
