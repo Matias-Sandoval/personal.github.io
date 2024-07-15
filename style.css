@@ -354,7 +354,7 @@ footer p{
 
 
 /* PARA QUE ENTRE BIEN LA IMAGEN */
-.image-containerr {
+.image-container {
     max-width: 100%;
     margin: 2em auto;
     text-align: center;
@@ -371,7 +371,7 @@ footer p{
     }
 }
 
-.image-containerr {
+.image-container {
     max-width: 600px;
     /* O el ancho máximo que prefieras */
     margin: 2em auto;
