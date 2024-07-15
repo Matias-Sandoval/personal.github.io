@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en-GB">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta charset="utf-8" />
+        <title>Pictures - Matias Sandoval</title>
+        <meta property="og:type" content="website" />
+        <meta property="og:title" content="Pictures - Matias Sandoval" />
+        <meta property="og:image" content="" />
+        <meta property="og:description" content="" />
+        <meta property="og:site_name" content="Matias Sandoval" />
+        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:site" content="@matisandovalsoy" />
+        <meta name="twitter:creator" content="" />
+        <meta name="twitter:title" content="Pictures - Matias Sandoval" />
+        <meta name="twitter:description" content="" />
+        <meta name="twitter:image" content="" />
+
+        <link rel="icon" href="/fotos/perfil2.png" type="image/x-icon" />
+        <link rel="apple-touch-icon" href="/fotos/perfil2.png" />
+
+        <link
+            rel="stylesheet"
+            href="https://fonts.googleapis.com/css?family=SF+Pro+Display"
+        />
+
+        <link rel="stylesheet" href="style.css" />
+    </head>
+    <body class="pictures">
+        <header>
+            <h1>
+                Pictures
+                <span>
+                    <a href="index.html" class="moving-gradient">
+                        Back to Home
+                    </a>
+                </span>
+            </h1>
+        </header>
+
+        <main>
+            <div class="section-title">
+                <p class="title">My Gallery</p>
+            </div>
+            <div class="image-container">
+                <img
+                    src="fotos/fondo.png"
+                    alt="Background image 1"
+                    class="responsive-image"
+                />
+                <img
+                    src="fotos/fondo2.png"
+                    alt="Background image 2"
+                    class="responsive-image"
+                />
+                <img
+                    src="fotos/fotos.png"
+                    alt="Photos collage"
+                    class="responsive-image"
+                />
+                <!-- Add more images as needed -->
+            </div>
+        </main>
+        <footer>
+            <p>Contact → <a id="emailLink" href="">Send me an email</a></p>
+        </footer>
+    </body>
+</html>
+
+<script>
+    // Función para codificar la dirección de correo electrónico
+    function codificarEmail(correo) {
+        var emailCodificado = "";
+        for (var i = 0; i < correo.length; i++) {
+            emailCodificado += "&#" + correo.charCodeAt(i) + ";";
+        }
+        return emailCodificado;
+    }
+
+    // Dirección de correo electrónico sin codificar
+    var direccionCorreo = "hey@matisandoval.com";
+
+    // Codificar la dirección de correo electrónico
+    var correoCodificado = codificarEmail(direccionCorreo);
+
+    // Actualizar el href y el texto del enlace de correo electrónico
+    var emailLink = document.getElementById("emailLink");
+    emailLink.setAttribute("href", "mailto:" + direccionCorreo);
+    emailLink.innerHTML = correoCodificado;
+</script>
