@@ -386,8 +386,28 @@ footer p{
     width: 100%;
 }
 
-/* Ajustes para pantallas pequeñas */
-/* Ajuste para pantallas pequeñas */
+
+
+
+
+
+
+
+/* 
+
+
+AJUSTE PARA PANTALLAS PEQUEÑAS
+
+este codigo hace que al achicarse una ventana se siga viendo fluido 
+y no haga un mivimiento brusco con las imagenes, solo es para eso
+
+
+El codigo para implementar imagenes sigue siento el de arriba ya que este solo hace lo que acabo de decir anteriormente
+
+
+*/
+
+
 @media screen and (max-width: 640px) {
     .links-container {
         padding: 1 1.5em;
@@ -418,5 +438,19 @@ footer p{
     margin: 2em auto;
     text-align: center;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
