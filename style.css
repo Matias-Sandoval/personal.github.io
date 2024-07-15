@@ -350,8 +350,6 @@ footer p{
 
 
 
-
-
 /* Estilos generales */
 .image-container {
     max-width: 100%;
@@ -372,6 +370,8 @@ footer p{
 /* Estilos para las dos imágenes verticales */
 .image-container.vertical-pair {
     max-width: 600px;
+    display: flex;
+    flex-wrap: nowrap; /* Evita que las imágenes se envuelvan */
 }
 
 .image-container.vertical-pair .responsive-image {
@@ -393,8 +393,14 @@ footer p{
         padding: 1em 1.5em;
     }
     
+    .image-container.vertical-pair {
+        flex-direction: column; /* Cambia la dirección a columna en pantallas pequeñas */
+        align-items: center; /* Centra las imágenes */
+    }
+    
     .image-container.vertical-pair .responsive-image {
-        width: 100%;
+        width: 100%; /* Ocupa todo el ancho disponible */
+        max-width: 300px; /* Limita el ancho máximo para mantener la proporción */
     }
 }
 
