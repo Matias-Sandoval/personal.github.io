@@ -1,0 +1,8 @@
+permalink: /:categories/:title/
+sass:
+  style: compressed
+markdown: kramdown
+kramdown:
+    auto_ids: true
+
+    
