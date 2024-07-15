@@ -341,3 +341,62 @@ footer p{
 		z-index: -1; /* Para estar detrás de todo el contenido */
 	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+/* PARA QUE ENTRE BIEN LA IMAGEN */
+.image-container {
+    max-width: 100%;
+    margin: 2em auto;
+    text-align: center;
+}
+
+.responsive-image {
+    max-width: 100%;
+    height: auto;
+}
+
+@media screen and (max-width: 640px) {
+    .image-container {
+        margin: 1em auto;
+    }
+}
+
+.image-container {
+    max-width: 600px;
+    /* O el ancho máximo que prefieras */
+    margin: 2em auto;
+    text-align: center;
+}
+
+
+
+
+
+
+
+/* AGREGADO PARA QUE LAS 2 IMAGENES VERTICALES ESTEN JUNTAS */
+
+.image-container {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    /* Ajusta este valor para controlar el espacio entre las imágenes */
+}
+
+.responsive-image {
+    max-width: 48%;
+    /* Ajusta este valor si necesitas que las imágenes sean más pequeñas o grandes */
+    height: auto;
+}
+
+/* FIN*/
