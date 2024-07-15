@@ -354,6 +354,15 @@ footer p{
 
 
 /* PARA QUE ENTRE BIEN LA IMAGEN */
+/* Ajuste para pantallas pequeñas */
+@media screen and (max-width: 640px) {
+    .links-container {
+        padding: 1 1.5em;
+        /* Aplica el mismo padding que otros elementos en móviles */
+    }
+}
+
+
 .image-container {
     max-width: 100%;
     margin: 2em auto;
