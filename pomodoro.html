@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pomodoro Timer</title>
+    <style>
+        :root {
+            --bg-light: #f2f2f7;
+            --bg-dark: #1c1c1e;
+            --text-light: #1c1c1e;
+            --text-dark: #ffffff;
+            --accent-light: #FF9500;
+            --accent-dark: #FF9F0A;
+            --container-light: #ffffff;
+            --container-dark: #2c2c2e;
+            --sidebar-light: #f2f2f7;
+            --sidebar-dark: #2c2c2e;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            display: flex;
+            margin: 0;
+            transition: background-color 0.3s, color 0.3s;
+            height: 100vh;
+        }
+        .sidebar {
+            width: 250px;
+            padding: 2rem;
+            transition: background-color 0.3s;
+            overflow-y: auto;
+        }
+        .main-content {
+            flex-grow: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
+            position: relative;
+        }
+        .timer-container {
+            text-align: center;
+            padding: 3rem;
+            border-radius: 30px; /* Cambiado de 10px a 20px para más redondeo */
+            transition: background-color 0.3s, color 0.3s;
+            max-width: 400px;
+            width: 100%;
+        }
+        #timer {
+            font-size: 6rem;
+            font-weight: 300;
+            margin-bottom: 2rem;
+            transition: color 0.3s;
+            font-variant-numeric: tabular-nums;
+            font-feature-settings: "tnum";
+        }
+        button {
+            font-size: 1rem;
+            padding: 0.8rem 1.5rem;
+            margin: 0 0.5rem;
+            cursor: pointer;
+            border: none;
+            border-radius: 8px;
+            background-color: var(--accent-light);
+            color: white;
+            transition: background-color 0.3s, transform 0.1s;
+        }
+        button:hover {
+            opacity: 0.9;
+        }
+        button:active {
+            transform: scale(0.98);
+        }
+        body.light-mode {
+            background-color: var(--bg-light);
+            color: var(--text-light);
+        }
+        body.dark-mode {
+            background-color: var(--bg-dark);
+            color: var(--text-dark);
+        }
+        .light-mode .sidebar {
+            background-color: var(--sidebar-light);
+        }
+        .dark-mode .sidebar {
+            background-color: var(--sidebar-dark);
+        }
+        .light-mode .timer-container {
+            background-color: var(--container-light);
+        }
+        .dark-mode .timer-container {
+            background-color: var(--container-dark);
+        }
+        .theme-switch {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+        }
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 60px;
+            height: 34px;
+        }
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #e4e4e4;
+            transition: .4s;
+            border-radius: 34px;
+        }
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 26px;
+            width: 26px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+        input:checked + .slider {
+            background-color: var(--accent-light);
+        }
+        input:checked + .slider:before {
+            transform: translateX(26px);
+        }
+        .dark-mode .slider {
+            background-color: #3a3a3c;
+        }
+        .dark-mode input:checked + .slider {
+            background-color: var(--accent-dark);
+        }
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 2rem;
+            transition: color 0.3s;
+        }
+        .dark-mode button {
+            background-color: var(--accent-dark);
+        }
+        .sessions {
+            margin-top: 2rem;
+        }
+        .session-item {
+            display: flex;
+            align-items: center;
+            padding: 0.75rem 1rem;
+            cursor: pointer;
+            transition: background-color 0.2s, color 0.2s;
+            border-radius: 8px;
+            margin-bottom: 0.5rem;
+        }
+        .session-item:hover {
+            background-color: rgba(255, 149, 0, 0.1);
+        }
+        .session-item.active {
+            font-weight: bold;
+            color: var(--accent-light);
+            background-color: rgba(255, 149, 0, 0.2);
+        }
+        .dark-mode .session-item.active {
+            color: var(--accent-dark);
+            background-color: rgba(255, 159, 10, 0.2);
+        }
+        .session-icon {
+            margin-right: 0.75rem;
+            font-size: 1.2rem;
+        }
+        .add-session {
+            margin-top: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+        .add-session input {
+            padding: 0.5rem;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            background-color: var(--bg-light);
+            color: var(--text-light);
+            transition: background-color 0.3s, color 0.3s;
+            width: 100%;
+        }
+        .add-session input[type="number"] {
+            width: 100%;
+        }
+        .add-session input[type="text"] {
+            width: 100%;
+        }
+        .add-session button {
+            padding: 0.5rem 1rem;
+            font-size: 0.9rem;
+            width: 100%;
+            border-radius: 8px;
+        }
+        .dark-mode .add-session input {
+            background-color: var(--container-dark);
+            color: var(--text-dark);
+            border-color: #444;
+        }
+        .date-picker {
+            display: none;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+        .dark-mode .date-picker {
+            background-color: rgba(44, 44, 46, 0.9);
+        }
+        .picker-column {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 0 10px;
+        }
+        .picker-item {
+            font-size: 24px;
+            padding: 10px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .picker-item.selected {
+            font-size: 32px;
+            font-weight: bold;
+            color: var(--accent-light);
+        }
+        .dark-mode .picker-item.selected {
+            color: var(--accent-dark);
+        }
+        #timer {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            font-variant-numeric: tabular-nums;
+            font-feature-settings: "tnum";
+        }
+        .digit-container {
+            position: relative;
+            width: 0.6em; /* Adjust this value to fine-tune spacing */
+            height: 6rem;
+            overflow: hidden;
+        }
+        .digit {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: transform 0.3s cubic-bezier(0.4, 0.0, 0.2, 1), opacity 0.3s ease;
+        }
+        .digit-enter {
+            transform: translateY(100%);
+            opacity: 0;
+        }
+        .digit-enter-active {
+            transform: translateY(0);
+            opacity: 1;
+        }
+        .digit-exit {
+            transform: translateY(0);
+            opacity: 1;
+        }
+        .digit-exit-active {
+            transform: translateY(-100%);
+            opacity: 0;
+        }
+        .colon {
+            font-size: 6rem; /* Match the size of your digits */
+            margin: 0 0.1em; /* Adjust for desired spacing */
+        }
+    </style>
+</head>
+<body class="light-mode">
+    <div class="sidebar">
+        <h1>Pomodoro Timer</h1>
+        <div class="sessions">
+            <div class="session-item active" data-duration="25">
+                <span class="session-icon">🍅</span>
+                <span>Pomodoro (25 min)</span>
+            </div>
+            <div class="session-item" data-duration="5">
+                <span class="session-icon">☕</span>
+                <span>Short Break (5 min)</span>
+            </div>
+            <div class="session-item" data-duration="15">
+                <span class="session-icon">🌴</span>
+                <span>Long Break (15 min)</span>
+            </div>
+        </div>
+        <div class="add-session">
+            <input type="text" id="customName" placeholder="Session name">
+            <input type="number" id="customTime" min="1" max="120" placeholder="Min">
+            <button id="addCustomSession">Add Session</button>
+        </div>
+    </div>
+    <div class="main-content">
+        <div class="theme-switch">
+            <label class="switch">
+                <input type="checkbox" id="themeToggle">
+                <span class="slider"></span>
+            </label>
+        </div>
+        <div class="timer-container">
+            <div id="timer">
+                <div class="digit-container" id="minutesTens"></div>
+                <div class="digit-container" id="minutesOnes"></div>
+                <span class="colon">:</span>
+                <div class="digit-container" id="secondsTens"></div>
+                <div class="digit-container" id="secondsOnes"></div>
+            </div>
+            <div id="datePicker" class="date-picker">
+                <div class="picker-column">
+                    <div class="picker-item">23</div>
+                    <div class="picker-item">24</div>
+                    <div class="picker-item selected">25</div>
+                    <div class="picker-item">26</div>
+                    <div class="picker-item">27</div>
+                </div>
+                <div class="picker-column">
+                    <div class="picker-item">58</div>
+                    <div class="picker-item">59</div>
+                    <div class="picker-item selected">00</div>
+                    <div class="picker-item">01</div>
+                    <div class="picker-item">02</div>
+                </div>
+            </div>
+            <button id="startBtn">Start</button>
+            <button id="resetBtn">Reset</button>
+        </div>
+    </div>
+
+    <script>
+        let timeLeft = 25 * 60; // Initially 25 minutes
+        let timerInterval;
+        let isRunning = false;
+
+        const timerDisplay = document.getElementById('timer');
+        const startBtn = document.getElementById('startBtn');
+        const resetBtn = document.getElementById('resetBtn');
+        const themeToggle = document.getElementById('themeToggle');
+        const datePicker = document.getElementById('datePicker');
+
+        function updateTimer() {
+            const minutes = Math.floor(timeLeft / 60);
+            const seconds = timeLeft % 60;
+            
+            updateDigitContainer('minutesTens', Math.floor(minutes / 10));
+            updateDigitContainer('minutesOnes', minutes % 10);
+            updateDigitContainer('secondsTens', Math.floor(seconds / 10));
+            updateDigitContainer('secondsOnes', seconds % 10);
+        }
+
+        function updateDigitContainer(containerId, value) {
+            const container = document.getElementById(containerId);
+            const newValue = value.toString();
+            const oldValue = container.getAttribute('data-value');
+            
+            if (newValue !== oldValue) {
+                const oldDigit = container.querySelector('.digit');
+                if (oldDigit) {
+                    oldDigit.classList.add('digit-exit');
+                    requestAnimationFrame(() => {
+                        oldDigit.classList.add('digit-exit-active');
+                    });
+                    setTimeout(() => {
+                        container.removeChild(oldDigit);
+                    }, 300); // Match this with the transition duration
+                }
+
+                const newDigit = document.createElement('div');
+                newDigit.className = 'digit digit-enter';
+                newDigit.textContent = newValue;
+                container.appendChild(newDigit);
+
+                // Force reflow
+                newDigit.offsetHeight;
+
+                requestAnimationFrame(() => {
+                    newDigit.classList.add('digit-enter-active');
+                });
+
+                container.setAttribute('data-value', newValue);
+            }
+        }
+
+        function startTimer() {
+            if (!isRunning) {
+                isRunning = true;
+                startBtn.textContent = 'Pause';
+                timerInterval = setInterval(() => {
+                    if (timeLeft > 0) {
+                        timeLeft--;
+                        updateTimer();
+                    } else {
+                        clearInterval(timerInterval);
+                        isRunning = false;
+                        startBtn.textContent = 'Start';
+                    }
+                }, 1000);
+            } else {
+                clearInterval(timerInterval);
+                isRunning = false;
+                startBtn.textContent = 'Resume';
+            }
+        }
+
+        function resetTimer() {
+            clearInterval(timerInterval);
+            isRunning = false;
+            startBtn.textContent = 'Start';
+            // Get the currently selected session duration
+            const activeSession = document.querySelector('.session-item.active');
+            const duration = parseInt(activeSession.getAttribute('data-duration'));
+            timeLeft = duration * 60;
+            updateTimer(); // This call is correct, but let's make sure updateTimer is working properly
+        }
+
+        function handleSessionSelection() {
+            const sessionItems = document.querySelectorAll('.session-item');
+            sessionItems.forEach(item => {
+                item.addEventListener('click', function() {
+                    sessionItems.forEach(i => i.classList.remove('active'));
+                    this.classList.add('active');
+                    const duration = parseInt(this.getAttribute('data-duration'));
+                    timeLeft = duration * 60;
+                    updateTimer();
+                    resetTimer(); // This line is not needed anymore
+                });
+            });
+        }
+
+        function addCustomSession() {
+            const customName = document.getElementById('customName');
+            const customTime = document.getElementById('customTime');
+            const name = customName.value.trim();
+            const duration = parseInt(customTime.value);
+            
+            if (name && duration && duration > 0 && duration <= 120) {
+                const sessionsContainer = document.querySelector('.sessions');
+                const newSession = document.createElement('div');
+                newSession.className = 'session-item';
+                newSession.setAttribute('data-duration', duration);
+                newSession.innerHTML = `
+                    <span class="session-icon">⏱️</span>
+                    <span>${name} (${duration} min)</span>
+                `;
+                sessionsContainer.appendChild(newSession);
+                customName.value = '';
+                customTime.value = '';
+                handleSessionSelection();
+            } else {
+                alert('Please enter a valid name and time between 1 and 120 minutes.');
+            }
+        }
+
+        startBtn.addEventListener('click', startTimer);
+        resetBtn.addEventListener('click', resetTimer);
+        document.getElementById('addCustomSession').addEventListener('click', addCustomSession);
+
+        // Inicializar la selección de sesiones
+        handleSessionSelection();
+
+        // Actualizar el temporizador inicialmente
+        updateTimer();
+
+        // Agregar esta nueva función para manejar la selección de sesiones
+        function initializeTheme() {
+            const userPreference = localStorage.getItem('theme');
+            const hour = new Date().getHours();
+            const isDarkMode = hour < 6 || hour >= 18; // Dark mode from 6 PM to 6 AM
+            setTheme(isDarkMode);
+            if (userPreference) {
+                setTheme(userPreference === 'dark');
+            }
+        }
+
+        function setTheme(isDarkMode) {
+            document.body.classList.toggle('dark-mode', isDarkMode);
+            document.body.classList.toggle('light-mode', !isDarkMode);
+            themeToggle.checked = isDarkMode;
+        }
+
+        // Initialize theme on page load
+        initializeTheme();
+
+        themeToggle.addEventListener('change', function() {
+            setTheme(this.checked);
+            localStorage.setItem('theme', this.checked ? 'dark' : 'light');
+        });
+
+        function showDatePicker() {
+            datePicker.style.display = 'flex';
+            updateDatePicker();
+        }
+
+        function hideDatePicker() {
+            datePicker.style.display = 'none';
+        }
+
+        function updateDatePicker() {
+            const minutesColumn = datePicker.children[0];
+            const secondsColumn = datePicker.children[1];
+
+            const currentMinutes = parseInt(minutesDisplay.textContent);
+            const currentSeconds = parseInt(secondsDisplay.textContent);
+
+            updatePickerColumn(minutesColumn, currentMinutes, 0, 59);
+            updatePickerColumn(secondsColumn, currentSeconds, 0, 59);
+        }
+
+        function updatePickerColumn(column, currentValue, min, max) {
+            column.innerHTML = '';
+            for (let i = currentValue - 2; i <= currentValue + 2; i++) {
+                const value = (i + max + 1) % (max + 1);
+                const item = document.createElement('div');
+                item.className = 'picker-item';
+                item.textContent = value.toString().padStart(2, '0');
+                if (value === currentValue) {
+                    item.classList.add('selected');
+                }
+                column.appendChild(item);
+            }
+        }
+
+        minutesDisplay.addEventListener('click', showDatePicker);
+        secondsDisplay.addEventListener('click', showDatePicker);
+
+        datePicker.addEventListener('click', function(e) {
+            if (e.target.classList.contains('picker-item')) {
+                const column = e.target.parentElement;
+                const value = parseInt(e.target.textContent);
+                if (column === datePicker.children[0]) {
+                    timeLeft = value * 60 + parseInt(secondsDisplay.textContent);
+                } else {
+                    timeLeft = parseInt(minutesDisplay.textContent) * 60 + value;
+                }
+                updateTimer();
+                hideDatePicker();
+            }
+        });
+    </script>
+</body>
+</html>
