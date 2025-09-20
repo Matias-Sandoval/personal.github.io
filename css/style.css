@@ -532,12 +532,32 @@ El codigo para implementar imagenes sigue siento el de arriba ya que este solo h
         bottom: 15px;
         padding: 10px 14px;
         border-radius: 20px;
+        /* Ensure liquid glass effect is maintained on mobile */
+        border: 1px solid var(--lg-border);
+    }
+    
+    /* Ensure dock glass layers work on mobile */
+    .ios-dock::before {
+        backdrop-filter: blur(1px);
+        filter: url(#lg-dist);
+    }
+    
+    .ios-dock::after {
+        background: var(--lg-bg-color);
     }
     
     .dock-item {
         margin: 0 3px;
         padding: 10px;
         border-radius: 14px;
+        /* Maintain glass effect on mobile */
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        z-index: 3;
+    }
+    
+    /* Ensure dock item glass layers work on mobile */
+    .dock-item::before {
+        background: rgba(255, 255, 255, 0.03);
     }
     
     .dock-item img {
@@ -545,13 +565,27 @@ El codigo para implementar imagenes sigue siento el de arriba ya que este solo h
         height: 36px;
         border-radius: 8px;
     }
-    
 }
 
 /* Enhanced liquid glass effects for dark mode */
 @media (prefers-color-scheme: dark) {
     .dock-item::before {
         background: rgba(255, 255, 255, 0.015);
+    }
+    
+    /* Dark mode mobile compatibility */
+    @media screen and (max-width: 640px) {
+        .ios-dock {
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        
+        .ios-dock::after {
+            background: rgba(0, 0, 0, 0.15);
+        }
+        
+        .dock-item::before {
+            background: rgba(255, 255, 255, 0.015);
+        }
     }
 }
 
