@@ -64,7 +64,7 @@
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
-    text-fill-color: transparent;
+    color: transparent;
     text-decoration: underline;
     text-decoration-color: #8A2BE2;
     animation: gradient-animation 5s ease infinite;
@@ -132,15 +132,7 @@
         </div>
       </div>
 
-      <p>Currently, I'm trying to work on my first project, an iOS app, learning a little bit every day. In college, I'm working with Assembly, Haskell, C, and C++.</p>
-      <p>Currently, I'm trying to work on my first project, an iOS app, learning a little bit every day. In college, I'm working with Assembly, Haskell, C, and C++.</p>
-      <p>Currently, I'm trying to work on my first project, an iOS app, learning a little bit every day. In college, I'm working with Assembly, Haskell, C, and C++.</p>
-      <p>Currently, I'm trying to work on my first project, an iOS app, learning a little bit every day. In college, I'm working with Assembly, Haskell, C, and C++.</p>
-      <p>Currently, I'm trying to work on my first project, an iOS app, learning a little bit every day. In college, I'm working with Assembly, Haskell, C, and C++.</p>
-      <p>Currently, I'm trying to work on my first project, an iOS app, learning a little bit every day. In college, I'm working with Assembly, Haskell, C, and C++.</p>
 
-      <p>Currently, I'm trying to work on my first project, an iOS app, learning a little bit every day. In college, I'm working with Assembly, Haskell, C, and C++.</p>
-      <p>Currently, I'm trying to work on my first project, an iOS app, learning a little bit every day. In college, I'm working with Assembly, Haskell, C, and C++.</p>
       <!--
         <div class="section-title">
           <p class="title">Featured In</p>
@@ -205,6 +197,41 @@
             <feDisplacementMap in="SourceGraphic" in2="blurred" scale="70" xChannelSelector="R" yChannelSelector="G" />
           </filter>
         </svg>
+
+        <!-- Operating Systems Lab Section -->
+        <div class="section-title">
+          <p class="title">Lab1: Sistemas Operativos</p>
+        </div>
+        
+        <p>En el Lab1 de Sistemas Operativos lo que hicimos fue implementar una versión simplificada de un shell (una especie de "mini-bash"). El objetivo fue entender cómo funcionan las llamadas al sistema y la creación/ejecución de procesos.</p>
+        
+        <div class="section-title">
+          <p class="title">Puntos principales del trabajo</p>
+        </div>
+        
+        <div class="work">
+          <div class="key-value">
+            <span class="key">Estructuras de datos</span>
+            <span class="value">Usamos listas (GSList de GLib) para representar comandos simples (scommand) y pipelines (secuencias de comandos conectados con |).</span>
+          </div>
+          <div class="key-value">
+            <span class="key">Comandos internos (builtins)</span>
+            <span class="value">Implementamos funciones propias para comandos básicos como cd, exit y help, que no requieren crear procesos nuevos porque se ejecutan dentro del propio shell.</span>
+          </div>
+          <div class="key-value">
+            <span class="key">Ejecución de programas externos</span>
+            <span class="value">Para comandos normales, usamos fork() y execvp(): fork() crea un proceso hijo, en el hijo se redirige la entrada/salida si hacía falta y se ejecuta el comando con execvp(), el padre espera la finalización con wait().</span>
+          </div>
+          <div class="key-value">
+            <span class="key">Pipelines</span>
+            <span class="value">Implementamos la lógica de conectar procesos con pipes para que la salida de un comando sea la entrada del siguiente (ls | grep txt | wc -l). Eso implicó manejar bien los descriptores de archivos (stdin=0, stdout=1, etc.).</span>
+          </div>
+          <div class="key-value">
+            <span class="key">Makefile y compilación</span>
+            <span class="value">Configuramos reglas de compilación, incluyendo soporte para distintas arquitecturas (x86_64 y aarch64).</span>
+          </div>
+        </div>
+        
       </main>
     <footer>
       <p>Contact → <a id="emailLink" href="">Envíame un correo</a></p>
@@ -251,6 +278,9 @@
     </div>
     <div class="dock-item" onclick="location.href='pomodoro.html'" title="Pomodoro">
       <img src="fotos/planeta.png" alt="Pomodoro">
+    </div>
+    <div class="dock-item" onclick="void(0)" title="Icon">
+      <img src="icon.png" alt="Icon">
     </div>
   </div>
 
@@ -313,6 +343,7 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 });
 </script>
+
 
   </body>
 </html>

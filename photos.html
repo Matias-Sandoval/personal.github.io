@@ -90,40 +90,91 @@
         <footer>
             <p>Contact → <a id="emailLink" href="">Send me an email</a></p>
         </footer>
-    <!-- iOS Dock -->
-    <div class="ios-dock dock-appear">
-        <div class="dock-item" onclick="location.href='index.html'" title="Home">
-            <img src="fotos/perfil2.png" alt="Home">
-        </div>
-        <div class="dock-item" onclick="location.href='photos.html'" title="Photos">
-            <img src="fotos/photos/hello_apple.png" alt="Photos">
-        </div>
-        <div class="dock-item" onclick="location.href='pomodoro.html'" title="Pomodoro">
-            <img src="fotos/planeta.png" alt="Pomodoro">
-        </div>
-    </div>
 
-    </body>
-</html>
+        <!-- SVG Filter Definition for Liquid Glass -->
+        <svg style="display: none">
+          <filter id="lg-dist" x="0%" y="0%" width="100%" height="100%">
+            <feTurbulence type="fractalNoise" baseFrequency="0.008 0.008" numOctaves="2" seed="92" result="noise" />
+            <feGaussianBlur in="noise" stdDeviation="2" result="blurred" />
+            <feDisplacementMap in="SourceGraphic" in2="blurred" scale="70" xChannelSelector="R" yChannelSelector="G" />
+          </filter>
+        </svg>
+
+  <!-- iOS Dock -->
+  <div class="ios-dock dock-appear">
+    <div class="dock-item" onclick="location.href='index.html'" title="Home">
+      <img src="fotos/perfil2.png" alt="Home">
+    </div>
+    <div class="dock-item" onclick="location.href='photos.html'" title="Photos">
+      <img src="fotos/photos/hello_apple.png" alt="Photos">
+    </div>
+    <div class="dock-item" onclick="location.href='pomodoro.html'" title="Pomodoro">
+      <img src="fotos/planeta.png" alt="Pomodoro">
+    </div>
+    <div class="dock-item" onclick="void(0)" title="Icon">
+      <img src="icon.png" alt="Icon">
+    </div>
+  </div>
 
 <script>
-    // Función para codificar la dirección de correo electrónico
-    function codificarEmail(correo) {
-        var emailCodificado = "";
-        for (var i = 0; i < correo.length; i++) {
-            emailCodificado += "&#" + correo.charCodeAt(i) + ";";
-        }
-        return emailCodificado;
+  // Función para codificar la dirección de correo electrónico
+  function codificarEmail(correo) {
+    var emailCodificado = "";
+    for (var i = 0; i < correo.length; i++) {
+      emailCodificado += "&#" + correo.charCodeAt(i) + ";";
     }
+    return emailCodificado;
+  }
 
-    // Dirección de correo electrónico sin codificar
-    var direccionCorreo = "hey@matisandoval.com";
+  // Dirección de correo electrónico sin codificar
+  var direccionCorreo = "hey@matisandoval.com";
 
-    // Codificar la dirección de correo electrónico
-    var correoCodificado = codificarEmail(direccionCorreo);
+  // Codificar la dirección de correo electrónico
+  var correoCodificado = codificarEmail(direccionCorreo);
 
-    // Actualizar el href y el texto del enlace de correo electrónico
-    var emailLink = document.getElementById("emailLink");
-    emailLink.setAttribute("href", "mailto:" + direccionCorreo);
-    emailLink.innerHTML = correoCodificado;
+  // Actualizar el href y el texto del enlace de correo electrónico
+  var emailLink = document.getElementById("emailLink");
+  emailLink.setAttribute("href", "mailto:" + direccionCorreo);
+  emailLink.innerHTML = correoCodificado;
 </script>
+
+<!-- iOS Dock JavaScript -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  // Add dock functionality
+  const dock = document.querySelector('.ios-dock');
+  const dockItems = document.querySelectorAll('.dock-item');
+  
+  // Add entrance animation after a slight delay
+  setTimeout(() => {
+    if (dock) {
+      dock.classList.add('dock-appear');
+    }
+  }, 500);
+  
+  // Add only click functionality without hover effects
+  dockItems.forEach((item, index) => {
+    // Add click animation
+    item.addEventListener('click', function() {
+      this.style.transform = 'translateY(-2px) scale(1.02)';
+      setTimeout(() => {
+        this.style.transform = '';
+      }, 150);
+    });
+  });
+  
+  // Add active state for current page
+  const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+  dockItems.forEach(item => {
+    const href = item.getAttribute('onclick').match(/'([^']+)'/);
+    if (href && href[1] === currentPage) {
+      item.classList.add('active-page');
+      item.style.background = 'rgba(255, 255, 255, 0.3)';
+      item.style.border = '1px solid rgba(255, 255, 255, 0.4)';
+    }
+  });
+});
+</script>
+
+  </body>
+</html>

@@ -107,6 +107,7 @@ button,select{
 }
 button,html input[type="button"],input[type="reset"],input[type="submit"]{
 	-webkit-appearance:button;
+	appearance:button;
 	cursor:pointer;
 }
 button[disabled],html input[disabled]{
@@ -118,6 +119,7 @@ input[type="checkbox"],input[type="radio"]{
 }
 input[type="search"]{
 	-webkit-appearance:textfield;
+	appearance:textfield;
 	-moz-box-sizing:content-box;
 	-webkit-box-sizing:content-box;
 	box-sizing:content-box;
@@ -428,7 +430,9 @@ El codigo para implementar imagenes sigue siento el de arriba ya que este solo h
     overflow: hidden;
 }
 
-/* Dock glass filter layer (same as cards) */
+
+
+/* Restore original liquid glass layers */
 .ios-dock::before {
     content: '';
     position: absolute;
@@ -440,7 +444,6 @@ El codigo para implementar imagenes sigue siento el de arriba ya que este solo h
     border-radius: inherit;
 }
 
-/* Dock glass overlay layer (same as cards) */
 .ios-dock::after {
     content: '';
     position: absolute;
@@ -448,20 +451,54 @@ El codigo para implementar imagenes sigue siento el de arriba ya que este solo h
     z-index: 1;
     background: var(--lg-bg-color);
     border-radius: inherit;
+    /* Add light refraction as overlay on the glass - MORE CONTAINED */
+    box-shadow: 
+        inset 1px 1px 2px rgba(255, 255, 255, 0.4),
+        inset -1px -1px 2px rgba(255, 255, 255, 0.15),
+        inset 0.5px 0.5px 1px rgba(255, 255, 255, 0.5);
 }
 
-/* Dock glass specular layer using dock container */
+/* Light streak as separate overlay using border */
 .ios-dock {
     border: 1px solid var(--lg-border);
+    /* Add diagonal light streak using background overlay - MORE NOTICEABLE */
+    background: 
+        linear-gradient(
+            135deg,
+            rgba(255, 255, 255, 0.3) 0%,
+            rgba(255, 255, 255, 0.2) 15%,
+            transparent 40%,
+            transparent 60%,
+            rgba(255, 255, 255, 0.15) 85%,
+            rgba(255, 255, 255, 0.25) 100%
+        ),
+        transparent;
 }
 
 @media (prefers-color-scheme: dark) {
-    .ios-dock::after {
-        background: rgba(0, 0, 0, 0.15);
-    }
-    
     .ios-dock {
         border: 1px solid rgba(255, 255, 255, 0.08);
+        /* More noticeable diagonal light for dark mode */
+        background: 
+            linear-gradient(
+                135deg,
+                rgba(255, 255, 255, 0.25) 0%,
+                rgba(255, 255, 255, 0.12) 15%,
+                transparent 40%,
+                transparent 60%,
+                rgba(255, 255, 255, 0.1) 85%,
+                rgba(255, 255, 255, 0.15) 100%
+            ),
+            transparent;
+    }
+    
+    .ios-dock::after {
+        background: rgba(0, 0, 0, 0.15);
+        /* More contained light refraction for dark mode */
+        box-shadow: 
+            inset 1px 1px 2px rgba(255, 255, 255, 0.25),
+            inset -1px -1px 2px rgba(255, 255, 255, 0.08),
+            inset 0.5px 0.5px 1px rgba(255, 255, 255, 0.3);
     }
 }
 
@@ -469,8 +506,8 @@ El codigo para implementar imagenes sigue siento el de arriba ya que este solo h
     display: flex;
     align-items: center;
     justify-content: center;
-    margin: 0 4px;
-    padding: 12px;
+    margin: 0 8px;
+    padding: 0;
     border-radius: 16px;
     cursor: pointer;
     background: transparent;
@@ -478,6 +515,8 @@ El codigo para implementar imagenes sigue siento el de arriba ya que este solo h
     position: relative;
     overflow: hidden;
     z-index: 3;
+    width: 68px;
+    height: 68px;
 }
 
 /* Simplified glass effect for dock items */
@@ -497,10 +536,12 @@ El codigo para implementar imagenes sigue siento el de arriba ya que este solo h
 }
 
 .dock-item img {
-    width: 44px;
-    height: 44px;
-    border-radius: 10px;
+    width: 100%;
+    height: 100%;
+    border-radius: 16px;
     display: block;
+    object-fit: cover;
+    object-position: center;
 }
 
 
@@ -532,8 +573,19 @@ El codigo para implementar imagenes sigue siento el de arriba ya que este solo h
         bottom: 15px;
         padding: 10px 14px;
         border-radius: 20px;
-        /* Ensure liquid glass effect is maintained on mobile */
         border: 1px solid var(--lg-border);
+        /* More noticeable diagonal light streak on mobile */
+        background: 
+            linear-gradient(
+                135deg,
+                rgba(255, 255, 255, 0.35) 0%,
+                rgba(255, 255, 255, 0.18) 15%,
+                transparent 40%,
+                transparent 60%,
+                rgba(255, 255, 255, 0.12) 85%,
+                rgba(255, 255, 255, 0.2) 100%
+            ),
+            transparent;
     }
     
     /* Ensure dock glass layers work on mobile */
@@ -544,15 +596,22 @@ El codigo para implementar imagenes sigue siento el de arriba ya que este solo h
     
     .ios-dock::after {
         background: var(--lg-bg-color);
+        /* More contained light refraction on mobile */
+        box-shadow: 
+            inset 1px 1px 2px rgba(255, 255, 255, 0.35),
+            inset -1px -1px 2px rgba(255, 255, 255, 0.12),
+            inset 0.5px 0.5px 1px rgba(255, 255, 255, 0.4);
     }
     
     .dock-item {
-        margin: 0 3px;
-        padding: 10px;
+        margin: 0 6px;
+        padding: 0;
         border-radius: 14px;
         /* Maintain glass effect on mobile */
         border: 1px solid rgba(255, 255, 255, 0.12);
         z-index: 3;
+        width: 56px;
+        height: 56px;
     }
     
     /* Ensure dock item glass layers work on mobile */
@@ -561,9 +620,11 @@ El codigo para implementar imagenes sigue siento el de arriba ya que este solo h
     }
     
     .dock-item img {
-        width: 36px;
-        height: 36px;
-        border-radius: 8px;
+        width: 100%;
+        height: 100%;
+        border-radius: 14px;
+        object-fit: cover;
+        object-position: center;
     }
 }
 
@@ -577,10 +638,27 @@ El codigo para implementar imagenes sigue siento el de arriba ya que este solo h
     @media screen and (max-width: 640px) {
         .ios-dock {
             border: 1px solid rgba(255, 255, 255, 0.08);
+            /* More noticeable mobile diagonal light for dark mode */
+            background: 
+                linear-gradient(
+                    135deg,
+                    rgba(255, 255, 255, 0.2) 0%,
+                    rgba(255, 255, 255, 0.1) 15%,
+                    transparent 40%,
+                    transparent 60%,
+                    rgba(255, 255, 255, 0.06) 85%,
+                    rgba(255, 255, 255, 0.12) 100%
+                ),
+                transparent;
         }
         
         .ios-dock::after {
             background: rgba(0, 0, 0, 0.15);
+            /* More contained mobile light refraction for dark mode */
+            box-shadow: 
+                inset 1px 1px 2px rgba(255, 255, 255, 0.2),
+                inset -1px -1px 2px rgba(255, 255, 255, 0.06),
+                inset 0.5px 0.5px 1px rgba(255, 255, 255, 0.25);
         }
         
         .dock-item::before {
@@ -825,5 +903,6 @@ El codigo para implementar imagenes sigue siento el de arriba ya que este solo h
         min-height: 150px;
     }
 }
+
 
 

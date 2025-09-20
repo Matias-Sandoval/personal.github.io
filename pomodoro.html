@@ -562,18 +562,59 @@
             }
         });
     </script>
-    <!-- iOS Dock -->
-    <div class="ios-dock dock-appear">
-        <div class="dock-item" onclick="location.href='index.html'" title="Home">
-            <img src="fotos/perfil2.png" alt="Home">
-        </div>
-        <div class="dock-item" onclick="location.href='photos.html'" title="Photos">
-            <img src="fotos/photos/hello_apple.png" alt="Photos">
-        </div>
-        <div class="dock-item" onclick="location.href='pomodoro.html'" title="Pomodoro">
-            <img src="fotos/planeta.png" alt="Pomodoro">
-        </div>
+  <!-- iOS Dock -->
+  <div class="ios-dock dock-appear">
+    <div class="dock-item" onclick="location.href='index.html'" title="Home">
+      <img src="fotos/perfil2.png" alt="Home">
     </div>
+    <div class="dock-item" onclick="location.href='photos.html'" title="Photos">
+      <img src="fotos/photos/hello_apple.png" alt="Photos">
+    </div>
+    <div class="dock-item" onclick="location.href='pomodoro.html'" title="Pomodoro">
+      <img src="fotos/planeta.png" alt="Pomodoro">
+    </div>
+    <div class="dock-item" onclick="void(0)" title="Icon">
+      <img src="icon.png" alt="Icon">
+    </div>
+  </div>
+
+<!-- iOS Dock JavaScript -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  // Add dock functionality
+  const dock = document.querySelector('.ios-dock');
+  const dockItems = document.querySelectorAll('.dock-item');
+  
+  // Add entrance animation after a slight delay
+  setTimeout(() => {
+    if (dock) {
+      dock.classList.add('dock-appear');
+    }
+  }, 500);
+  
+  // Add only click functionality without hover effects
+  dockItems.forEach((item, index) => {
+    // Add click animation
+    item.addEventListener('click', function() {
+      this.style.transform = 'translateY(-2px) scale(1.02)';
+      setTimeout(() => {
+        this.style.transform = '';
+      }, 150);
+    });
+  });
+  
+  // Add active state for current page
+  const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+  dockItems.forEach(item => {
+    const href = item.getAttribute('onclick').match(/'([^']+)'/);
+    if (href && href[1] === currentPage) {
+      item.classList.add('active-page');
+      item.style.background = 'rgba(255, 255, 255, 0.3)';
+      item.style.border = '1px solid rgba(255, 255, 255, 0.4)';
+    }
+  });
+});
+</script>
 
 </body>
 </html>
