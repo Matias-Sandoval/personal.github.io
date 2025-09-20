@@ -310,37 +310,7 @@ footer p{
 	margin-right:.5em;
 }
 
-/* Modo oscuro */
-@media (prefers-color-scheme: dark){
-	body::after {
-		content: "";
-		background-image: radial-gradient(rgb(156 154 154 / 11%) 2px, transparent 3px);
-		background-size: 17px 17px; /* Tamaño de los puntitos */
-		position: fixed;
-		top: 0;
-		left: 0;
-		width: 100%;
-		height: 100%;
-		pointer-events: none; /* Para que no afecte a la interacción con la página */
-		z-index: -1; /* Para estar detrás de todo el contenido */
-	}
-}
 
-/* Modo claro */
-@media (prefers-color-scheme: light){
-	body::after {
-		content: "";
-		background-image: radial-gradient(rgb(255 0 0 / 5%) 2px, transparent 3px);
-		background-size: 17px 17px; /* Tamaño de los puntitos */
-		position: fixed;
-		top: 0;
-		left: 0;
-		width: 100%;
-		height: 100%;
-		pointer-events: none; /* Para que no afecte a la interacción con la página */
-		z-index: -1; /* Para estar detrás de todo el contenido */
-	}
-}
 
 
 
@@ -439,17 +409,387 @@ El codigo para implementar imagenes sigue siento el de arriba ya que este solo h
     text-align: center;
 }
 
+/* iOS Dock Styles with Liquid Glass Effect */
+.ios-dock {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1000;
+    padding: 12px 8px;
+    
+    /* Liquid Glass Background */
+    background: transparent;
+    border-radius: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 2.2);
+    overflow: hidden;
+}
+
+/* Dock glass filter layer (same as cards) */
+.ios-dock::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    backdrop-filter: blur(1px);
+    filter: url(#lg-dist);
+    isolation: isolate;
+    border-radius: inherit;
+}
+
+/* Dock glass overlay layer (same as cards) */
+.ios-dock::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    background: var(--lg-bg-color);
+    border-radius: inherit;
+}
+
+/* Dock glass specular layer using dock container */
+.ios-dock {
+    border: 1px solid var(--lg-border);
+}
+
+@media (prefers-color-scheme: dark) {
+    .ios-dock::after {
+        background: rgba(0, 0, 0, 0.15);
+    }
+    
+    .ios-dock {
+        border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+}
+
+.dock-item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 4px;
+    padding: 12px;
+    border-radius: 16px;
+    cursor: pointer;
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    position: relative;
+    overflow: hidden;
+    z-index: 3;
+}
+
+/* Simplified glass effect for dock items */
+.dock-item::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: inherit;
+}
 
 
+.dock-item:active {
+    transform: translateY(-2px) scale(1.02);
+    transition: all 0.15s ease;
+}
+
+.dock-item img {
+    width: 44px;
+    height: 44px;
+    border-radius: 10px;
+    display: block;
+}
 
 
+/* Bounce animation for dock appearance */
+.ios-dock.dock-appear {
+    animation: dockBounceIn 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
 
+@keyframes dockBounceIn {
+    0% {
+        transform: translateX(-50%) translateY(100px) scale(0.3);
+        opacity: 0;
+    }
+    50% {
+        transform: translateX(-50%) translateY(-10px) scale(1.05);
+    }
+    70% {
+        transform: translateX(-50%) translateY(5px) scale(0.95);
+    }
+    100% {
+        transform: translateX(-50%) translateY(0) scale(1);
+        opacity: 1;
+    }
+}
 
+/* Responsive adjustments for mobile */
+@media screen and (max-width: 640px) {
+    .ios-dock {
+        bottom: 15px;
+        padding: 10px 14px;
+        border-radius: 20px;
+    }
+    
+    .dock-item {
+        margin: 0 3px;
+        padding: 10px;
+        border-radius: 14px;
+    }
+    
+    .dock-item img {
+        width: 36px;
+        height: 36px;
+        border-radius: 8px;
+    }
+    
+}
 
+/* Enhanced liquid glass effects for dark mode */
+@media (prefers-color-scheme: dark) {
+    .dock-item::before {
+        background: rgba(255, 255, 255, 0.015);
+    }
+}
 
+/* Liquid Glass Variables */
+:root {
+  --lg-bg-color: rgba(255, 255, 255, 0.15);
+  --lg-highlight: rgba(255, 255, 255, 0.1);
+  --lg-text: #ffffff;
+  --lg-hover-glow: rgba(255, 255, 255, 0.1);
+  --lg-red: #fb4268;
+  --lg-grey: #5b5b5b;
+  --lg-border: rgba(255, 255, 255, 0.15);
+}
 
+@media (prefers-color-scheme: dark) {
+  :root {
+    --lg-bg-color: rgba(255, 255, 255, 0.08);
+    --lg-highlight: rgba(255, 255, 255, 0.05);
+    --lg-border: rgba(255, 255, 255, 0.1);
+  }
+}
 
+/* Rounded rectangles container */
+.rounded-rectangles {
+    display: flex;
+    gap: 20px;
+    margin: 3rem 0 2rem 0;
+    justify-content: center;
+    flex-wrap: nowrap;
+    align-items: stretch;
+}
 
+/* Main glass container */
+.rounded-rectangle {
+    position: relative;
+    display: flex;
+    flex: 1;
+    max-width: 280px;
+    min-height: 200px;
+    background: transparent;
+    border-radius: 20px;
+    overflow: hidden;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 2.2);
+    cursor: pointer;
+}
 
+.rounded-rectangle:hover {
+    transform: translateY(-2px);
+}
+
+/* Glass filter layer with SVG distortion */
+.glass-filter {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    backdrop-filter: blur(1px);
+    filter: url(#lg-dist);
+    isolation: isolate;
+}
+
+/* Glass overlay with main background */
+.glass-overlay {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    background: var(--lg-bg-color);
+}
+
+/* Glass specular highlights */
+.glass-specular {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    border-radius: inherit;
+    overflow: hidden;
+    border: 1px solid var(--lg-border);
+}
+
+/* Content layer */
+.glass-content {
+    position: relative;
+    z-index: 3;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 2rem;
+    flex: 1;
+    color: var(--lg-text);
+}
+
+/* Content styling */
+.glass-content h3 {
+    margin: 0 0 1rem 0;
+    font-size: 1.2em;
+    font-weight: 600;
+    color: inherit;
+}
+
+.glass-content p {
+    margin: 0;
+    line-height: 1.5;
+    color: inherit;
+    opacity: 0.9;
+}
+
+/* ========== CONTAINER ========== */
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.container--inline {
+  flex-direction: row;
+}
+
+/* ========== GLASS CONTAINER ========== */
+.glass-container {
+  position: relative;
+  display: flex;
+  font-weight: 600;
+  color: var(--lg-text);
+  cursor: pointer;
+  background: transparent;
+  border-radius: 2rem;
+  overflow: hidden;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 2.2);
+  backdrop-filter: blur(12px) saturate(100%);
+  -webkit-backdrop-filter: blur(12px) saturate(100%);
+}
+
+.glass-container--large {
+  min-width: 32rem;
+}
+
+.glass-container--rounded {
+  border-radius: 2rem;
+}
+
+.player {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  flex: 1 1 auto;
+  justify-content: space-between;
+}
+
+.player__thumb {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 0.5rem;
+}
+
+.player__img {
+  width: 5rem;
+  height: auto;
+  margin: 0.25rem 0;
+  border-radius: 0.5rem;
+}
+
+.player__legend {
+  display: flex;
+  flex-direction: column;
+  margin: 0 1rem;
+  color: black;
+}
+
+.player__legend__title {
+  font-size: 1rem;
+  margin: 0;
+  color: #fff;
+}
+
+.player__legend__sub-title {
+  font-size: 1rem;
+  margin: 0;
+  opacity: 0.45;
+  color: #ccc;
+}
+
+.player__controls {
+  margin-right: -1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  fill: #fff;
+}
+
+.player__controls__play {
+  margin-right: 1rem;
+  display: flex;
+}
+
+.player__controls__ff {
+  display: flex;
+}
+
+/* ========== GLASS CONTENT VARIATIONS ========== */
+.glass-content--inline {
+  padding: 0.25rem 2rem 0.25rem 0.75rem;
+  flex: 1 1 auto;
+  justify-content: space-between;
+}
+
+/* ========== ICONS AND IMAGES ========== */
+.glass-content a {
+  display: inline-block;
+  position: relative;
+  padding: 1px;
+  border-radius: 1.2rem;
+}
+
+.glass-content a img {
+  display: block;
+  width: 75px;
+  transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 2.2);
+}
+
+.glass-content a img:hover {
+  transform: none;
+}
+
+@media screen and (max-width: 640px) {
+    .rounded-rectangles {
+        gap: 15px;
+        margin: 2rem 0 1.5rem 0;
+        flex-wrap: wrap;
+    }
+    
+    .rounded-rectangle {
+        flex: none;
+        width: calc(50% - 7.5px);
+        max-width: none;
+        padding: 1.5rem;
+        min-height: 150px;
+    }
+}
 
 
