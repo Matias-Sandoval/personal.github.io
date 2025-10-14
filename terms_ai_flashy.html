@@ -4,194 +4,110 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Flashy – Privacy Policy & AI Terms of Use</title>
+<link rel="stylesheet" href="css/style.css">
 <style>
   * {
     font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol' !important;
   }
-
-  body {
-    margin: 0;
-    padding: 40px 20px;
-    color: #222;
-    line-height: 1.6;
-    background: #fafafa;
+  
+  main h2 {
+    margin: 2em 0 1em 0;
   }
-
-  .container {
-    max-width: 900px;
-    margin: 0 auto;
-    background: white;
-    padding: 60px;
-    border-radius: 16px;
-    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
-  }
-
-  .gradient-text {
-    background: linear-gradient(135deg, #8A2BE2 0%, #00BFFF 100%);
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-  }
-
-  header {
-    text-align: center;
-    margin-bottom: 3rem;
-    padding-bottom: 2rem;
-    border-bottom: 2px solid #f0f0f0;
-  }
-
-  h1 {
-    font-size: 2.5em;
-    margin: 0 0 0.5rem 0;
-    font-weight: 700;
-    background: linear-gradient(135deg, #8A2BE2 0%, #00BFFF 100%);
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-  }
-
-  .subtitle {
-    font-size: 1rem;
-    color: #666;
-    margin-top: 0.5rem;
-  }
-
-  h2 {
-    color: #111;
-    border-bottom: 2px solid #f0f0f0;
-    padding-bottom: 8px;
-    margin-top: 2.5em;
-    margin-bottom: 1em;
-    font-size: 1.8em;
+  
+  main h3 {
+    margin: 1.5em 0 0.75em 0;
     font-weight: 600;
   }
-
-  h3 {
-    color: #333;
-    margin-top: 1.5em;
-    font-size: 1.3em;
-    font-weight: 600;
+  
+  .last-updated {
+    color: rgba(27,29,42,0.5);
+    font-size: .875rem;
+    margin-top: 0.5em;
   }
-
-  .section-intro {
-    background: linear-gradient(135deg, rgba(138, 43, 226, 0.05) 0%, rgba(0, 191, 255, 0.05) 100%);
-    border-left: 4px solid #8A2BE2;
-    padding: 1.5rem;
-    margin: 1.5rem 0;
-    border-radius: 8px;
+  
+  @media (prefers-color-scheme: dark) {
+    .last-updated {
+      color: #585858;
+    }
   }
-
+  
+  .intro-box {
+    margin: 2em 0;
+    padding: 1em;
+    border-left: 2px solid rgba(27,29,42,0.2);
+  }
+  
+  @media (prefers-color-scheme: dark) {
+    .intro-box {
+      border-left: 2px solid rgba(255,255,255,0.2);
+    }
+  }
+  
+  .contact-info {
+    margin: 1em 0;
+    padding: 1em;
+    border: 1px solid rgba(27,29,42,0.1);
+  }
+  
+  @media (prefers-color-scheme: dark) {
+    .contact-info {
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+  }
+  
+  .provider-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1em;
+    margin: 1em 0;
+  }
+  
+  @media screen and (max-width: 640px) {
+    .provider-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+  
   ul {
-    list-style: none;
-    padding-left: 0;
+    margin: 1em 0;
+    padding-left: 2em;
   }
-
+  
   ul li {
-    padding: 0.5rem 0 0.5rem 2rem;
-    position: relative;
+    margin: 0.5em 0;
   }
-
-  ul li::before {
-    content: "→";
-    position: absolute;
-    left: 0.5rem;
-    color: #8A2BE2;
-    font-weight: bold;
-  }
-
-  a {
-    color: #8A2BE2;
-    text-decoration: none;
-  }
-
-  a:hover {
-    color: #00BFFF;
-    text-decoration: underline;
-  }
-
-  .contact-box {
-    background: linear-gradient(135deg, rgba(138, 43, 226, 0.08) 0%, rgba(0, 191, 255, 0.08) 100%);
-    padding: 1.5rem;
-    border-radius: 12px;
-    margin: 1.5rem 0;
-    border: 1px solid rgba(138, 43, 226, 0.15);
-  }
-
-  .contact-box strong {
-    color: #8A2BE2;
-  }
-
+  
   hr {
     border: none;
-    border-top: 2px solid #f0f0f0;
-    margin: 3rem 0;
+    border-top: 1px solid rgba(27,29,42,0.1);
+    margin: 3em 0;
   }
-
-  footer {
-    margin-top: 4rem;
-    padding-top: 2rem;
-    font-size: 0.9em;
-    color: #777;
-    text-align: center;
-    border-top: 2px solid #f0f0f0;
-  }
-
-  .provider-list {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 1rem;
-    margin: 1rem 0;
-  }
-
-  .provider-item {
-    background: white;
-    padding: 1rem;
-    border-radius: 8px;
-    border: 1px solid #e0e0e0;
-  }
-
-  .highlight {
-    background: linear-gradient(135deg, #8A2BE2 0%, #00BFFF 100%);
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-    font-weight: 600;
-  }
-
-  @media (max-width: 768px) {
-    .container {
-      padding: 30px 20px;
-    }
-
-    h1 {
-      font-size: 2em;
-    }
-
-    h2 {
-      font-size: 1.5em;
+  
+  @media (prefers-color-scheme: dark) {
+    hr {
+      border-top: 1px solid rgba(255,255,255,0.1);
     }
   }
 </style>
 </head>
 <body>
 
-<div class="container">
-  <header>
-    <h1>Flashy</h1>
-    <div class="subtitle">Privacy Policy & AI Terms of Use</div>
-    <p style="margin-top: 1rem; color: #888; font-size: 0.9rem;"><strong>Last updated:</strong> October 14, 2025</p>
-  </header>
+<header>
+  <h1>Flashy<span>Privacy Policy & AI Terms of Use</span></h1>
+  <p class="last-updated"><strong>Last updated:</strong> October 14, 2025</p>
+</header>
 
-  <div class="section-intro">
-    <strong class="gradient-text">Flashy</strong> is an AI-powered flashcard generator developed by <strong>Matías Sandoval</strong>. 
-    This document explains how we handle your data (Privacy Policy) and the terms that govern your use of the AI service (Terms of Use).
+<main>
+  <div class="intro-box">
+    <p><strong>Flashy</strong> is an AI-powered flashcard generator developed by <strong>Matías Sandoval</strong>. 
+    This document explains how we handle your data (Privacy Policy) and the terms that govern your use of the AI service (Terms of Use).</p>
   </div>
 
   <h2>1. Privacy Policy</h2>
 
   <h3>1.1 Overview</h3>
   <p>We respect your privacy. Flashy does not require you to create an account and does not collect personally identifiable information.
-  All payments are processed securely through <span class="highlight">Apple's In-App Purchase</span> system.</p>
+  All payments are processed securely through <strong>Apple's In-App Purchase</strong> system.</p>
 
   <h3>1.2 Data We Do Not Collect</h3>
   <ul>
@@ -225,22 +141,18 @@
   <p>All connections are encrypted via <strong>HTTPS/TLS</strong>. The OpenAI API key is securely stored on our Firebase backend and never exposed to users.</p>
 
   <h3>1.7 Third-Party Providers</h3>
-  <div class="provider-list">
-    <div class="provider-item">
-      <a href="https://www.apple.com/legal/privacy/"><strong>Apple</strong></a>
-      <p style="font-size: 0.9em; color: #666; margin: 0.5rem 0 0 0;">Payments & subscriptions</p>
+  <div class="provider-grid">
+    <div>
+      <p><a href="https://www.apple.com/legal/privacy/">Apple</a> — Payments & subscriptions</p>
     </div>
-    <div class="provider-item">
-      <a href="https://policies.google.com/privacy"><strong>Firebase (Google)</strong></a>
-      <p style="font-size: 0.9em; color: #666; margin: 0.5rem 0 0 0;">Backend hosting</p>
+    <div>
+      <p><a href="https://policies.google.com/privacy">Firebase (Google)</a> — Backend hosting</p>
     </div>
-    <div class="provider-item">
-      <a href="https://openai.com/privacy"><strong>OpenAI</strong></a>
-      <p style="font-size: 0.9em; color: #666; margin: 0.5rem 0 0 0;">AI text generation</p>
+    <div>
+      <p><a href="https://openai.com/privacy">OpenAI</a> — AI text generation</p>
     </div>
-    <div class="provider-item">
-      <a href="https://www.revenuecat.com/privacy"><strong>RevenueCat</strong></a>
-      <p style="font-size: 0.9em; color: #666; margin: 0.5rem 0 0 0;">Subscription management</p>
+    <div>
+      <p><a href="https://www.revenuecat.com/privacy">RevenueCat</a> — Subscription management</p>
     </div>
   </div>
 
@@ -248,13 +160,11 @@
   <p>Flashy is not directed to children under 13 and does not knowingly collect data from minors.</p>
 
   <h3>1.9 Contact</h3>
-  <div class="contact-box">
-    <p style="margin: 0;">For privacy concerns, contact:</p>
-    <p style="margin: 0.5rem 0 0 0;">
-      <strong>Matías Sandoval</strong><br>
-      Email: <a href="mailto:contact@matisandoval.com">contact@matisandoval.com</a><br>
-      Córdoba, Argentina
-    </p>
+  <div class="contact-info">
+    <p>For privacy concerns, contact:</p>
+    <p><strong>Matías Sandoval</strong><br>
+    Email: hey@matisandoval.com<br>
+    Córdoba, Argentina</p>
   </div>
 
   <hr>
@@ -265,7 +175,7 @@
   <p>You are granted a limited, non-exclusive, non-transferable, revocable license to use Flashy for personal, educational purposes in accordance with these Terms.</p>
 
   <h3>2.2 Fair Use</h3>
-  <p>Each subscription tier <span class="highlight">(1000, 2000, 5000 flashcards per month)</span> defines reasonable usage. Excessive or automated use beyond normal study activity may result in suspension.</p>
+  <p>Each subscription tier (1000, 2000, 5000 flashcards per month) defines reasonable usage. Excessive or automated use beyond normal study activity may result in suspension.</p>
 
   <h3>2.3 Prohibited Activities</h3>
   <ul>
@@ -276,8 +186,8 @@
   </ul>
 
   <h3>2.4 AI Content Disclaimer</h3>
-  <div class="section-intro">
-    <p style="margin: 0;">Flashy uses <strong>OpenAI's GPT models</strong> to generate text. Accuracy is not guaranteed.
+  <div class="intro-box">
+    <p>Flashy uses <strong>OpenAI's GPT models</strong> to generate text. Accuracy is not guaranteed.
     You are responsible for reviewing generated content before relying on it for study or other purposes.</p>
   </div>
 
@@ -306,21 +216,17 @@
   Your continued use of Flashy after updates constitutes acceptance.</p>
 
   <h3>2.11 Contact</h3>
-  <div class="contact-box">
-    <p style="margin: 0;">For questions regarding these Terms, contact:</p>
-    <p style="margin: 0.5rem 0 0 0;">
-      <strong>Matías Sandoval</strong><br>
-      Email: <a href="mailto:contact@matisandoval.com">contact@matisandoval.com</a><br>
-      Córdoba, Argentina
-    </p>
+  <div class="contact-info">
+    <p>For questions regarding these Terms, contact:</p>
+    <p><strong>Matías Sandoval</strong><br>
+    Email: hey@matisandoval.com<br>
+    Córdoba, Argentina</p>
   </div>
+</main>
 
-  <footer>
-    © 2025 <span class="gradient-text">Matías Sandoval</span> — Flashy. All rights reserved.
-  </footer>
-</div>
+<footer>
+  <p>© 2025 Matías Sandoval — Flashy. All rights reserved.</p>
+</footer>
 
 </body>
 </html>
-
-
