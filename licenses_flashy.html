@@ -1,69 +1,104 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Flashy — Open Source Licenses</title>
-    <style>
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 20px;
-            line-height: 1.6;
-            color: #333;
-        }
-        h1 {
-            font-size: 2em;
-            margin-bottom: 0.5em;
-        }
-        h2 {
-            font-size: 1.5em;
-            margin-top: 2em;
-            padding-bottom: 0.3em;
-            border-bottom: 2px solid #eee;
-        }
-        .license-block {
-            background: #f5f5f5;
-            padding: 15px;
-            border-radius: 8px;
-            margin: 15px 0;
-        }
-        pre {
-            white-space: pre-wrap;
-            word-wrap: break-word;
-            font-size: 0.85em;
-        }
-        a {
-            color: #007AFF;
-            text-decoration: none;
-        }
-        a:hover {
-            text-decoration: underline;
-        }
-        .footer {
-            margin-top: 3em;
-            padding-top: 2em;
-            border-top: 1px solid #eee;
-            text-align: center;
-            color: #666;
-            font-size: 0.9em;
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Flashy — Open Source Licenses</title>
+<link rel="stylesheet" href="css/style.css">
+<style>
+  * {
+    font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol' !important;
+  }
+  
+  main h2 {
+    margin: 2em 0 1em 0;
+  }
+  
+  main h3 {
+    margin: 1.5em 0 0.75em 0;
+    font-weight: 600;
+  }
+  
+  .last-updated {
+    color: rgba(27,29,42,0.5);
+    font-size: .875rem;
+    margin-top: 0.5em;
+  }
+  
+  @media (prefers-color-scheme: dark) {
+    .last-updated {
+      color: #585858;
+    }
+  }
+  
+  .intro-text {
+    margin: 2em 0;
+  }
+  
+  .library-info {
+    margin: 1em 0 0.5em 0;
+  }
+  
+  .library-info p {
+    margin: 0.25em 0;
+  }
+  
+  .license-block {
+    background: rgba(27,29,42,0.03);
+    padding: 1em;
+    margin: 1em 0;
+    border-left: 2px solid rgba(27,29,42,0.2);
+    overflow-x: auto;
+  }
+  
+  @media (prefers-color-scheme: dark) {
+    .license-block {
+      background: rgba(255,255,255,0.03);
+      border-left: 2px solid rgba(255,255,255,0.2);
+    }
+  }
+  
+  .license-block pre {
+    margin: 0;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    font-size: 0.85em;
+    font-family: "Geist Mono","SF Mono",SFMono-Regular,ui-monospace,"DejaVu Sans Mono",Menlo,Consolas,monospace;
+  }
+  
+  hr {
+    border: none;
+    border-top: 1px solid rgba(27,29,42,0.1);
+    margin: 3em 0;
+  }
+  
+  @media (prefers-color-scheme: dark) {
+    hr {
+      border-top: 1px solid rgba(255,255,255,0.1);
+    }
+  }
+</style>
 </head>
 <body>
-    <h1>Flashy — Open Source Licenses</h1>
-    <p><strong>Last updated:</strong> January 13, 2025</p>
-    <p>Flashy uses the following open source libraries and frameworks. We are grateful to the developers and contributors of these projects.</p>
 
-    <hr>
+<header>
+  <h1>Flashy<span>Open Source Licenses</span></h1>
+  <p class="last-updated"><strong>Last updated:</strong> January 13, 2025</p>
+</header>
 
-    <h2>Firebase</h2>
+<main>
+  <p class="intro-text">Flashy uses the following open source libraries and frameworks. We are grateful to the developers and contributors of these projects.</p>
+
+  <hr>
+
+  <h2>Firebase</h2>
+  <div class="library-info">
     <p><strong>Description:</strong> Backend services for cloud functions and authentication</p>
     <p><strong>License:</strong> Apache License 2.0</p>
     <p><strong>Repository:</strong> <a href="https://github.com/firebase/firebase-ios-sdk" target="_blank">https://github.com/firebase/firebase-ios-sdk</a></p>
-    <div class="license-block">
-        <pre>Apache License
+  </div>
+  <div class="license-block">
+    <pre>Apache License
 Version 2.0, January 2004
 http://www.apache.org/licenses/
 
@@ -78,14 +113,16 @@ distributed under the License is distributed on an "AS IS" BASIS,
 WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.</pre>
-    </div>
+  </div>
 
-    <h2>RevenueCat</h2>
+  <h2>RevenueCat</h2>
+  <div class="library-info">
     <p><strong>Description:</strong> In-app purchase and subscription management</p>
     <p><strong>License:</strong> MIT License</p>
     <p><strong>Repository:</strong> <a href="https://github.com/RevenueCat/purchases-ios" target="_blank">https://github.com/RevenueCat/purchases-ios</a></p>
-    <div class="license-block">
-        <pre>MIT License
+  </div>
+  <div class="license-block">
+    <pre>MIT License
 
 Copyright (c) RevenueCat, Inc.
 
@@ -106,28 +143,97 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.</pre>
-    </div>
+  </div>
 
-    <h2>SwiftData</h2>
+  <h2>Orb</h2>
+  <div class="library-info">
+    <p><strong>Description:</strong> Animated visual effects library for SwiftUI</p>
+    <p><strong>License:</strong> MIT License</p>
+    <p><strong>Repository:</strong> <a href="https://github.com/metasidd/Orb" target="_blank">https://github.com/metasidd/Orb</a></p>
+  </div>
+  <div class="license-block">
+    <pre>MIT License
+
+Copyright (c) 2024 Siddharth Sharma
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.</pre>
+  </div>
+
+  <h2>Wave</h2>
+  <div class="library-info">
+    <p><strong>Description:</strong> Spring animations and interactions library for SwiftUI</p>
+    <p><strong>License:</strong> MIT License</p>
+    <p><strong>Repository:</strong> <a href="https://github.com/jtrivedi/Wave" target="_blank">https://github.com/jtrivedi/Wave</a></p>
+  </div>
+  <div class="license-block">
+    <pre>MIT License
+
+Copyright (c) 2024 Janum Trivedi
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.</pre>
+  </div>
+
+  <h2>SwiftData</h2>
+  <div class="library-info">
     <p><strong>Description:</strong> Local data persistence framework</p>
     <p><strong>License:</strong> Part of Apple's SDK (Proprietary)</p>
     <p><strong>Note:</strong> SwiftData is provided by Apple as part of the iOS SDK and does not require separate attribution.</p>
+  </div>
 
-    <hr>
+  <hr>
 
-    <h2>Third-Party Services</h2>
-    
-    <h3>OpenAI API</h3>
+  <h2>Third-Party Services</h2>
+  
+  <h3>OpenAI API</h3>
+  <div class="library-info">
     <p><strong>Description:</strong> AI text generation for flashcard creation</p>
     <p><strong>Terms:</strong> <a href="https://openai.com/policies/terms-of-use" target="_blank">OpenAI Terms of Use</a></p>
     <p><strong>Note:</strong> Flashy uses OpenAI's API to generate flashcards. User prompts are processed according to OpenAI's data usage policies.</p>
+  </div>
 
-    <hr>
+  <hr>
 
-    <div class="footer">
-        <p>© 2025 Matías Sandoval — Flashy. All rights reserved.</p>
-        <p><a href="https://matisandoval.com/terms_ai_flashy">Privacy Policy & Terms of Use</a></p>
-    </div>
+</main>
+
+<footer>
+  <p>© 2025 Matías Sandoval — Flashy. All rights reserved.</p>
+  <p><a href="https://matisandoval.com/privacy_flashy">Privacy Policy & Terms of Use</a></p>
+</footer>
+
 </body>
 </html>
+
+
 
