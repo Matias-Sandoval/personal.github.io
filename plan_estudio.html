@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plan de Estudio Semanal</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <style>
+        /* Study plan specific styles */
+        .study-plan {
+            max-width: 42rem;
+            margin: 0 auto;
+            padding: 0 3em;
+        }
+        
+        .study-header {
+            text-align: center;
+            margin: 3em 0 2em 0;
+        }
+        
+        .study-header h1 {
+            font-size: 1.5em;
+            font-weight: 700;
+            margin-bottom: 0.5em;
+            color: #1b1d2a;
+        }
+        
+        @media (prefers-color-scheme: dark) {
+            .study-header h1 {
+                color: #e3e2df;
+            }
+        }
+        
+        .day-section {
+            margin-bottom: 3em;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            background: transparent;
+            border-radius: 20px;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 2.2);
+            padding: 2rem;
+        }
+        
+        /* Glass effect layers */
+        .day-section::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            z-index: 0;
+            backdrop-filter: blur(1px);
+            isolation: isolate;
+            border-radius: inherit;
+        }
+        
+        .day-section::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            z-index: 1;
+            background: var(--lg-bg-color);
+            border-radius: inherit;
+            box-shadow: 
+                inset 1px 1px 2px rgba(255, 255, 255, 0.4),
+                inset -1px -1px 2px rgba(255, 255, 255, 0.15);
+        }
+        
+        .day-section {
+            border: 1px solid var(--lg-border);
+            background: 
+                linear-gradient(
+                    135deg,
+                    rgba(255, 255, 255, 0.3) 0%,
+                    rgba(255, 255, 255, 0.2) 15%,
+                    transparent 40%,
+                    transparent 60%,
+                    rgba(255, 255, 255, 0.15) 85%,
+                    rgba(255, 255, 255, 0.25) 100%
+                ),
+                transparent;
+        }
+        
+        @media (prefers-color-scheme: dark) {
+            .day-section {
+                border: 1px solid rgba(255, 255, 255, 0.08);
+                background: 
+                    linear-gradient(
+                        135deg,
+                        rgba(255, 255, 255, 0.25) 0%,
+                        rgba(255, 255, 255, 0.12) 15%,
+                        transparent 40%,
+                        transparent 60%,
+                        rgba(255, 255, 255, 0.1) 85%,
+                        rgba(255, 255, 255, 0.15) 100%
+                    ),
+                    transparent;
+            }
+            
+            .day-section::after {
+                background: rgba(0, 0, 0, 0.15);
+                box-shadow: 
+                    inset 1px 1px 2px rgba(255, 255, 255, 0.25),
+                    inset -1px -1px 2px rgba(255, 255, 255, 0.08);
+            }
+        }
+        
+        .day-content {
+            position: relative;
+            z-index: 3;
+        }
+        
+        .day-title {
+            font-size: 1.2em;
+            font-weight: 700;
+            margin-bottom: 0.5em;
+            color: #1b1d2a;
+        }
+        
+        @media (prefers-color-scheme: dark) {
+            .day-title {
+                color: #e3e2df;
+            }
+        }
+        
+        .day-objective {
+            font-style: italic;
+            margin-bottom: 1.5em;
+            color: rgba(27, 29, 42, 0.7);
+        }
+        
+        @media (prefers-color-scheme: dark) {
+            .day-objective {
+                color: rgba(227, 226, 223, 0.7);
+            }
+        }
+        
+        .study-section {
+            margin-bottom: 1.5em;
+        }
+        
+        .section-number {
+            font-weight: 600;
+            margin-bottom: 0.5em;
+            color: #1b1d2a;
+        }
+        
+        @media (prefers-color-scheme: dark) {
+            .section-number {
+                color: #e3e2df;
+            }
+        }
+        
+        .study-section ul {
+            margin: 0.5em 0;
+            padding-left: 1.5em;
+        }
+        
+        .study-section li {
+            margin: 0.5em 0;
+            line-height: 1.6;
+        }
+        
+        .tip-box {
+            background: rgba(80, 129, 239, 0.1);
+            border-left: 3px solid #5081EF;
+            padding: 1em;
+            margin: 1em 0;
+            border-radius: 4px;
+        }
+        
+        @media (prefers-color-scheme: dark) {
+            .tip-box {
+                background: rgba(80, 129, 239, 0.15);
+            }
+        }
+        
+        .tip-label {
+            font-weight: 600;
+            color: #5081EF;
+            margin-bottom: 0.5em;
+        }
+        
+        .math {
+            overflow-x: auto;
+            padding: 0.25em 0;
+        }
+        
+        @media screen and (max-width: 640px) {
+            .study-plan {
+                padding: 0 1.5em;
+            }
+            
+            .study-header {
+                margin: 2em 0 1.5em 0;
+            }
+            
+            .study-header h1 {
+                font-size: 1.2em;
+            }
+            
+            .day-section {
+                padding: 1.5rem;
+                margin-bottom: 2em;
+            }
+            
+            .day-title {
+                font-size: 1.1em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="study-plan">
+        <div class="study-header">
+            <h1>🗓️ PLAN DE ESTUDIO SEMANAL – PARCIAL DE PROBABILIDAD Y ESTADÍSTICA</h1>
+        </div>
+
+        <!-- Lunes -->
+        <div class="day-section">
+            <div class="day-content">
+                <h2 class="day-title">📅 Lunes – Estimación puntual básica (Guía 5)</h2>
+                <p class="day-objective"><strong>Objetivo:</strong> entender qué son los estimadores, cuándo son insesgados, y practicar cálculos simples.</p>
+                
+                <div class="study-section">
+                    <p class="section-number">1️⃣ Repaso teórico (20 min):</p>
+                    <ul>
+                        <li>Qué es un estimador, estimación, sesgo y eficiencia.</li>
+                        <li>Propiedades: \(E(\hat{\theta}) = \theta\), varianza mínima, consistencia.</li>
+                        <li>Métodos: momentos y máxima verosimilitud.</li>
+                    </ul>
+                </div>
+                
+                <div class="study-section">
+                    <p class="section-number">2️⃣ Ejercicios sugeridos (de la Guía 5):</p>
+                    <ul>
+                        <li>Ej. 1 (Poisson): calcular \(\hat{\lambda}\) y el error estándar.</li>
+                        <li>Ej. 3 (proporciones): estimar \(p_1 - p_2\) y su error estándar.</li>
+                        <li>Ej. 4 (insesgadez de \(\bar{X}^2\)): revisar demostración.</li>
+                    </ul>
+                </div>
+                
+                <div class="study-section">
+                    <p class="section-number">3️⃣ Mini práctica extra:</p>
+                    <p>Dados \(X_1 = 2, X_2 = 4, X_3 = 3\) con \(E(X) = \mu\), var \(\sigma^2\):</p>
+                    <p>¿Es \(\frac{X_1 + 2X_2 + X_3}{3}\) insesgado para μ?</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Martes -->
+        <div class="day-section">
+            <div class="day-content">
+                <h2 class="day-title">📅 Martes – Máxima Verosimilitud (Guía 5)</h2>
+                <p class="day-objective"><strong>Objetivo:</strong> dominar el método MV, saber derivar la función de verosimilitud y aplicarla.</p>
+                
+                <div class="study-section">
+                    <p class="section-number">1️⃣ Repaso teórico:</p>
+                    <ul>
+                        <li>Pasos del método MV.</li>
+                        <li>Propiedad de invarianza (para percentiles, probabilidades).</li>
+                    </ul>
+                </div>
+                
+                <div class="study-section">
+                    <p class="section-number">2️⃣ Ejercicios sugeridos:</p>
+                    <ul>
+                        <li>Ej. 6 (Beta/Uniforme con parámetro θ).</li>
+                        <li>Ej. 7 (Normal): estimar media, mediana y percentil 90.</li>
+                        <li>Ej. 8 (Exponencial): hallar λ̂ y estimar.</li>
+                        <li>Ej. 9 (Normal): usar MV para μ y σ², calcular P(X ≤ 400).</li>
+                        <li>Ej. 10 (Uniforme): demostrar sesgo de \(\max(X_i)\) y estimador insesgado.</li>
+                    </ul>
+                </div>
+                
+                <div class="tip-box">
+                    <p class="tip-label">💡 Tip del día:</p>
+                    <p>Recordá que la verosimilitud se maximiza igualando la derivada del log-L a 0.</p>
+                    <p>En problemas normales, casi siempre:</p>
+                    <p class="math">\(\hat{\mu} = \bar{X}\) y \(\hat{\sigma}^2 = \frac{1}{n}\sum(X_i - \bar{X})^2\)</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Miércoles -->
+        <div class="day-section">
+            <div class="day-content">
+                <h2 class="day-title">📅 Miércoles – Intervalos de confianza (Guía 6)</h2>
+                <p class="day-objective"><strong>Objetivo:</strong> practicar los distintos tipos de intervalos según el dato que se conozca.</p>
+                
+                <div class="study-section">
+                    <p class="section-number">1️⃣ Repaso teórico:</p>
+                    <ul>
+                        <li>Cuándo usar Z, t o χ².</li>
+                        <li>Interpretación: 95% → "en el 95% de las muestras el parámetro cae dentro".</li>
+                    </ul>
+                </div>
+                
+                <div class="study-section">
+                    <p class="section-number">2️⃣ Ejercicios sugeridos:</p>
+                    <ul>
+                        <li>Ej. 1 y 2: media con σ conocida.</li>
+                        <li>Ej. 3: media con σ desconocida (usa t).</li>
+                        <li>Ej. 4: proporción.</li>
+                        <li>Ej. 6: intervalo para varianza (χ²).</li>
+                        <li>Ej. 9: distribución uniforme (intervalo de θ).</li>
+                    </ul>
+                </div>
+                
+                <div class="study-section">
+                    <p class="section-number">3️⃣ Mini práctica:</p>
+                    <p>Una muestra de 16 mediciones: \(\bar{X} = 50\), σ=4.</p>
+                    <p>Calcula el IC(95%) para μ.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Jueves -->
+        <div class="day-section">
+            <div class="day-content">
+                <h2 class="day-title">📅 Jueves – Pruebas de hipótesis Z y t (Guía 7)</h2>
+                <p class="day-objective"><strong>Objetivo:</strong> reconocer qué prueba usar y cómo interpretar los resultados.</p>
+                
+                <div class="study-section">
+                    <p class="section-number">1️⃣ Repaso teórico:</p>
+                    <ul>
+                        <li>Estructura: \(H_0, H_a\), estadístico, región crítica, decisión.</li>
+                        <li>Tipos de cola:
+                            <ul>
+                                <li>Cola derecha → "&gt;"</li>
+                                <li>Cola izquierda → "&lt;"</li>
+                                <li>Bilateral → "≠"</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="study-section">
+                    <p class="section-number">2️⃣ Ejercicios sugeridos:</p>
+                    <ul>
+                        <li>Ej. 1: balanza (σ conocido → Z).</li>
+                        <li>Ej. 3: aceite vegetal (Z bilateral).</li>
+                        <li>Ej. 5: escape petroleros (t unilateral).</li>
+                        <li>Ej. 6 y 7: σ desconocido, distintos tamaños de muestra.</li>
+                    </ul>
+                </div>
+                
+                <div class="study-section">
+                    <p class="section-number">3️⃣ Extra:</p>
+                    <p>Dibujá la distribución Z y marcá regiones de rechazo (1.645, 1.96, 2.58).</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Viernes -->
+        <div class="day-section">
+            <div class="day-content">
+                <h2 class="day-title">📅 Viernes – Pruebas con proporciones y p-valor (Guía 7)</h2>
+                <p class="day-objective"><strong>Objetivo:</strong> afianzar el razonamiento de p-valores y decisiones estadísticas.</p>
+                
+                <div class="study-section">
+                    <p class="section-number">1️⃣ Repaso teórico:</p>
+                    <ul>
+                        <li>Qué es el p-valor y cómo se interpreta.</li>
+                        <li>Fórmula para proporciones:
+                            <p class="math">\[Z = \frac{\hat{p} - p_0}{\sqrt{p_0(1-p_0)/n}}\]</p>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="study-section">
+                    <p class="section-number">2️⃣ Ejercicios sugeridos:</p>
+                    <ul>
+                        <li>Ej. 12 (banco de sangre).</li>
+                        <li>Ej. 13 (robots vs humanos).</li>
+                        <li>Ej. 15 y 16 (p-valor con Z).</li>
+                        <li>Ej. 17 (p-valor con t).</li>
+                    </ul>
+                </div>
+                
+                <div class="study-section">
+                    <p class="section-number">3️⃣ Práctica rápida:</p>
+                    <p>\(n = 100\), \(x = 60\), \(p_0 = 0.5\), α=0.05.</p>
+                    <p>¿Rechazás \(H_0\) si \(Z = 2\)?</p>
+                    <p>(Sí, porque \(p \approx 0.045 &lt; 0.05\)).</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sábado -->
+        <div class="day-section">
+            <div class="day-content">
+                <h2 class="day-title">📅 Sábado – Integración total (repaso general)</h2>
+                <p class="day-objective"><strong>Objetivo:</strong> unir todo: estimación + intervalo + hipótesis.</p>
+                
+                <div class="study-section">
+                    <p class="section-number">Ejercicios combinados:</p>
+                    <ul>
+                        <li>Ej. 9 (Guía 5): MV + probabilidad.</li>
+                        <li>Ej. 5 (Guía 6): intervalo + interpretación práctica.</li>
+                        <li>Ej. 4 (Guía 7): comparar resultados entre IC y prueba de hipótesis.</li>
+                        <li>Ej. 9 (Guía 7): planteo completo de hipótesis con datos reales.</li>
+                    </ul>
+                </div>
+                
+                <div class="tip-box">
+                    <p class="tip-label">💡 Tip:</p>
+                    <p>Anota paso a paso:</p>
+                    <ul>
+                        <li>Tipo de problema (media, proporción, varianza, etc.)</li>
+                        <li>Qué se conoce (σ, n, etc.)</li>
+                        <li>Fórmula base</li>
+                        <li>Resultado + interpretación en contexto.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Domingo -->
+        <div class="day-section">
+            <div class="day-content">
+                <h2 class="day-title">📅 Domingo – Simulacro de parcial</h2>
+                <p class="day-objective"><strong>Objetivo:</strong> simular el examen con tiempo limitado (1 h 30 min).</p>
+                
+                <div class="study-section">
+                    <p class="section-number">Simulacro sugerido:</p>
+                    <ul>
+                        <li><strong>Estimación puntual:</strong> Ej. 8 (Guía 5).</li>
+                        <li><strong>Intervalo:</strong> Ej. 3 (Guía 6).</li>
+                        <li><strong>Hipótesis:</strong> Ej. 9 o 10 (Guía 7).</li>
+                        <li><strong>p-valor:</strong> Ej. 16 (Guía 7).</li>
+                    </ul>
+                </div>
+                
+                <div class="tip-box">
+                    <p class="tip-label">📝 Importante:</p>
+                    <p>→ Corrige con tus apuntes y anota qué tipo de ejercicio se te complica más.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
