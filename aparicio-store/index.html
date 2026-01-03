@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description"
+    content="Aparicio - Tu tienda de bebidas favorita. Gaseosas, agua, jugos y más con entrega a domicilio.">
+  <title>Aparicio | Tienda de Bebidas</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+
+<body>
+  <!-- Loading State -->
+  <div class="loading-overlay" id="loading">
+    <div class="loading-spinner"></div>
+    <p>Cargando productos...</p>
+  </div>
+
+  <!-- Header -->
+  <header class="header">
+    <div class="container">
+      <div class="header-content">
+        <a href="index.html" class="logo">
+          <span class="logo-icon">🥤</span>
+          <span>Aparicio</span>
+        </a>
+        <div class="header-actions">
+          <a href="cart.html" class="cart-button" id="cart-button">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="9" cy="21" r="1"></circle>
+              <circle cx="20" cy="21" r="1"></circle>
+              <path d="m1 1 4 4 14 2-1.5 7H7.5"></path>
+            </svg>
+            <span>Carrito</span>
+            <span class="cart-count" id="cart-count">0</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="page-content">
+    <div class="container">
+      <!-- Search & Filters -->
+      <section class="search-section">
+        <div class="search-bar">
+          <input type="text" class="search-input" id="search-input" placeholder="Buscar productos...">
+        </div>
+        <div class="filter-tabs" id="filter-tabs">
+          <!-- Filters will be inserted here -->
+        </div>
+      </section>
+
+      <!-- Products Grid -->
+      <section class="products-grid" id="products-grid">
+        <!-- Products will be inserted here -->
+      </section>
+
+      <!-- Empty State -->
+      <div class="cart-empty hidden" id="empty-state">
+        <div class="cart-empty-icon">🔍</div>
+        <h2>No se encontraron productos</h2>
+        <p class="text-muted">Intenta con otra búsqueda o categoría</p>
+      </div>
+    </div>
+  </main>
+
+  <!-- Toast Notification -->
+  <div class="toast-container" id="toast-container"></div>
+
+  <style>
+    .loading-overlay {
+      position: fixed;
+      inset: 0;
+      background: var(--color-bg);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      z-index: 9999;
+      transition: opacity 0.3s ease;
+    }
+
+    .loading-overlay.hidden {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .loading-spinner {
+      width: 48px;
+      height: 48px;
+      border: 4px solid var(--color-border);
+      border-top-color: var(--color-primary);
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    .toast-container {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      z-index: 1000;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .toast {
+      background: var(--color-bg-dark);
+      color: white;
+      padding: 12px 20px;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-lg);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      animation: slideIn 0.3s ease;
+    }
+
+    .toast.success {
+      background: var(--color-success);
+    }
+
+    @keyframes slideIn {
+      from {
+        transform: translateX(100%);
+        opacity: 0;
+      }
+
+      to {
+        transform: translateX(0);
+        opacity: 1;
+      }
+    }
+
+    @keyframes slideOut {
+      to {
+        transform: translateX(100%);
+        opacity: 0;
+      }
+    }
+
+    .quantity-control-inline {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      background: var(--color-bg);
+      border-radius: var(--radius);
+      padding: 8px;
+    }
+
+    .qty-btn {
+      width: 40px;
+      height: 40px;
+      border: none;
+      background: var(--color-primary);
+      color: white;
+      border-radius: var(--radius);
+      font-size: 1.25rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .qty-btn:hover:not(:disabled) {
+      background: var(--color-primary-dark);
+      transform: scale(1.05);
+    }
+
+    .qty-btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    .qty-value {
+      font-size: 1.25rem;
+      font-weight: 700;
+      min-width: 40px;
+      text-align: center;
+      color: var(--color-text);
+    }
+  </style>
+
+  <!-- Firebase SDK -->
+  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+
+  <script src="js/data.js"></script>
+  <script>
+    // DOM Elements
+    const productsGrid = document.getElementById('products-grid');
+    const filterTabs = document.getElementById('filter-tabs');
+    const searchInput = document.getElementById('search-input');
+    const cartCount = document.getElementById('cart-count');
+    const emptyState = document.getElementById('empty-state');
+    const toastContainer = document.getElementById('toast-container');
+    const loadingOverlay = document.getElementById('loading');
+
+    // State
+    let currentCategory = 'all';
+    let searchQuery = '';
+    let allProducts = [];
+
+    // Initialize
+    async function init() {
+      renderFilters();
+      updateCartCount();
+
+      // Load products from Firebase
+      allProducts = await getProducts();
+      renderProducts();
+
+      // Hide loading
+      loadingOverlay.classList.add('hidden');
+    }
+
+    // Render category filters
+    function renderFilters() {
+      filterTabs.innerHTML = CATEGORIES.map(cat => `
+        <button 
+          class="filter-tab ${cat.id === currentCategory ? 'active' : ''}"
+          data-category="${cat.id}"
+        >
+          <span>${cat.icon}</span>
+          <span>${cat.name}</span>
+        </button>
+      `).join('');
+
+      // Add event listeners
+      filterTabs.querySelectorAll('.filter-tab').forEach(tab => {
+        tab.addEventListener('click', () => {
+          currentCategory = tab.dataset.category;
+          renderFilters();
+          renderProducts();
+        });
+      });
+    }
+
+    // Render products
+    function renderProducts() {
+      // Filter products
+      let filteredProducts = allProducts.filter(product => {
+        const matchesCategory = currentCategory === 'all' || product.category === currentCategory;
+        const matchesSearch = product.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+          (product.description && product.description.toLowerCase().includes(searchQuery.toLowerCase()));
+        return matchesCategory && matchesSearch;
+      });
+
+      if (filteredProducts.length === 0) {
+        productsGrid.classList.add('hidden');
+        emptyState.classList.remove('hidden');
+        return;
+      }
+
+      productsGrid.classList.remove('hidden');
+      emptyState.classList.add('hidden');
+
+      productsGrid.innerHTML = filteredProducts.map(product => {
+        const stockClass = product.stock === 0 ? 'out' : product.stock <= 10 ? 'low' : '';
+        const stockText = product.stock === 0 ? 'Sin stock' :
+          product.stock <= 10 ? `¡Solo quedan ${product.stock}!` :
+            `${product.stock} disponibles`;
+
+        // Support both emojis and image paths
+        const imageContent = product.image && (product.image.includes('/') || product.image.includes('.'))
+          ? `<img src="${product.image}" alt="${product.name}" style="width:100%;height:100%;object-fit:contain;">`
+          : product.image;
+
+        // Check if product is in cart
+        const cart = getCart();
+        const cartItem = cart.find(item => item.productId === product.id);
+        const quantity = cartItem ? cartItem.quantity : 0;
+
+        const actionContent = product.stock === 0
+          ? `<button class="btn btn-secondary btn-block" disabled>Sin Stock</button>`
+          : quantity > 0
+            ? `<div class="quantity-control-inline">
+                <button class="qty-btn" onclick="handleQuantityChange(${product.id}, ${quantity - 1})">−</button>
+                <span class="qty-value">${quantity}</span>
+                <button class="qty-btn" onclick="handleQuantityChange(${product.id}, ${quantity + 1})" ${quantity >= product.stock ? 'disabled' : ''}>+</button>
+              </div>`
+            : `<button class="btn btn-primary btn-block" onclick="handleAddToCart(${product.id})">Agregar al Carrito</button>`;
+
+        return `
+          <article class="product-card">
+            <div class="product-image">${imageContent}</div>
+            <div class="product-info">
+              <span class="product-category">${product.category}</span>
+              <h3 class="product-name">${product.name}</h3>
+              <p class="product-price">${formatPrice(product.price)}</p>
+              <p class="product-stock ${stockClass}">${stockText}</p>
+              <div class="product-actions">
+                ${actionContent}
+              </div>
+            </div>
+          </article>
+        `;
+      }).join('');
+    }
+
+    // Handle add to cart
+    async function handleAddToCart(productId) {
+      const product = allProducts.find(p => p.id === productId);
+      await addToCart(productId);
+      updateCartCount();
+      renderProducts(); // Re-render to show quantity controls
+      showToast(`${product.name} agregado al carrito`, 'success');
+    }
+
+    // Handle quantity change from product grid
+    async function handleQuantityChange(productId, newQuantity) {
+      if (newQuantity <= 0) {
+        removeFromCart(productId);
+      } else {
+        await updateCartItem(productId, newQuantity);
+      }
+      updateCartCount();
+      renderProducts();
+    }
+
+    // Update cart count
+    function updateCartCount() {
+      const count = getCartCount();
+      cartCount.textContent = count;
+      cartCount.style.display = count > 0 ? 'flex' : 'none';
+    }
+
+    // Show toast notification
+    function showToast(message, type = 'default') {
+      const toast = document.createElement('div');
+      toast.className = `toast ${type}`;
+      toast.innerHTML = `
+        <span>✓</span>
+        <span>${message}</span>
+      `;
+      toastContainer.appendChild(toast);
+
+      setTimeout(() => {
+        toast.style.animation = 'slideOut 0.3s ease forwards';
+        setTimeout(() => toast.remove(), 300);
+      }, 3000);
+    }
+
+    // Search handler
+    searchInput.addEventListener('input', (e) => {
+      searchQuery = e.target.value;
+      renderProducts();
+    });
+
+    // Initialize app
+    init();
+  </script>
+</body>
+
+</html>

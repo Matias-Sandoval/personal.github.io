@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Tu carrito de compras - Aparicio">
+    <title>Carrito | Aparicio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+
+<body>
+    <!-- Loading State -->
+    <div class="loading-overlay" id="loading">
+        <div class="loading-spinner"></div>
+        <p>Cargando carrito...</p>
+    </div>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <a href="index.html" class="logo">
+                    <span class="logo-icon">🥤</span>
+                    <span>Aparicio</span>
+                </a>
+                <div class="header-actions">
+                    <a href="cart.html" class="cart-button" id="cart-button">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="9" cy="21" r="1"></circle>
+                            <circle cx="20" cy="21" r="1"></circle>
+                            <path d="m1 1 4 4 14 2-1.5 7H7.5"></path>
+                        </svg>
+                        <span>Carrito</span>
+                        <span class="cart-count" id="cart-count">0</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="page-content">
+        <div class="container">
+            <h1 class="mb-lg" style="font-size: var(--font-size-3xl);">Tu Carrito</h1>
+
+            <!-- Cart Container -->
+            <div class="cart-container" id="cart-container">
+                <!-- Cart Items -->
+                <div class="cart-items" id="cart-items">
+                    <!-- Items will be inserted here -->
+                </div>
+
+                <!-- Cart Summary -->
+                <div class="cart-summary" id="cart-summary">
+                    <h2>Resumen del Pedido</h2>
+                    <div id="summary-items">
+                        <!-- Summary items will be inserted here -->
+                    </div>
+                    <div class="cart-summary-row">
+                        <span>Subtotal</span>
+                        <span id="subtotal">$0</span>
+                    </div>
+                    <div class="cart-summary-row">
+                        <span>Envío</span>
+                        <span class="text-success">Gratis</span>
+                    </div>
+                    <div class="cart-summary-row total">
+                        <span>Total</span>
+                        <span id="total">$0</span>
+                    </div>
+                    <a href="checkout.html" class="btn btn-primary btn-lg btn-block mt-lg" id="checkout-btn">
+                        Proceder al Checkout
+                    </a>
+                    <a href="index.html" class="btn btn-secondary btn-block mt-sm">
+                        Seguir Comprando
+                    </a>
+                </div>
+            </div>
+
+            <!-- Empty Cart State -->
+            <div class="cart-empty hidden" id="empty-cart">
+                <div class="cart-empty-icon">🛒</div>
+                <h2>Tu carrito está vacío</h2>
+                <p class="text-muted mb-lg">¡Agrega algunos productos para comenzar!</p>
+                <a href="index.html" class="btn btn-primary btn-lg">
+                    Ver Productos
+                </a>
+            </div>
+        </div>
+    </main>
+
+    <style>
+        .loading-overlay {
+            position: fixed;
+            inset: 0;
+            background: var(--color-bg);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 16px;
+            z-index: 9999;
+            transition: opacity 0.3s ease;
+        }
+
+        .loading-overlay.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .loading-spinner {
+            width: 48px;
+            height: 48px;
+            border: 4px solid var(--color-border);
+            border-top-color: var(--color-primary);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+    </style>
+
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+
+    <script src="js/data.js"></script>
+    <script>
+        // DOM Elements
+        const cartContainer = document.getElementById('cart-container');
+        const cartItems = document.getElementById('cart-items');
+        const summaryItems = document.getElementById('summary-items');
+        const subtotalEl = document.getElementById('subtotal');
+        const totalEl = document.getElementById('total');
+        const cartCountEl = document.getElementById('cart-count');
+        const emptyCart = document.getElementById('empty-cart');
+        const checkoutBtn = document.getElementById('checkout-btn');
+        const loadingOverlay = document.getElementById('loading');
+
+        // Initialize
+        async function init() {
+            await renderCart();
+            loadingOverlay.classList.add('hidden');
+        }
+
+        // Render cart
+        async function renderCart() {
+            const cartWithProducts = await getCartWithProducts();
+            const cartTotal = await getCartTotal();
+            const count = getCartCount();
+
+            // Update header cart count
+            cartCountEl.textContent = count;
+            cartCountEl.style.display = count > 0 ? 'flex' : 'none';
+
+            if (cartWithProducts.length === 0) {
+                cartContainer.classList.add('hidden');
+                emptyCart.classList.remove('hidden');
+                return;
+            }
+
+            cartContainer.classList.remove('hidden');
+            emptyCart.classList.add('hidden');
+
+            // Render cart items
+            cartItems.innerHTML = cartWithProducts.map(item => {
+                const img = item.product.image;
+                const imageContent = img && (img.includes('/') || img.includes('.'))
+                    ? `<img src="${img}" alt="${item.product.name}" style="width:100%;height:100%;object-fit:contain;">`
+                    : img;
+                return `
+        <div class="cart-item">
+          <div class="cart-item-image">${imageContent}</div>
+          <div class="cart-item-info">
+            <h3>${item.product.name}</h3>
+            <p class="cart-item-price">${formatPrice(item.product.price)} c/u</p>
+          </div>
+          <div class="cart-item-actions">
+            <div class="quantity-control">
+              <button class="quantity-btn" onclick="handleQuantityChange(${item.productId}, ${item.quantity - 1})">−</button>
+              <span class="quantity-value">${item.quantity}</span>
+              <button class="quantity-btn" onclick="handleQuantityChange(${item.productId}, ${item.quantity + 1})" ${item.quantity >= item.product.stock ? 'disabled' : ''}>+</button>
+            </div>
+            <span class="cart-item-total">${formatPrice(item.product.price * item.quantity)}</span>
+            <button class="btn btn-icon btn-secondary" onclick="handleRemoveItem(${item.productId})" title="Eliminar">
+              🗑️
+            </button>
+          </div>
+        </div>
+      `}).join('');
+
+            // Render summary
+            summaryItems.innerHTML = cartWithProducts.map(item => `
+        <div class="cart-summary-row">
+          <span>${item.product.name} × ${item.quantity}</span>
+          <span>${formatPrice(item.product.price * item.quantity)}</span>
+        </div>
+      `).join('');
+
+            subtotalEl.textContent = formatPrice(cartTotal);
+            totalEl.textContent = formatPrice(cartTotal);
+        }
+
+        // Handle quantity change
+        async function handleQuantityChange(productId, newQuantity) {
+            if (newQuantity <= 0) {
+                handleRemoveItem(productId);
+                return;
+            }
+            await updateCartItem(productId, newQuantity);
+            await renderCart();
+        }
+
+        // Handle remove item
+        async function handleRemoveItem(productId) {
+            removeFromCart(productId);
+            await renderCart();
+        }
+
+        // Initialize
+        init();
+    </script>
+</body>
+
+</html>

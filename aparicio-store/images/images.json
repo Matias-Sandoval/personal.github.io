@@ -1,0 +1,19 @@
+{
+  "images": [
+    { "file": "coca-cola.jpg", "name": "Coca-Cola" },
+    { "file": "sprite.jpg", "name": "Sprite" },
+    { "file": "fanta.jpg", "name": "Fanta" },
+    { "file": "pepsi.jpg", "name": "Pepsi" },
+    { "file": "7up.jpg", "name": "7Up" },
+    { "file": "agua-mineral.jpg", "name": "Agua Mineral" },
+    { "file": "agua-gas.jpg", "name": "Agua con Gas" },
+    { "file": "jugo-naranja.jpg", "name": "Jugo Naranja" },
+    { "file": "jugo-manzana.jpg", "name": "Jugo Manzana" },
+    { "file": "jugo-durazno.jpg", "name": "Jugo Durazno" },
+    { "file": "speed.jpg", "name": "Speed" },
+    { "file": "redbull.jpg", "name": "Red Bull" },
+    { "file": "monster.jpg", "name": "Monster" },
+    { "file": "gatorade.jpg", "name": "Gatorade" },
+    { "file": "powerade.jpg", "name": "Powerade" }
+  ]
+}

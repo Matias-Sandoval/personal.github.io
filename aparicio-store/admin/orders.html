@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pedidos | Aparicio Admin</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/styles.css">
+    <style>
+        .loading-overlay {
+            position: fixed;
+            inset: 0;
+            background: var(--color-bg);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 16px;
+            z-index: 9999;
+            transition: opacity .3s ease
+        }
+
+        .loading-overlay.hidden {
+            opacity: 0;
+            pointer-events: none
+        }
+
+        .loading-spinner {
+            width: 48px;
+            height: 48px;
+            border: 4px solid var(--color-border);
+            border-top-color: var(--color-primary);
+            border-radius: 50%;
+            animation: spin 1s linear infinite
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg)
+            }
+        }
+
+        /* Colored status selectors */
+        .status-select {
+            padding: 8px 16px;
+            font-size: 14px;
+            font-weight: 600;
+            border-radius: 20px;
+            border: none;
+            cursor: pointer;
+        }
+
+        .status-pending {
+            background: rgba(245, 158, 11, 0.1);
+            color: #d97706;
+        }
+
+        .status-processing {
+            background: rgba(99, 102, 241, 0.1);
+            color: #6366f1;
+        }
+
+        .status-delivered {
+            background: rgba(34, 197, 94, 0.1);
+            color: #22c55e;
+        }
+
+        .status-cancelled {
+            background: rgba(239, 68, 68, 0.1);
+            color: #ef4444;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="loading-overlay" id="loading">
+        <div class="loading-spinner"></div>
+        <p>Cargando pedidos...</p>
+    </div>
+    <div class="admin-layout">
+        <aside class="admin-sidebar">
+            <div class="admin-logo"><span class="admin-logo-icon">🥤</span><span>Aparicio</span></div>
+            <nav>
+                <ul class="admin-nav">
+                    <li class="admin-nav-item"><a href="dashboard.html" class="admin-nav-link">📊 Dashboard</a></li>
+                    <li class="admin-nav-item"><a href="products.html" class="admin-nav-link">📦 Productos</a></li>
+                    <li class="admin-nav-item"><a href="orders.html" class="admin-nav-link active">📋 Pedidos</a></li>
+                    <li class="admin-nav-item"><a href="stats.html" class="admin-nav-link">📈 Estadísticas</a></li>
+                    <li class="admin-nav-item"
+                        style="margin-top:auto;padding-top:20px;border-top:1px solid rgba(255,255,255,.1)"><a
+                            href="../index.html" class="admin-nav-link">🏠 Ver Tienda</a></li>
+                    <li class="admin-nav-item"><a href="#" class="admin-nav-link" id="logout-btn">🚪 Cerrar Sesión</a>
+                    </li>
+                </ul>
+            </nav>
+        </aside>
+        <main class="admin-main">
+            <div class="admin-header">
+                <h1 class="admin-title">Pedidos</h1>
+                <div style="display:flex;gap:8px">
+                    <button class="btn btn-secondary" id="refresh-btn">🔄 Actualizar</button>
+                    <select class="form-input" id="status-filter" style="width:auto">
+                        <option value="all">Todos</option>
+                        <option value="pending">Pendientes</option>
+                        <option value="delivered">Entregados</option>
+                        <option value="cancelled">Cancelados</option>
+                    </select>
+                </div>
+            </div>
+            <div class="data-table-container">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Cliente</th>
+                            <th>Total</th>
+                            <th>Estado</th>
+                            <th>Fecha</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody id="orders-table"></tbody>
+                </table>
+            </div>
+            <div class="cart-empty hidden" id="empty-state">
+                <div class="cart-empty-icon">📦</div>
+                <h2>No hay pedidos</h2>
+            </div>
+        </main>
+    </div>
+    <div class="modal-overlay" id="order-modal">
+        <div class="modal" style="max-width:600px">
+            <div class="modal-header">
+                <h3 class="modal-title">Detalles del Pedido</h3><button class="modal-close"
+                    id="modal-close">&times;</button>
+            </div>
+            <div class="modal-body" id="order-details"></div>
+            <div class="modal-footer"><button class="btn btn-secondary" id="close-btn">Cerrar</button></div>
+        </div>
+    </div>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+    <script src="../js/data.js"></script>
+    <script>
+        if (!isAdminAuthenticated()) window.location.href = 'index.html';
+        document.getElementById('logout-btn').onclick = e => { e.preventDefault(); adminLogout(); window.location.href = 'index.html' };
+        const ordersTable = document.getElementById('orders-table'), statusFilter = document.getElementById('status-filter'), emptyState = document.getElementById('empty-state'), orderModal = document.getElementById('order-modal'), orderDetails = document.getElementById('order-details'), loadingOverlay = document.getElementById('loading'), refreshBtn = document.getElementById('refresh-btn');
+        let allOrders = [];
+        async function init() { allOrders = await getOrders(); renderOrders(); loadingOverlay.classList.add('hidden') }
+        refreshBtn.onclick = async () => { refreshBtn.disabled = true; allOrders = await getOrders(); renderOrders(); refreshBtn.disabled = false };
+        function renderOrders() {
+            const status = statusFilter.value;
+            let orders = status === 'all' ? allOrders : allOrders.filter(o => o.status === status);
+            if (!orders.length) { document.querySelector('.data-table-container').classList.add('hidden'); emptyState.classList.remove('hidden'); return }
+            document.querySelector('.data-table-container').classList.remove('hidden'); emptyState.classList.add('hidden');
+            ordersTable.innerHTML = orders.map(o => `<tr>
+        <td><code style="font-size:11px">${o.id}</code></td>
+        <td><b>${o.customer.name}</b><br><small>${o.customer.phone}</small></td>
+        <td><b>${formatPrice(o.total)}</b></td>
+        <td><select class="status-select status-${o.status}" onchange="changeStatus('${o.id}',this.value)">
+          <option value="pending" ${o.status === 'pending' ? 'selected' : ''}>Pendiente</option>
+          <option value="delivered" ${o.status === 'delivered' ? 'selected' : ''}>Entregado</option>
+          <option value="cancelled" ${o.status === 'cancelled' ? 'selected' : ''}>Cancelado</option>
+        </select></td>
+        <td style="font-size:12px">${formatDate(o.createdAt)}</td>
+        <td><button class="btn btn-sm btn-secondary" onclick="viewOrder('${o.id}')">Ver</button></td>
+      </tr>`).join('')
+        }
+        async function changeStatus(id, s) { await updateOrderStatus(id, s); allOrders = await getOrders(); renderOrders() }
+        function viewOrder(id) {
+            const o = allOrders.find(x => x.id === id); if (!o) return;
+            orderDetails.innerHTML = `<p><b>ID:</b> ${o.id}</p><p><b>Cliente:</b> ${o.customer.name}</p><p><b>Tel:</b> ${o.customer.phone}</p><p><b>Dir:</b> ${o.customer.address}</p>${o.customer.notes ? `<p><b>Notas:</b> ${o.customer.notes}</p>` : ''}<hr><h4>Productos:</h4>${o.items.map(i => `<p>${i.productName} x${i.quantity} = ${formatPrice(i.subtotal)}</p>`).join('')}<hr><p><b>Total: ${formatPrice(o.total)}</b></p>`;
+            orderModal.classList.add('active')
+        }
+        document.getElementById('modal-close').onclick = () => orderModal.classList.remove('active');
+        document.getElementById('close-btn').onclick = () => orderModal.classList.remove('active');
+        orderModal.onclick = e => { if (e.target === orderModal) orderModal.classList.remove('active') };
+        statusFilter.onchange = renderOrders;
+        init()
+    </script>
+</body>
+
+</html>

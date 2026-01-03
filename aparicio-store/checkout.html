@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Finaliza tu pedido - Aparicio">
+    <title>Checkout | Aparicio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+
+<body>
+    <!-- Loading State -->
+    <div class="loading-overlay" id="loading">
+        <div class="loading-spinner"></div>
+        <p>Cargando...</p>
+    </div>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <a href="index.html" class="logo">
+                    <span class="logo-icon">🥤</span>
+                    <span>Aparicio</span>
+                </a>
+                <div class="header-actions">
+                    <a href="cart.html" class="cart-button" id="cart-button">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="9" cy="21" r="1"></circle>
+                            <circle cx="20" cy="21" r="1"></circle>
+                            <path d="m1 1 4 4 14 2-1.5 7H7.5"></path>
+                        </svg>
+                        <span>Carrito</span>
+                        <span class="cart-count" id="cart-count">0</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="page-content">
+        <div class="container">
+            <!-- Checkout Form -->
+            <div class="checkout-container" id="checkout-container">
+                <form class="checkout-form" id="checkout-form">
+                    <h2 class="form-title">📦 Datos de Entrega</h2>
+
+                    <div class="form-group">
+                        <label class="form-label" for="name">Nombre completo *</label>
+                        <input type="text" class="form-input" id="name" name="name" placeholder="Ej: Juan Pérez"
+                            required>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="phone">Teléfono de contacto *</label>
+                        <input type="tel" class="form-input" id="phone" name="phone" placeholder="Ej: 351 123 4567"
+                            required>
+                        <p class="form-hint">Te contactaremos por este número para coordinar la entrega</p>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="address">Dirección de entrega *</label>
+                        <input type="text" class="form-input" id="address" name="address"
+                            placeholder="Ej: Av. Colón 1234, Barrio Centro" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="notes">Notas adicionales (opcional)</label>
+                        <textarea class="form-input" id="notes" name="notes"
+                            placeholder="Ej: Casa con rejas verdes, timbre roto - golpear la puerta"></textarea>
+                    </div>
+
+                    <button type="submit" class="btn btn-success btn-lg btn-block" id="submit-btn">
+                        ✓ Confirmar Pedido
+                    </button>
+
+                    <a href="cart.html" class="btn btn-secondary btn-block mt-sm">
+                        ← Volver al Carrito
+                    </a>
+                </form>
+
+                <!-- Order Summary -->
+                <div class="order-summary" id="order-summary">
+                    <h2>Tu Pedido</h2>
+                    <div id="order-items">
+                        <!-- Items will be inserted here -->
+                    </div>
+                    <div class="cart-summary-row">
+                        <span>Subtotal</span>
+                        <span id="subtotal">$0</span>
+                    </div>
+                    <div class="cart-summary-row">
+                        <span>Envío</span>
+                        <span class="text-success">Gratis</span>
+                    </div>
+                    <div class="cart-summary-row total">
+                        <span>Total a Pagar</span>
+                        <span id="total">$0</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Confirmation -->
+            <div class="confirmation-container hidden" id="confirmation">
+                <div class="confirmation-card">
+                    <div class="confirmation-icon">✓</div>
+                    <h1 class="confirmation-title">¡Pedido Confirmado!</h1>
+                    <p class="confirmation-message">
+                        Tu pedido ha sido recibido exitosamente. Te contactaremos pronto para coordinar la entrega.
+                    </p>
+                    <div class="confirmation-order-id" id="order-id">
+                        <!-- Order ID will be inserted here -->
+                    </div>
+                    <p class="text-muted mb-lg">
+                        Guarda este número para consultar el estado de tu pedido
+                    </p>
+                    <a href="index.html" class="btn btn-primary btn-lg">
+                        Volver a la Tienda
+                    </a>
+                </div>
+            </div>
+
+            <!-- Empty Cart Redirect -->
+            <div class="cart-empty hidden" id="empty-cart">
+                <div class="cart-empty-icon">🛒</div>
+                <h2>Tu carrito está vacío</h2>
+                <p class="text-muted mb-lg">Agrega productos antes de hacer checkout</p>
+                <a href="index.html" class="btn btn-primary btn-lg">
+                    Ver Productos
+                </a>
+            </div>
+        </div>
+    </main>
+
+    <style>
+        .loading-overlay {
+            position: fixed;
+            inset: 0;
+            background: var(--color-bg);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 16px;
+            z-index: 9999;
+            transition: opacity 0.3s ease;
+        }
+
+        .loading-overlay.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .loading-spinner {
+            width: 48px;
+            height: 48px;
+            border: 4px solid var(--color-border);
+            border-top-color: var(--color-primary);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+    </style>
+
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+
+    <script src="js/data.js"></script>
+    <script>
+        // DOM Elements
+        const checkoutContainer = document.getElementById('checkout-container');
+        const checkoutForm = document.getElementById('checkout-form');
+        const orderItems = document.getElementById('order-items');
+        const subtotalEl = document.getElementById('subtotal');
+        const totalEl = document.getElementById('total');
+        const cartCountEl = document.getElementById('cart-count');
+        const emptyCart = document.getElementById('empty-cart');
+        const confirmation = document.getElementById('confirmation');
+        const orderIdEl = document.getElementById('order-id');
+        const loadingOverlay = document.getElementById('loading');
+        const submitBtn = document.getElementById('submit-btn');
+
+        // Initialize
+        async function init() {
+            const cartWithProducts = await getCartWithProducts();
+            const count = getCartCount();
+
+            // Update header cart count
+            cartCountEl.textContent = count;
+            cartCountEl.style.display = count > 0 ? 'flex' : 'none';
+
+            if (cartWithProducts.length === 0) {
+                checkoutContainer.classList.add('hidden');
+                emptyCart.classList.remove('hidden');
+                loadingOverlay.classList.add('hidden');
+                return;
+            }
+
+            await renderOrderSummary();
+            loadingOverlay.classList.add('hidden');
+        }
+
+        // Render order summary
+        async function renderOrderSummary() {
+            const cartWithProducts = await getCartWithProducts();
+            const cartTotal = await getCartTotal();
+
+            orderItems.innerHTML = cartWithProducts.map(item => `
+        <div class="order-item">
+          <span>${item.product.image} ${item.product.name} × ${item.quantity}</span>
+          <span>${formatPrice(item.product.price * item.quantity)}</span>
+        </div>
+      `).join('');
+
+            subtotalEl.textContent = formatPrice(cartTotal);
+            totalEl.textContent = formatPrice(cartTotal);
+        }
+
+        // Form submission
+        checkoutForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            // Disable submit button and show loading
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Procesando...';
+
+            const formData = new FormData(checkoutForm);
+            const customerData = {
+                name: formData.get('name'),
+                phone: formData.get('phone'),
+                address: formData.get('address'),
+                notes: formData.get('notes')
+            };
+
+            try {
+                // Create order in Firebase
+                const order = await createOrder(customerData);
+
+                if (order) {
+                    // Show confirmation
+                    checkoutContainer.classList.add('hidden');
+                    confirmation.classList.remove('hidden');
+                    orderIdEl.textContent = order.id;
+
+                    // Update cart count
+                    cartCountEl.textContent = '0';
+                    cartCountEl.style.display = 'none';
+                } else {
+                    alert('Hubo un error al procesar tu pedido. Por favor intenta de nuevo.');
+                    submitBtn.disabled = false;
+                    submitBtn.textContent = '✓ Confirmar Pedido';
+                }
+            } catch (error) {
+                console.error('Error creating order:', error);
+                alert('Hubo un error al procesar tu pedido. Por favor intenta de nuevo.');
+                submitBtn.disabled = false;
+                submitBtn.textContent = '✓ Confirmar Pedido';
+            }
+        });
+
+        // Initialize
+        init();
+    </script>
+</body>
+
+</html>
