@@ -28,7 +28,7 @@ const STORAGE_KEYS = {
 };
 
 // Admin Password
-const ADMIN_PASSWORD = 'aparicio2024';
+const ADMIN_PASSWORD = 'aparicio2026';
 
 // Default Products (will be uploaded to Firebase on first run)
 const DEFAULT_PRODUCTS = [
@@ -263,10 +263,18 @@ async function getProducts() {
   }
 
   try {
-    const snapshot = await productsCollection.orderBy('id').get();
+    const snapshot = await productsCollection.get();
     const products = [];
     snapshot.forEach(doc => {
       products.push({ ...doc.data(), docId: doc.id });
+    });
+
+    // Sort by sortOrder first (lower = first), then by id
+    products.sort((a, b) => {
+      const orderA = a.sortOrder ?? 999;
+      const orderB = b.sortOrder ?? 999;
+      if (orderA !== orderB) return orderA - orderB;
+      return a.id - b.id;
     });
 
     // Update cache

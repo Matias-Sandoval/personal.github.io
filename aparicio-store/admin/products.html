@@ -129,6 +129,7 @@
                 <table class="data-table">
                     <thead>
                         <tr>
+                            <th style="width:40px;"></th>
                             <th>Producto</th>
                             <th>Categoría</th>
                             <th>Precio</th>
@@ -265,7 +266,30 @@
             max-height: 100px;
             object-fit: contain;
         }
+
+        .drag-handle {
+            cursor: grab;
+            padding: 8px;
+            color: var(--color-text-muted);
+            font-size: 1.2rem;
+        }
+
+        .drag-handle:active {
+            cursor: grabbing;
+        }
+
+        .sortable-ghost {
+            opacity: 0.4;
+            background: var(--color-primary-light) !important;
+        }
+
+        .sortable-chosen {
+            background: var(--color-bg) !important;
+        }
     </style>
+
+    <!-- SortableJS for drag and drop -->
+    <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js"></script>
 
     <!-- Firebase SDK -->
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
@@ -345,6 +369,44 @@
             }
         }
 
+        // Initialize Sortable for drag and drop
+        let sortableInstance = null;
+        function initSortable() {
+            if (sortableInstance) {
+                sortableInstance.destroy();
+            }
+
+            sortableInstance = new Sortable(productsTable, {
+                handle: '.drag-handle',
+                animation: 150,
+                ghostClass: 'sortable-ghost',
+                chosenClass: 'sortable-chosen',
+                onEnd: async function (evt) {
+                    // Get new order of product IDs
+                    const rows = productsTable.querySelectorAll('tr[data-id]');
+                    const updates = [];
+
+                    rows.forEach((row, index) => {
+                        const productId = parseInt(row.dataset.id);
+                        updates.push({ id: productId, sortOrder: index + 1 });
+                    });
+
+                    // Save to Firebase
+                    for (const update of updates) {
+                        const product = allProducts.find(p => p.id === update.id);
+                        if (product && product.sortOrder !== update.sortOrder) {
+                            product.sortOrder = update.sortOrder;
+                            await saveProduct(product);
+                        }
+                    }
+
+                    // Refresh products cache
+                    productsCache = null;
+                    allProducts = await getProducts();
+                }
+            });
+        }
+
         // Initialize
         async function init() {
             await loadAvailableImages();
@@ -365,7 +427,7 @@
             });
 
             if (filteredProducts.length === 0) {
-                productsTable.innerHTML = '<tr><td colspan="6" class="text-center text-muted">No se encontraron productos</td></tr>';
+                productsTable.innerHTML = '<tr><td colspan="7" class="text-center text-muted">No se encontraron productos</td></tr>';
                 return;
             }
 
@@ -378,7 +440,8 @@
                     : `<span style="font-size:1.5rem;">${img}</span>`;
 
                 return `
-          <tr>
+          <tr data-id="${product.id}">
+            <td><span class="drag-handle">☰</span></td>
             <td>
               <div style="display: flex; align-items: center; gap: 12px;">
                 ${imgHtml}
@@ -401,6 +464,11 @@
           </tr>
         `;
             }).join('');
+
+            // Initialize sortable if no filters active
+            if (search === '' && category === 'all') {
+                initSortable();
+            }
         }
 
         // Open modal for new product
@@ -441,6 +509,19 @@
             saveBtn.textContent = 'Guardando...';
 
             const formData = new FormData(productForm);
+
+            // Preserve existing sortOrder when editing, or assign new one for new products
+            let sortOrder = null;
+            if (currentProductId) {
+                // Editing existing product - keep its current sortOrder
+                const existingProduct = allProducts.find(p => p.id === currentProductId);
+                sortOrder = existingProduct ? existingProduct.sortOrder : null;
+            } else {
+                // New product - assign next sortOrder (at the end)
+                const maxOrder = Math.max(0, ...allProducts.map(p => p.sortOrder || 0));
+                sortOrder = maxOrder + 1;
+            }
+
             const product = {
                 id: currentProductId,
                 name: formData.get('name'),
@@ -448,6 +529,7 @@
                 price: parseInt(formData.get('price')),
                 stock: parseInt(formData.get('stock')),
                 image: formData.get('image') || '🥤',
+                sortOrder: sortOrder,
                 description: formData.get('description')
             };
 

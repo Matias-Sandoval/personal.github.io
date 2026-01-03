@@ -226,6 +226,35 @@
 
       // Hide loading
       loadingOverlay.classList.add('hidden');
+
+      // Set up real-time listener for product updates
+      setupRealtimeListener();
+    }
+
+    // Real-time listener for product changes
+    function setupRealtimeListener() {
+      productsCollection.onSnapshot((snapshot) => {
+        const products = [];
+        snapshot.forEach(doc => {
+          products.push({ ...doc.data(), docId: doc.id });
+        });
+
+        // Sort by sortOrder first (lower = first), then by id
+        products.sort((a, b) => {
+          const orderA = a.sortOrder ?? 999;
+          const orderB = b.sortOrder ?? 999;
+          if (orderA !== orderB) return orderA - orderB;
+          return a.id - b.id;
+        });
+
+        // Update allProducts and re-render
+        allProducts = products;
+        productsCache = products;
+        productsCacheTime = Date.now();
+        renderProducts();
+      }, (error) => {
+        console.error('Error listening to products:', error);
+      });
     }
 
     // Render category filters
