@@ -191,8 +191,8 @@
               <button class="quantity-btn" onclick="handleQuantityChange(${item.productId}, ${item.quantity + 1})" ${item.quantity >= item.product.stock ? 'disabled' : ''}>+</button>
             </div>
             <span class="cart-item-total">${formatPrice(item.product.price * item.quantity)}</span>
-            <button class="btn btn-icon btn-secondary" onclick="handleRemoveItem(${item.productId})" title="Eliminar">
-              🗑️
+            <button class="btn btn-icon" onclick="handleRemoveItem(${item.productId})" title="Eliminar" style="font-size:1.4rem;font-weight:1900;background:rgba(239,68,68,0.1);color:#ef4444;border:none;">
+              ✕
             </button>
           </div>
         </div>
