@@ -49,7 +49,26 @@
             <!-- Checkout Form -->
             <div class="checkout-container" id="checkout-container">
                 <form class="checkout-form" id="checkout-form">
-                    <h2 class="form-title">📦 Datos de Entrega</h2>
+                    <h2 class="form-title">📦 Datos del Pedido</h2>
+
+                    <!-- Delivery Type Selector -->
+                    <div class="form-group">
+                        <label class="form-label">¿Cómo quieres recibir tu pedido?</label>
+                        <div style="display:flex;gap:10px;margin-top:8px;">
+                            <label
+                                style="flex:1;display:flex;align-items:center;gap:8px;padding:12px;background:var(--color-bg);border-radius:8px;cursor:pointer;border:2px solid var(--color-border);transition:all 0.2s;">
+                                <input type="radio" name="deliveryType" value="pickup" checked
+                                    onchange="toggleDeliveryFields()">
+                                <span><strong>🏪 Recoger en tienda</strong></span>
+                            </label>
+                            <label
+                                style="flex:1;display:flex;align-items:center;gap:8px;padding:12px;background:var(--color-bg);border-radius:8px;cursor:pointer;border:2px solid var(--color-border);transition:all 0.2s;">
+                                <input type="radio" name="deliveryType" value="delivery"
+                                    onchange="toggleDeliveryFields()">
+                                <span><strong>🚚 Entrega a domicilio</strong></span>
+                            </label>
+                        </div>
+                    </div>
 
                     <div class="form-group">
                         <label class="form-label" for="name">Nombre completo *</label>
@@ -59,21 +78,24 @@
 
                     <div class="form-group">
                         <label class="form-label" for="phone">Teléfono de contacto *</label>
-                        <input type="tel" class="form-input" id="phone" name="phone" placeholder="Ej: 351 123 4567"
+                        <input type="tel" class="form-input" id="phone" name="phone" placeholder="Ej: 70012345"
                             required>
-                        <p class="form-hint">Te contactaremos por este número para coordinar la entrega</p>
+                        <p class="form-hint" id="phone-hint">Te avisaremos cuando tu pedido esté listo</p>
                     </div>
 
-                    <div class="form-group">
-                        <label class="form-label" for="address">Dirección de entrega *</label>
-                        <input type="text" class="form-input" id="address" name="address"
-                            placeholder="Ej: Av. Colón 1234, Barrio Centro" required>
-                    </div>
+                    <!-- Delivery fields (hidden by default) -->
+                    <div id="delivery-fields" style="display:none;">
+                        <div class="form-group">
+                            <label class="form-label" for="address">Dirección de entrega *</label>
+                            <input type="text" class="form-input" id="address" name="address"
+                                placeholder="Ej: Av. Colón 1234, Barrio Centro">
+                        </div>
 
-                    <div class="form-group">
-                        <label class="form-label" for="notes">Notas adicionales (opcional)</label>
-                        <textarea class="form-input" id="notes" name="notes"
-                            placeholder="Ej: Casa con rejas verdes, timbre roto - golpear la puerta"></textarea>
+                        <div class="form-group">
+                            <label class="form-label" for="notes">Notas adicionales (opcional)</label>
+                            <textarea class="form-input" id="notes" name="notes"
+                                placeholder="Ej: Casa con rejas verdes, timbre roto"></textarea>
+                        </div>
                     </div>
 
                     <button type="submit" class="btn btn-success btn-lg btn-block" id="submit-btn">
@@ -228,6 +250,24 @@
             totalEl.textContent = formatPrice(cartTotal);
         }
 
+        // Toggle delivery fields based on selection
+        function toggleDeliveryFields() {
+            const deliveryType = document.querySelector('input[name="deliveryType"]:checked').value;
+            const deliveryFields = document.getElementById('delivery-fields');
+            const addressInput = document.getElementById('address');
+            const phoneHint = document.getElementById('phone-hint');
+
+            if (deliveryType === 'delivery') {
+                deliveryFields.style.display = 'block';
+                addressInput.required = true;
+                phoneHint.textContent = 'Te contactaremos para coordinar la entrega';
+            } else {
+                deliveryFields.style.display = 'none';
+                addressInput.required = false;
+                phoneHint.textContent = 'Te avisaremos cuando tu pedido esté listo';
+            }
+        }
+
         // Form submission
         checkoutForm.addEventListener('submit', async (e) => {
             e.preventDefault();
@@ -237,11 +277,14 @@
             submitBtn.textContent = 'Procesando...';
 
             const formData = new FormData(checkoutForm);
+            const deliveryType = formData.get('deliveryType');
+
             const customerData = {
                 name: formData.get('name'),
                 phone: formData.get('phone'),
-                address: formData.get('address'),
-                notes: formData.get('notes')
+                deliveryType: deliveryType,
+                address: deliveryType === 'delivery' ? formData.get('address') : 'Recoger en tienda',
+                notes: formData.get('notes') || ''
             };
 
             try {

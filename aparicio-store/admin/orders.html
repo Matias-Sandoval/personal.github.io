@@ -172,7 +172,22 @@
         async function changeStatus(id, s) { await updateOrderStatus(id, s); allOrders = await getOrders(); renderOrders() }
         function viewOrder(id) {
             const o = allOrders.find(x => x.id === id); if (!o) return;
-            orderDetails.innerHTML = `<p><b>ID:</b> ${o.id}</p><p><b>Cliente:</b> ${o.customer.name}</p><p><b>Tel:</b> ${o.customer.phone}</p><p><b>Dir:</b> ${o.customer.address}</p>${o.customer.notes ? `<p><b>Notas:</b> ${o.customer.notes}</p>` : ''}<hr><h4>Productos:</h4>${o.items.map(i => `<p>${i.productName} x${i.quantity} = ${formatPrice(i.subtotal)}</p>`).join('')}<hr><p><b>Total: ${formatPrice(o.total)}</b></p>`;
+            const deliveryBadge = o.customer.deliveryType === 'pickup'
+                ? '<span style="background:#d1fae5;color:#065f46;padding:4px 12px;border-radius:20px;font-weight:600;">🏪 Recoger en tienda</span>'
+                : '<span style="background:#e0e7ff;color:#3730a3;padding:4px 12px;border-radius:20px;font-weight:600;">🚚 Entrega a domicilio</span>';
+            orderDetails.innerHTML = `
+                <p><b>ID:</b> ${o.id}</p>
+                <p><b>Tipo:</b> ${deliveryBadge}</p>
+                <p><b>Cliente:</b> ${o.customer.name}</p>
+                <p><b>Tel:</b> <a href="tel:${o.customer.phone}">${o.customer.phone}</a></p>
+                ${o.customer.deliveryType !== 'pickup' ? `<p><b>Dir:</b> ${o.customer.address}</p>` : ''}
+                ${o.customer.notes ? `<p><b>Notas:</b> ${o.customer.notes}</p>` : ''}
+                <hr>
+                <h4>Productos:</h4>
+                ${o.items.map(i => `<p>${i.productName} x${i.quantity} = ${formatPrice(i.subtotal)}</p>`).join('')}
+                <hr>
+                <p><b>Total: ${formatPrice(o.total)}</b></p>
+            `;
             orderModal.classList.add('active')
         }
         document.getElementById('modal-close').onclick = () => orderModal.classList.remove('active');
