@@ -72,6 +72,248 @@
             background: rgba(239, 68, 68, 0.1);
             color: #ef4444;
         }
+
+        /* Enhanced Order Details Modal */
+        .order-details-content {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .order-header-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 12px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid var(--color-border);
+        }
+
+        .order-id-display {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .order-id-label {
+            font-size: 12px;
+            color: var(--color-text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .order-id-value {
+            font-family: 'SF Mono', 'Monaco', 'Inconsolata', 'Fira Code', monospace;
+            font-size: 13px;
+            color: var(--color-text-light);
+            background: var(--color-bg);
+            padding: 6px 10px;
+            border-radius: 6px;
+        }
+
+        .delivery-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 16px;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .delivery-badge.pickup {
+            background: linear-gradient(135deg, rgba(34, 197, 94, 0.15) 0%, rgba(22, 163, 74, 0.1) 100%);
+            color: #16a34a;
+            border: 1px solid rgba(34, 197, 94, 0.3);
+        }
+
+        .delivery-badge.delivery {
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.15) 0%, rgba(79, 70, 229, 0.1) 100%);
+            color: #4f46e5;
+            border: 1px solid rgba(99, 102, 241, 0.3);
+        }
+
+        .delivery-badge-icon {
+            font-size: 18px;
+        }
+
+        .info-cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+        }
+
+        .info-card {
+            background: linear-gradient(135deg, var(--color-bg) 0%, rgba(248, 250, 252, 0.8) 100%);
+            border: 1px solid var(--color-border);
+            border-radius: 12px;
+            padding: 16px;
+            transition: all 0.2s ease;
+        }
+
+        .info-card:hover {
+            border-color: var(--color-primary);
+            box-shadow: 0 4px 12px rgba(8, 145, 178, 0.1);
+        }
+
+        .info-card-header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 12px;
+        }
+
+        .info-card-icon {
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+            font-size: 16px;
+        }
+
+        .info-card-icon.customer {
+            background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+        }
+
+        .info-card-icon.phone {
+            background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%);
+        }
+
+        .info-card-icon.address {
+            background: linear-gradient(135deg, #e0e7ff 0%, #c7d2fe 100%);
+        }
+
+        .info-card-icon.notes {
+            background: linear-gradient(135deg, #fce7f3 0%, #fbcfe8 100%);
+        }
+
+        .info-card-title {
+            font-size: 11px;
+            color: var(--color-text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-weight: 600;
+        }
+
+        .info-card-value {
+            font-size: 15px;
+            color: var(--color-text);
+            font-weight: 500;
+            line-height: 1.4;
+        }
+
+        .info-card-value a {
+            color: var(--color-primary);
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .info-card-value a:hover {
+            text-decoration: underline;
+        }
+
+        .products-section {
+            background: var(--color-bg-white);
+            border: 1px solid var(--color-border);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .products-section-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 14px 16px;
+            background: linear-gradient(135deg, var(--color-bg) 0%, rgba(248, 250, 252, 0.8) 100%);
+            border-bottom: 1px solid var(--color-border);
+        }
+
+        .products-section-header span {
+            font-weight: 600;
+            color: var(--color-text);
+        }
+
+        .products-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .products-table th {
+            text-align: left;
+            padding: 12px 16px;
+            font-size: 11px;
+            color: var(--color-text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-weight: 600;
+            background: var(--color-bg);
+            border-bottom: 1px solid var(--color-border);
+        }
+
+        .products-table th:last-child {
+            text-align: right;
+        }
+
+        .products-table td {
+            padding: 14px 16px;
+            border-bottom: 1px solid var(--color-border-light);
+            font-size: 14px;
+        }
+
+        .products-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .products-table td:last-child {
+            text-align: right;
+            font-weight: 600;
+            color: var(--color-text);
+        }
+
+        .product-name-cell {
+            font-weight: 500;
+            color: var(--color-text);
+        }
+
+        .product-qty-cell {
+            color: var(--color-text-light);
+        }
+
+        .order-total-section {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 20px;
+            background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 100%);
+            border-radius: 12px;
+            color: white;
+        }
+
+        .order-total-label {
+            font-size: 14px;
+            font-weight: 500;
+            opacity: 0.9;
+        }
+
+        .order-total-value {
+            font-size: 24px;
+            font-weight: 700;
+        }
+
+        .order-date-footer {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            font-size: 13px;
+            color: var(--color-text-muted);
+            padding-top: 8px;
+        }
     </style>
 </head>
 
@@ -172,21 +414,112 @@
         async function changeStatus(id, s) { await updateOrderStatus(id, s); allOrders = await getOrders(); renderOrders() }
         function viewOrder(id) {
             const o = allOrders.find(x => x.id === id); if (!o) return;
-            const deliveryBadge = o.customer.deliveryType === 'pickup'
-                ? '<span style="background:#d1fae5;color:#065f46;padding:4px 12px;border-radius:20px;font-weight:600;">🏪 Recoger en tienda</span>'
-                : '<span style="background:#e0e7ff;color:#3730a3;padding:4px 12px;border-radius:20px;font-weight:600;">🚚 Entrega a domicilio</span>';
+            const isPickup = o.customer.deliveryType === 'pickup';
+
+            // Build info cards
+            let infoCards = `
+                <div class="info-card">
+                    <div class="info-card-header">
+                        <div class="info-card-icon customer">👤</div>
+                        <div class="info-card-title">Cliente</div>
+                    </div>
+                    <div class="info-card-value">${o.customer.name}</div>
+                </div>
+                <div class="info-card">
+                    <div class="info-card-header">
+                        <div class="info-card-icon phone">📞</div>
+                        <div class="info-card-title">Teléfono</div>
+                    </div>
+                    <div class="info-card-value">
+                        <a href="tel:${o.customer.phone}">${o.customer.phone} ↗</a>
+                    </div>
+                </div>
+            `;
+
+            if (!isPickup && o.customer.address) {
+                infoCards += `
+                    <div class="info-card">
+                        <div class="info-card-header">
+                            <div class="info-card-icon address">📍</div>
+                            <div class="info-card-title">Dirección</div>
+                        </div>
+                        <div class="info-card-value">${o.customer.address}</div>
+                    </div>
+                `;
+            }
+
+            if (o.customer.notes) {
+                infoCards += `
+                    <div class="info-card">
+                        <div class="info-card-header">
+                            <div class="info-card-icon notes">📝</div>
+                            <div class="info-card-title">Notas</div>
+                        </div>
+                        <div class="info-card-value">${o.customer.notes}</div>
+                    </div>
+                `;
+            }
+
+            // Build products table rows
+            const productRows = o.items.map(i => `
+                <tr>
+                    <td class="product-name-cell">${i.productName}</td>
+                    <td class="product-qty-cell">×${i.quantity}</td>
+                    <td>${formatPrice(i.subtotal)}</td>
+                </tr>
+            `).join('');
+
             orderDetails.innerHTML = `
-                <p><b>ID:</b> ${o.id}</p>
-                <p><b>Tipo:</b> ${deliveryBadge}</p>
-                <p><b>Cliente:</b> ${o.customer.name}</p>
-                <p><b>Tel:</b> <a href="tel:${o.customer.phone}">${o.customer.phone}</a></p>
-                ${o.customer.deliveryType !== 'pickup' ? `<p><b>Dir:</b> ${o.customer.address}</p>` : ''}
-                ${o.customer.notes ? `<p><b>Notas:</b> ${o.customer.notes}</p>` : ''}
-                <hr>
-                <h4>Productos:</h4>
-                ${o.items.map(i => `<p>${i.productName} x${i.quantity} = ${formatPrice(i.subtotal)}</p>`).join('')}
-                <hr>
-                <p><b>Total: ${formatPrice(o.total)}</b></p>
+                <div class="order-details-content">
+                    <!-- Header with ID and Delivery Type -->
+                    <div class="order-header-info">
+                        <div class="order-id-display">
+                            <div class="order-id-label">Pedido</div>
+                            <div class="order-id-value">${o.id}</div>
+                        </div>
+                        <div class="delivery-badge ${isPickup ? 'pickup' : 'delivery'}">
+                            <span class="delivery-badge-icon">${isPickup ? '🏪' : '🚚'}</span>
+                            ${isPickup ? 'Recoger en tienda' : 'Entrega a domicilio'}
+                        </div>
+                    </div>
+                    
+                    <!-- Customer Info Cards -->
+                    <div class="info-cards-grid">
+                        ${infoCards}
+                    </div>
+                    
+                    <!-- Products Section -->
+                    <div class="products-section">
+                        <div class="products-section-header">
+                            <span>📦</span>
+                            <span>Productos (${o.items.length})</span>
+                        </div>
+                        <table class="products-table">
+                            <thead>
+                                <tr>
+                                    <th>Producto</th>
+                                    <th>Cant.</th>
+                                    <th>Subtotal</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                ${productRows}
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <!-- Total Section -->
+                    <div class="order-total-section">
+                        <div class="order-total-label">Total del pedido</div>
+                        <div class="order-total-value">${formatPrice(o.total)}</div>
+                    </div>
+                    
+                    <!-- Date Footer -->
+                    <div class="order-date-footer">
+                        <span>🕐</span>
+                        <span>Creado: ${formatDate(o.createdAt)}</span>
+                    </div>
+                </div>
             `;
             orderModal.classList.add('active')
         }
