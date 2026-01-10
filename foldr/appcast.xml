@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0" xmlns:sparkle="http://www.andymatuschak.org/xml-namespaces/sparkle" xmlns:dc="http://purl.org/dc/elements/1.1/">
+    <channel>
+        <title>Foldr Updates</title>
+        <link>https://matisandoval.com/foldr/appcast.xml</link>
+        <description>Updates for Foldr</description>
+        <language>es</language>
+        
+        <!-- 
+        INSTRUCCIONES:
+        1. Cuando publiques una nueva versión, agrega un nuevo <item> aquí
+        2. Sube el DMG notarizado a tu servidor
+        3. Genera la firma con: ./generate_appcast /path/to/dmg/folder
+        4. Copia el sparkle:edSignature generado aquí
+        -->
+        
+        <item>
+            <title>Versión 1.0</title>
+            <pubDate>Thu, 09 Jan 2026 23:00:00 -0300</pubDate>
+            <sparkle:version>1</sparkle:version>
+            <sparkle:shortVersionString>1.0</sparkle:shortVersionString>
+            <sparkle:minimumSystemVersion>14.0</sparkle:minimumSystemVersion>
+            <description><![CDATA[
+                <h2>Versión 1.0</h2>
+                <ul>
+                    <li>Lanzamiento inicial de Foldr</li>
+                    <li>Crea carpetas con iconos personalizados desde el Finder</li>
+                    <li>Sistema de licencias integrado</li>
+                </ul>
+            ]]></description>
+            <enclosure 
+                url="https://matisandoval.com/foldr/releases/Foldr-1.0.dmg"
+                length="5000000"
+                type="application/octet-stream"
+                sparkle:edSignature="FIRMA_AQUI"
+            />
+        </item>
+        
+    </channel>
+</rss>
