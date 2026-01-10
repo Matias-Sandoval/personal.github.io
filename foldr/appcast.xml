@@ -7,6 +7,27 @@
         <language>es</language>
         
         <item>
+            <title>Versión 1.1.1</title>
+            <pubDate>Fri, 10 Jan 2026 00:55:00 -0300</pubDate>
+            <sparkle:version>4</sparkle:version>
+            <sparkle:shortVersionString>1.1.1</sparkle:shortVersionString>
+            <sparkle:minimumSystemVersion>14.0</sparkle:minimumSystemVersion>
+            <description><![CDATA[
+                <h2>Versión 1.1.1</h2>
+                <ul>
+                    <li>Mejoras menores</li>
+                    <li>Corrección de errores</li>
+                </ul>
+            ]]></description>
+            <enclosure 
+                url="https://matisandoval.com/foldr/releases/Foldr-1.1.1.dmg"
+                length="24942086"
+                type="application/octet-stream"
+                sparkle:edSignature="erWUkSTEhIoyCKin+cvWV9+QNGmQJCZ1+7DkhZ7utrd/z1wDdlNpoH+wFFcD0lsdvJV/+3mW+9GQ4UdHt/l+Ag=="
+            />
+        </item>
+        
+        <item>
             <title>Versión 1.1</title>
             <pubDate>Fri, 10 Jan 2026 00:30:00 -0300</pubDate>
             <sparkle:version>3</sparkle:version>
@@ -17,7 +38,6 @@
                 <ul>
                     <li>Sistema de actualizaciones automáticas con Sparkle</li>
                     <li>Mejoras de interfaz</li>
-                    <li>Corrección de errores</li>
                 </ul>
             ]]></description>
             <enclosure 
@@ -25,28 +45,6 @@
                 length="24939639"
                 type="application/octet-stream"
                 sparkle:edSignature="62l5MNm0/ysWkpeGwUlN8L4bTSJHQXT4s+clpjvGmP+zgThdocB2QO6WpkDLD93mZ9MibfDTQqLheAzkC5AzCA=="
-            />
-        </item>
-        
-        <item>
-            <title>Versión 1.0</title>
-            <pubDate>Thu, 09 Jan 2026 23:00:00 -0300</pubDate>
-            <sparkle:version>2</sparkle:version>
-            <sparkle:shortVersionString>1.0</sparkle:shortVersionString>
-            <sparkle:minimumSystemVersion>14.0</sparkle:minimumSystemVersion>
-            <description><![CDATA[
-                <h2>Versión 1.0</h2>
-                <ul>
-                    <li>Lanzamiento inicial de Foldr</li>
-                    <li>Crea carpetas con iconos personalizados desde el Finder</li>
-                    <li>Sistema de licencias integrado</li>
-                </ul>
-            ]]></description>
-            <enclosure 
-                url="https://matisandoval.com/foldr/releases/Foldr-1.0.dmg"
-                length="5000000"
-                type="application/octet-stream"
-                sparkle:edSignature="FIRMA_VERSION_1.0_AQUI"
             />
         </item>
         
