@@ -4,47 +4,28 @@
         <title>Foldr Updates</title>
         <link>https://matisandoval.com/foldr/appcast.xml</link>
         <description>Updates for Foldr</description>
-        <language>es</language>
+        <language>en</language>
         
         <item>
-            <title>Versión 1.1.1</title>
-            <pubDate>Fri, 10 Jan 2026 00:55:00 -0300</pubDate>
-            <sparkle:version>4</sparkle:version>
-            <sparkle:shortVersionString>1.1.1</sparkle:shortVersionString>
+            <title>Version 1.0</title>
+            <pubDate>Fri, 10 Jan 2026 02:15:00 -0300</pubDate>
+            <sparkle:version>1</sparkle:version>
+            <sparkle:shortVersionString>1.0</sparkle:shortVersionString>
             <sparkle:minimumSystemVersion>14.0</sparkle:minimumSystemVersion>
             <description><![CDATA[
-                <h2>Versión 1.1.1</h2>
+                <h2>Version 1.0</h2>
                 <ul>
-                    <li>Mejoras menores</li>
-                    <li>Corrección de errores</li>
+                    <li>Initial release of Foldr</li>
+                    <li>Create folders with custom icons from Finder</li>
+                    <li>Integrated licensing system</li>
+                    <li>Automatic updates with Sparkle</li>
                 </ul>
             ]]></description>
             <enclosure 
-                url="https://matisandoval.com/foldr/releases/Foldr-1.1.1.dmg"
-                length="24942086"
+                url="https://matisandoval.com/foldr/releases/Foldr-1.0.dmg"
+                length="25672365"
                 type="application/octet-stream"
-                sparkle:edSignature="erWUkSTEhIoyCKin+cvWV9+QNGmQJCZ1+7DkhZ7utrd/z1wDdlNpoH+wFFcD0lsdvJV/+3mW+9GQ4UdHt/l+Ag=="
-            />
-        </item>
-        
-        <item>
-            <title>Versión 1.1</title>
-            <pubDate>Fri, 10 Jan 2026 00:30:00 -0300</pubDate>
-            <sparkle:version>3</sparkle:version>
-            <sparkle:shortVersionString>1.1</sparkle:shortVersionString>
-            <sparkle:minimumSystemVersion>14.0</sparkle:minimumSystemVersion>
-            <description><![CDATA[
-                <h2>Versión 1.1</h2>
-                <ul>
-                    <li>Sistema de actualizaciones automáticas con Sparkle</li>
-                    <li>Mejoras de interfaz</li>
-                </ul>
-            ]]></description>
-            <enclosure 
-                url="https://matisandoval.com/foldr/releases/Foldr-1.1.dmg"
-                length="24939639"
-                type="application/octet-stream"
-                sparkle:edSignature="62l5MNm0/ysWkpeGwUlN8L4bTSJHQXT4s+clpjvGmP+zgThdocB2QO6WpkDLD93mZ9MibfDTQqLheAzkC5AzCA=="
+                sparkle:edSignature="grhICqBsdcJz6sPbBMAwGZlBEkZjkzmjgqXiiMXBhPhyQ20owEI0ONCHoVjbpncz1gaMsMZXXgqYprquorugCA=="
             />
         </item>
         
