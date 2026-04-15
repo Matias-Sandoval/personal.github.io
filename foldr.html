@@ -157,7 +157,7 @@
             gap: clamp(32px, 5vw, 84px);
         }
 
-        .story-panel--quote {
+        .story-panel--details {
             display: flex;
             align-items: center;
             justify-content: center;
@@ -281,12 +281,6 @@
                 0 20px 40px rgba(0, 0, 0, 0.06);
         }
 
-        /* Feature Quote */
-        .quote-wrap {
-            max-width: 860px;
-            text-align: left;
-        }
-
         .quote {
             font-family: 'Caveat', cursive;
             font-size: clamp(42px, 6vw, 76px);
@@ -301,119 +295,78 @@
             font-style: normal;
         }
 
-        /* Features Grid */
-        .features {
-            padding: 80px 40px;
-            position: relative;
-            z-index: 1;
-        }
-
-        .features-grid {
-            max-width: 800px;
-            margin: 0 auto;
+        .details-panel {
+            width: min(980px, 82vw);
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-            gap: 48px;
+            gap: 28px;
         }
 
-        .feature {
-            text-align: center;
+        .details-intro {
+            max-width: 820px;
         }
 
-        .feature-icon {
-            width: 48px;
-            height: 48px;
-            margin: 0 auto 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: linear-gradient(135deg, rgba(139, 92, 246, 0.1), rgba(244, 114, 182, 0.1));
-            border-radius: 12px;
+        .details-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 18px;
         }
 
-        .feature-icon svg {
-            width: 24px;
-            height: 24px;
-            stroke: #8b5cf6;
+        .details-card {
+            padding: 24px;
+            border-radius: 24px;
+            background: rgba(255, 255, 255, 0.45);
+            border: 1px solid rgba(0, 0, 0, 0.08);
+            box-shadow: 0 18px 42px rgba(49, 33, 10, 0.08);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
         }
 
-        .feature h3 {
-            font-size: 16px;
+        .details-card h3 {
+            font-size: 18px;
             font-weight: 600;
             margin-bottom: 8px;
             color: var(--text-primary);
         }
 
-        .feature p {
-            font-size: 14px;
+        .details-card p {
+            font-size: 15px;
             color: var(--text-secondary);
             line-height: 1.6;
         }
 
-        /* Colors Showcase */
-        .colors-section {
-            padding: 80px 40px;
-            text-align: center;
-            position: relative;
-            z-index: 1;
-        }
-
-        .colors-title {
-            font-family: 'Caveat', cursive;
-            font-size: 32px;
-            color: var(--text-primary);
-            margin-bottom: 48px;
-        }
-
-        .folder-grid {
+        .details-cta {
             display: flex;
-            justify-content: center;
-            gap: 24px;
-            flex-wrap: wrap;
-            max-width: 600px;
-            margin: 0 auto;
+            align-items: center;
+            justify-content: space-between;
+            gap: 28px;
+            padding: 28px 32px;
+            border-radius: 28px;
+            background: rgba(255, 255, 255, 0.52);
+            border: 1px solid rgba(0, 0, 0, 0.08);
+            box-shadow: 0 24px 54px rgba(49, 33, 10, 0.08);
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
         }
 
-        .folder-icon {
-            width: 64px;
-            height: 64px;
-            border-radius: 14px;
-            transition: transform 0.3s ease;
-            cursor: pointer;
-        }
-
-        .folder-icon:hover {
-            transform: scale(1.1) translateY(-4px);
-        }
-
-        /* Footer CTA */
-        .footer-cta {
-            padding: 120px 40px;
-            text-align: center;
-            position: relative;
-            z-index: 1;
-        }
-
-        .footer-cta h2 {
+        .details-copy h2 {
             font-family: 'Caveat', cursive;
-            font-size: clamp(32px, 6vw, 48px);
+            font-size: clamp(28px, 3vw, 42px);
             color: var(--text-primary);
-            margin-bottom: 16px;
+            margin-bottom: 8px;
         }
 
-        .footer-cta p {
+        .details-copy p {
             font-size: 16px;
             color: var(--text-secondary);
-            margin-bottom: 32px;
+            line-height: 1.5;
         }
 
-        .price-tag {
-            font-size: 14px;
-            color: var(--text-secondary);
-            margin-top: 16px;
+        .details-price {
+            margin-top: 10px;
+            font-size: 14px !important;
         }
 
-        .price-tag strong {
+        .details-price strong {
             color: var(--text-primary);
         }
 
@@ -489,7 +442,7 @@
             }
 
             .story-panel--intro,
-            .story-panel--quote {
+            .story-panel--details {
                 display: block;
             }
 
@@ -517,15 +470,40 @@
                 transform: none;
             }
 
-            .quote-wrap {
+            .details-panel {
+                width: auto;
                 padding: 0 20px 80px;
-                text-align: center;
             }
 
             .quote {
                 margin: 0 auto;
                 max-width: 700px;
                 font-size: clamp(32px, 8vw, 48px);
+                text-align: center;
+            }
+
+            .details-intro {
+                max-width: none;
+            }
+
+            .details-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .details-cta {
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 24px;
+            }
+
+            .details-copy {
+                width: 100%;
+            }
+
+            .details-copy h2,
+            .details-copy p,
+            .details-price {
+                text-align: left;
             }
         }
 
@@ -564,7 +542,7 @@
     <nav>
         <a href="#" class="nav-logo">foldr</a>
         <div class="nav-links">
-            <a href="#features">Features</a>
+            <a href="#details" class="nav-scroll-details">Features</a>
             <a href="https://matijrn.gumroad.com/l/foldr" target="_blank" class="nav-download">
                 <svg viewBox="0 0 24 24" fill="currentColor">
                     <path
@@ -602,76 +580,47 @@
                     </section>
                 </section>
 
-                <section class="story-panel story-panel--quote">
-                    <div class="quote-wrap">
+                <section class="story-panel story-panel--details">
+                    <div class="details-panel" id="details">
+                        <div class="details-intro">
                         <p class="quote">Every folder looks the same until you make them <em>yours</em>.</p>
+                        </div>
+                        <div class="details-grid">
+                            <article class="details-card">
+                                <h3>Create Folders</h3>
+                                <p>Right-click in Finder to create new folders with your favorite icons.</p>
+                            </article>
+                            <article class="details-card">
+                                <h3>Modify Icons</h3>
+                                <p>Change any existing folder's icon to one you've added.</p>
+                            </article>
+                            <article class="details-card">
+                                <h3>6 Colors + Custom</h3>
+                                <p>Includes 6 built-in colors, plus add your own .icns files.</p>
+                            </article>
+                            <article class="details-card">
+                                <h3>Native macOS</h3>
+                                <p>Built with SwiftUI for seamless Finder integration.</p>
+                            </article>
+                        </div>
+                        <div class="details-cta">
+                            <div class="details-copy">
+                                <h2>Make your Mac truly yours</h2>
+                                <p>Try Foldr free and personalize your folders.</p>
+                                <p class="details-price"><strong>$3</strong> · Free trial included</p>
+                            </div>
+                            <a href="https://matijrn.gumroad.com/l/foldr" target="_blank" class="cta-button">
+                                <svg viewBox="0 0 24 24" fill="currentColor">
+                                    <path
+                                        d="M18.71 19.5C17.88 20.74 17 21.95 15.66 21.97C14.32 22 13.89 21.18 12.37 21.18C10.84 21.18 10.37 21.95 9.1 22C7.79 22.05 6.8 20.68 5.96 19.47C4.25 17 2.94 12.45 4.7 9.39C5.57 7.87 7.13 6.91 8.82 6.88C10.1 6.86 11.32 7.75 12.11 7.75C12.89 7.75 14.37 6.68 15.92 6.84C16.57 6.87 18.39 7.1 19.56 8.82C19.47 8.88 17.39 10.1 17.41 12.63C17.44 15.65 20.06 16.66 20.09 16.67C20.06 16.74 19.67 18.11 18.71 19.5ZM13 3.5C13.73 2.67 14.94 2.04 15.94 2C16.07 3.17 15.6 4.35 14.9 5.19C14.21 6.04 13.07 6.7 11.95 6.61C11.8 5.46 12.36 4.26 13 3.5Z" />
+                                </svg>
+                                Download now
+                            </a>
+                        </div>
                     </div>
                 </section>
             </div>
         </div>
-    </section>
-
-    <section id="features" class="features">
-        <div class="features-grid">
-            <div class="feature">
-                <div class="feature-icon">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                        stroke-linejoin="round">
-                        <path d="M12 5v14M5 12h14" />
-                    </svg>
-                </div>
-                <h3>Create Folders</h3>
-                <p>Right-click in Finder to create new folders with your favorite icons.</p>
-            </div>
-            <div class="feature">
-                <div class="feature-icon">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                        stroke-linejoin="round">
-                        <path d="M12 20h9" />
-                        <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z" />
-                    </svg>
-                </div>
-                <h3>Modify Icons</h3>
-                <p>Change any existing folder's icon to one you've added.</p>
-            </div>
-            <div class="feature">
-                <div class="feature-icon">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                        stroke-linejoin="round">
-                        <circle cx="12" cy="12" r="10" />
-                        <circle cx="12" cy="12" r="4" />
-                    </svg>
-                </div>
-                <h3>6 Colors + Custom</h3>
-                <p>Includes 6 built-in colors, plus add your own .icns files.</p>
-            </div>
-            <div class="feature">
-                <div class="feature-icon">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                        stroke-linejoin="round">
-                        <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
-                        <polyline points="22,6 12,13 2,6" />
-                    </svg>
-                </div>
-                <h3>Native macOS</h3>
-                <p>Built with SwiftUI for seamless Finder integration.</p>
-            </div>
-        </div>
-    </section>
-
-
-
-    <section id="download" class="footer-cta">
-        <h2>Make your Mac truly yours</h2>
-        <p>Try Foldr free and personalize your folders.</p>
-        <a href="https://matijrn.gumroad.com/l/foldr" target="_blank" class="cta-button">
-            <svg viewBox="0 0 24 24" fill="currentColor">
-                <path
-                    d="M18.71 19.5C17.88 20.74 17 21.95 15.66 21.97C14.32 22 13.89 21.18 12.37 21.18C10.84 21.18 10.37 21.95 9.1 22C7.79 22.05 6.8 20.68 5.96 19.47C4.25 17 2.94 12.45 4.7 9.39C5.57 7.87 7.13 6.91 8.82 6.88C10.1 6.86 11.32 7.75 12.11 7.75C12.89 7.75 14.37 6.68 15.92 6.84C16.57 6.87 18.39 7.1 19.56 8.82C19.47 8.88 17.39 10.1 17.41 12.63C17.44 15.65 20.06 16.66 20.09 16.67C20.06 16.74 19.67 18.11 18.71 19.5ZM13 3.5C13.73 2.67 14.94 2.04 15.94 2C16.07 3.17 15.6 4.35 14.9 5.19C14.21 6.04 13.07 6.7 11.95 6.61C11.8 5.46 12.36 4.26 13 3.5Z" />
-            </svg>
-            Download now
-        </a>
-        <p class="price-tag"><strong>$3</strong> · Free trial included</p>
     </section>
 
     <footer>
@@ -689,6 +638,8 @@
             var mediaQuery = window.matchMedia('(min-width: 1024px)');
             var storyShell = document.querySelector('.story-shell');
             var storyTrack = document.querySelector('.story-track');
+            var detailsLink = document.querySelector('.nav-scroll-details');
+            var detailsPanel = document.getElementById('details');
             var ticking = false;
 
             if (!storyShell || !storyTrack) {
@@ -727,9 +678,35 @@
                 }
             }
 
+            function scrollToDetails(event) {
+                event.preventDefault();
+
+                if (!detailsPanel) {
+                    return;
+                }
+
+                if (mediaQuery.matches) {
+                    var availableScroll = storyShell.offsetHeight - window.innerHeight;
+                    window.scrollTo({
+                        top: storyShell.offsetTop + (availableScroll * 0.82),
+                        behavior: 'smooth'
+                    });
+                    return;
+                }
+
+                detailsPanel.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }
+
             requestStoryUpdate();
             window.addEventListener('scroll', requestStoryUpdate, { passive: true });
             window.addEventListener('resize', requestStoryUpdate);
+
+            if (detailsLink) {
+                detailsLink.addEventListener('click', scrollToDetails);
+            }
 
             if (typeof mediaQuery.addEventListener === 'function') {
                 mediaQuery.addEventListener('change', requestStoryUpdate);
