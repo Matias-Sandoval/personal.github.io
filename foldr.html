@@ -122,15 +122,54 @@
             height: 18px;
         }
 
-        /* Hero Section */
-        .hero {
-            min-height: 100vh;
+        /* Story Section */
+        .story-shell {
+            position: relative;
+            z-index: 1;
+            height: 260vh;
+        }
+
+        .story-sticky {
+            position: sticky;
+            top: 0;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .story-track {
             display: flex;
-            flex-direction: column;
+            width: 200vw;
+            height: 100vh;
+            will-change: transform;
+        }
+
+        .story-panel {
+            flex: 0 0 100vw;
+            width: 100vw;
+            height: 100vh;
+            padding: 132px clamp(24px, 4vw, 48px) 64px;
+        }
+
+        .story-panel--intro {
+            display: flex;
             align-items: center;
             justify-content: center;
-            padding: 120px 40px 80px;
-            text-align: center;
+            gap: clamp(32px, 5vw, 84px);
+        }
+
+        .story-panel--quote {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .hero {
+            width: min(400px, 36vw);
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            justify-content: center;
+            text-align: left;
             position: relative;
             z-index: 1;
         }
@@ -216,19 +255,26 @@
 
         /* Preview Section */
         .preview {
-            padding: 0 40px 120px;
+            width: min(540px, 42vw);
+            display: grid;
+            gap: 28px;
+            align-content: center;
             position: relative;
             z-index: 1;
         }
 
         .preview-container {
-            max-width: 900px;
-            margin: 0 auto;
+            width: 100%;
             position: relative;
+        }
+
+        .preview-container--secondary {
+            transform: translateX(clamp(24px, 4vw, 64px));
         }
 
         .preview-image {
             width: 100%;
+            display: block;
             border-radius: 16px;
             box-shadow:
                 0 40px 80px rgba(0, 0, 0, 0.08),
@@ -236,19 +282,17 @@
         }
 
         /* Feature Quote */
-        .quote-section {
-            padding: 80px 40px;
-            text-align: center;
-            position: relative;
-            z-index: 1;
+        .quote-wrap {
+            max-width: 860px;
+            text-align: left;
         }
 
         .quote {
             font-family: 'Caveat', cursive;
-            font-size: clamp(32px, 5vw, 48px);
+            font-size: clamp(42px, 6vw, 76px);
             color: var(--text-primary);
-            max-width: 700px;
-            margin: 0 auto;
+            max-width: 820px;
+            margin: 0;
             line-height: 1.4;
             font-weight: 500;
         }
@@ -420,6 +464,71 @@
         }
 
         /* Responsive */
+        @media (max-width: 1023px) {
+            .story-shell {
+                height: auto;
+            }
+
+            .story-sticky {
+                position: static;
+                height: auto;
+                overflow: visible;
+            }
+
+            .story-track {
+                display: block;
+                width: 100%;
+                height: auto;
+                transform: none !important;
+            }
+
+            .story-panel {
+                width: 100%;
+                height: auto;
+                padding: 0;
+            }
+
+            .story-panel--intro,
+            .story-panel--quote {
+                display: block;
+            }
+
+            .hero {
+                width: auto;
+                min-height: 100vh;
+                align-items: center;
+                text-align: center;
+                padding: 100px 20px 36px;
+            }
+
+            .preview {
+                width: auto;
+                padding: 0 20px 80px;
+                display: block;
+            }
+
+            .preview-container {
+                max-width: 900px;
+                margin: 0 auto;
+            }
+
+            .preview-container--secondary {
+                margin-top: 24px;
+                transform: none;
+            }
+
+            .quote-wrap {
+                padding: 0 20px 80px;
+                text-align: center;
+            }
+
+            .quote {
+                margin: 0 auto;
+                max-width: 700px;
+                font-size: clamp(32px, 8vw, 48px);
+            }
+        }
+
         @media (max-width: 768px) {
             nav {
                 padding: 12px 20px;
@@ -434,11 +543,6 @@
             .nav-links a:not(.nav-download) {
                 display: none;
             }
-
-            .hero {
-                padding: 100px 20px 60px;
-            }
-
             .app-icon {
                 width: 100px;
                 height: 100px;
@@ -448,11 +552,6 @@
                 flex-direction: column;
                 gap: 12px;
             }
-
-            .preview {
-                padding: 0 20px 80px;
-            }
-
             .footer-content {
                 flex-direction: column;
                 text-align: center;
@@ -476,30 +575,40 @@
         </div>
     </nav>
 
-    <section class="hero">
-        <img src="foldr/website/icon.png" alt="Foldr App Icon" class="app-icon">
-        <h1 class="hero-title">foldr</h1>
-        <p class="hero-subtitle">A Finder extension to create folders with custom icons or change them anytime.</p>
-        <a href="https://matijrn.gumroad.com/l/foldr" target="_blank" class="cta-button">
-            <svg viewBox="0 0 24 24" fill="currentColor">
-                <path
-                    d="M18.71 19.5C17.88 20.74 17 21.95 15.66 21.97C14.32 22 13.89 21.18 12.37 21.18C10.84 21.18 10.37 21.95 9.1 22C7.79 22.05 6.8 20.68 5.96 19.47C4.25 17 2.94 12.45 4.7 9.39C5.57 7.87 7.13 6.91 8.82 6.88C10.1 6.86 11.32 7.75 12.11 7.75C12.89 7.75 14.37 6.68 15.92 6.84C16.57 6.87 18.39 7.1 19.56 8.82C19.47 8.88 17.39 10.1 17.41 12.63C17.44 15.65 20.06 16.66 20.09 16.67C20.06 16.74 19.67 18.11 18.71 19.5ZM13 3.5C13.73 2.67 14.94 2.04 15.94 2C16.07 3.17 15.6 4.35 14.9 5.19C14.21 6.04 13.07 6.7 11.95 6.61C11.8 5.46 12.36 4.26 13 3.5Z" />
-            </svg>
-            Download for Mac
-        </a>
-    </section>
+    <section class="story-shell" id="top">
+        <div class="story-sticky">
+            <div class="story-track">
+                <section class="story-panel story-panel--intro">
+                    <div class="hero">
+                        <img src="foldr/website/icon.png" alt="Foldr App Icon" class="app-icon">
+                        <h1 class="hero-title">foldr</h1>
+                        <p class="hero-subtitle">A Finder extension to create folders with custom icons or change them anytime.</p>
+                        <a href="https://matijrn.gumroad.com/l/foldr" target="_blank" class="cta-button">
+                            <svg viewBox="0 0 24 24" fill="currentColor">
+                                <path
+                                    d="M18.71 19.5C17.88 20.74 17 21.95 15.66 21.97C14.32 22 13.89 21.18 12.37 21.18C10.84 21.18 10.37 21.95 9.1 22C7.79 22.05 6.8 20.68 5.96 19.47C4.25 17 2.94 12.45 4.7 9.39C5.57 7.87 7.13 6.91 8.82 6.88C10.1 6.86 11.32 7.75 12.11 7.75C12.89 7.75 14.37 6.68 15.92 6.84C16.57 6.87 18.39 7.1 19.56 8.82C19.47 8.88 17.39 10.1 17.41 12.63C17.44 15.65 20.06 16.66 20.09 16.67C20.06 16.74 19.67 18.11 18.71 19.5ZM13 3.5C13.73 2.67 14.94 2.04 15.94 2C16.07 3.17 15.6 4.35 14.9 5.19C14.21 6.04 13.07 6.7 11.95 6.61C11.8 5.46 12.36 4.26 13 3.5Z" />
+                            </svg>
+                            Download for Mac
+                        </a>
+                    </div>
 
-    <section class="preview">
-        <div class="preview-container">
-            <img src="foldr/website/imagen1.webp" alt="Create new folder with icon" class="preview-image">
-        </div>
-        <div class="preview-container" style="margin-top: 48px;">
-            <img src="foldr/website/imagen2.webp" alt="Change existing folder color" class="preview-image">
-        </div>
-    </section>
+                    <section class="preview" aria-label="Foldr previews">
+                        <div class="preview-container">
+                            <img src="foldr/website/imagen1.webp" alt="Create new folder with icon" class="preview-image">
+                        </div>
+                        <div class="preview-container preview-container--secondary">
+                            <img src="foldr/website/imagen2.webp" alt="Change existing folder color" class="preview-image">
+                        </div>
+                    </section>
+                </section>
 
-    <section class="quote-section">
-        <p class="quote">Every folder looks the same until you make them <em>yours</em>.</p>
+                <section class="story-panel story-panel--quote">
+                    <div class="quote-wrap">
+                        <p class="quote">Every folder looks the same until you make them <em>yours</em>.</p>
+                    </div>
+                </section>
+            </div>
+        </div>
     </section>
 
     <section id="features" class="features">
@@ -574,6 +683,61 @@
             </div>
         </div>
     </footer>
+
+    <script>
+        (function () {
+            var mediaQuery = window.matchMedia('(min-width: 1024px)');
+            var storyShell = document.querySelector('.story-shell');
+            var storyTrack = document.querySelector('.story-track');
+            var ticking = false;
+
+            if (!storyShell || !storyTrack) {
+                return;
+            }
+
+            function updateStoryTrack() {
+                ticking = false;
+
+                if (!mediaQuery.matches) {
+                    storyTrack.style.transform = 'translate3d(0, 0, 0)';
+                    return;
+                }
+
+                var rect = storyShell.getBoundingClientRect();
+                var availableScroll = storyShell.offsetHeight - window.innerHeight;
+                if (availableScroll <= 0) {
+                    storyTrack.style.transform = 'translate3d(0, 0, 0)';
+                    return;
+                }
+
+                var scrolled = Math.min(Math.max(-rect.top, 0), availableScroll);
+                var progress = scrolled / availableScroll;
+                var horizontalProgress = Math.min(progress / 0.82, 1);
+                var easedProgress = 1 - Math.pow(1 - horizontalProgress, 1.35);
+                var maxShift = storyTrack.scrollWidth - window.innerWidth;
+                var translateX = easedProgress * maxShift;
+
+                storyTrack.style.transform = 'translate3d(-' + translateX + 'px, 0, 0)';
+            }
+
+            function requestStoryUpdate() {
+                if (!ticking) {
+                    window.requestAnimationFrame(updateStoryTrack);
+                    ticking = true;
+                }
+            }
+
+            requestStoryUpdate();
+            window.addEventListener('scroll', requestStoryUpdate, { passive: true });
+            window.addEventListener('resize', requestStoryUpdate);
+
+            if (typeof mediaQuery.addEventListener === 'function') {
+                mediaQuery.addEventListener('change', requestStoryUpdate);
+            } else if (typeof mediaQuery.addListener === 'function') {
+                mediaQuery.addListener(requestStoryUpdate);
+            }
+        }());
+    </script>
 </body>
 
 </html>
