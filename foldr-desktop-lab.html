@@ -273,68 +273,70 @@
             width: 100%;
             aspect-ratio: 1.6;
             padding: 8px 8px 12px 8px;
-            border-radius: 14px;
-            overflow: hidden;
+            border-radius: 36px 36px 24px 24px;
+            overflow: visible;
+            isolation: isolate;
             background: #0a0a0d;
             border: 1px solid rgba(255, 255, 255, 0.18);
             border-bottom: 16px solid #b5b7ba;
-            /* MacBook chin color */
-            box-shadow:
-                0 40px 82px rgba(20, 24, 33, 0.24),
-                0 12px 28px rgba(20, 24, 33, 0.12),
-                inset 0 1px 0 rgba(255, 255, 255, 0.1);
             font-family: var(--font-rounded);
         }
 
         .demo-window::before {
             content: '';
             position: absolute;
-            inset: 0;
-            border-radius: inherit;
-            background: linear-gradient(180deg, rgba(255, 255, 255, 0.12), transparent 14%);
+            top: 8px;
+            left: 50%;
+            z-index: 6;
+            width: 146px;
+            height: 4px;
+            transform: translateX(-50%);
+            border-radius: 0 0 3px 3px;
+            background: #0a0a0d;
             pointer-events: none;
+        }
+
+        .demo-window::after {
+            content: '';
+            position: absolute;
+            left: 50%;
+            bottom: -10px;
+            z-index: -1;
+            width: calc(100% + 180px);
+            height: 18px;
+            transform: translateX(-50%);
+            border-radius: 0 0 18px 18px;
+            background: linear-gradient(180deg, #d7d8db 0%, #c8cacf 48%, #b8bcc2 100%);
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.72);
         }
 
         .demo-desktop {
             position: relative;
             width: 100%;
             height: 100%;
-            border-radius: 6px;
+            border-radius: 28px 28px 10px 10px;
             /* Tighter inner corners for thinner bezels */
             overflow: hidden;
-            background:
-                radial-gradient(92% 62% at 50% 16%, rgba(255, 252, 247, 0.98) 0 30%, rgba(255, 252, 247, 0.72) 30.5%, transparent 31%),
-                radial-gradient(132% 88% at 50% 22%, rgba(255, 239, 210, 0.88) 0 38%, transparent 38.6%),
-                radial-gradient(84% 38% at 50% 84%, rgba(255, 191, 112, 0.34) 0 24%, rgba(255, 191, 112, 0.12) 38%, transparent 58%),
-                radial-gradient(140% 90% at 50% 100%, rgba(152, 77, 24, 0.18) 0 18%, transparent 40%),
-                linear-gradient(160deg, #f6d59d 0%, #f3a44f 50%, #d26d28 100%);
+            background: #8c5318 url('foldr-lab-assets/demo-wallpaper2.jpg') center center / cover no-repeat;
         }
 
         .demo-desktop::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background:
-                linear-gradient(180deg, rgba(255, 255, 255, 0.06), transparent 30%),
-                radial-gradient(120% 80% at 50% 0%, rgba(255, 255, 255, 0.18), transparent 40%),
-                radial-gradient(110% 70% at 50% 100%, rgba(255, 255, 255, 0.08), transparent 50%),
-                linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0 12%, transparent 12% 100%);
-            mix-blend-mode: screen;
-            pointer-events: none;
-            z-index: 0;
+            content: none;
         }
 
         .demo-menubar {
             position: absolute;
-            top: 0;
+            top: -2px;
             left: 0;
             right: 0;
             z-index: 4;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 0 16px;
-            height: 32px;
+            padding: 2px 16px 0;
+            height: 34px;
+            overflow: hidden;
+            border-radius: 28px 28px 0 0;
             background: rgba(138, 121, 100, 0.24);
             border-bottom: 1px solid rgba(255, 255, 255, 0.08);
             backdrop-filter: blur(18px);
@@ -381,6 +383,7 @@
             transform: translateX(-50%);
             background: #0a0a0d;
             border-radius: 0 0 14px 14px;
+            box-shadow: 0 -4px 0 2px #0a0a0d;
         }
 
         .demo-surface {
@@ -1674,6 +1677,152 @@
             }
         }
 
+        .tail-demo-section {
+            width: min(1160px, calc(100vw - 32px));
+            margin: 0 auto 84px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .tail-demo-shot {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 1510 / 760;
+            overflow: hidden;
+            border-radius: 34px;
+            border: 1px solid rgba(56, 76, 31, 0.24);
+            background:
+                radial-gradient(13% 10% at 69% 34%, rgba(109, 51, 36, 0.94) 0 55%, rgba(247, 249, 242, 0.42) 57% 61%, transparent 62%),
+                radial-gradient(180% 110% at 50% -12%, rgba(157, 195, 87, 0.24), transparent 40%),
+                linear-gradient(180deg, #6a8e2b 0%, #54791c 40%, #436815 100%);
+            box-shadow:
+                0 28px 64px rgba(22, 32, 12, 0.18),
+                inset 0 1px 0 rgba(255, 255, 255, 0.16);
+        }
+
+        .tail-demo-shot::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background:
+                linear-gradient(171deg, transparent 0 46%, rgba(32, 55, 15, 0.22) 46.15% 46.4%, transparent 46.65%),
+                linear-gradient(11deg, transparent 0 73%, rgba(33, 57, 16, 0.18) 73.1% 73.35%, transparent 73.6%),
+                linear-gradient(180deg, rgba(255, 255, 255, 0.06), transparent 18%);
+            pointer-events: none;
+        }
+
+        .tail-demo-shot::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            height: 34%;
+            background:
+                linear-gradient(180deg, transparent 0, rgba(19, 40, 11, 0.08) 100%),
+                radial-gradient(160% 120% at 20% 0%, rgba(0, 0, 0, 0.14), transparent 45%);
+            pointer-events: none;
+        }
+
+        .tail-demo-shot .menu-panel,
+        .tail-demo-shot .submenu-panel {
+            animation: none;
+            background: rgba(233, 240, 219, 0.84);
+            border-color: rgba(255, 255, 255, 0.48);
+            box-shadow:
+                0 18px 44px rgba(12, 22, 10, 0.22),
+                inset 0 1px 0 rgba(255, 255, 255, 0.72);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+        }
+
+        .tail-demo-shot .menu-panel {
+            left: clamp(18px, 3vw, 34px);
+            top: clamp(18px, 3vw, 34px);
+            width: min(540px, calc(100% - clamp(112px, 21vw, 180px)));
+            max-width: none;
+            padding: clamp(10px, 1.4vw, 16px);
+            border-radius: clamp(22px, 2vw, 28px);
+        }
+
+        .tail-demo-shot .submenu-panel {
+            right: auto;
+            left: min(596px, calc(100% - clamp(98px, 18vw, 142px)));
+            top: clamp(122px, 22vw, 184px);
+            width: clamp(96px, 12vw, 140px);
+            padding: clamp(7px, 1vw, 10px);
+            border-radius: clamp(18px, 1.8vw, 24px);
+        }
+
+        .tail-demo-shot .menu-panel__divider {
+            margin: clamp(6px, 0.8vw, 10px) 8px;
+        }
+
+        .tail-demo-menu__row {
+            display: flex;
+            align-items: center;
+            gap: clamp(8px, 1.1vw, 14px);
+            min-height: clamp(18px, 2.3vw, 30px);
+            padding: clamp(4px, 0.7vw, 7px) clamp(8px, 0.9vw, 12px);
+            border-radius: clamp(12px, 1.4vw, 18px);
+            font-size: clamp(10px, 1.35vw, 17px);
+            line-height: 1.1;
+            color: rgba(24, 29, 23, 0.88);
+            white-space: nowrap;
+        }
+
+        .tail-demo-menu__symbol {
+            width: clamp(16px, 1.6vw, 24px);
+            flex: none;
+            font-size: clamp(12px, 1.5vw, 22px);
+            line-height: 1;
+            text-align: center;
+            color: rgba(20, 24, 22, 0.9);
+        }
+
+        .tail-demo-shot .menu-panel__caret {
+            font-size: clamp(12px, 1.4vw, 20px);
+        }
+
+        .tail-demo-shot .menu-panel__item,
+        .tail-demo-shot .submenu-panel__item {
+            min-height: clamp(20px, 2.4vw, 32px);
+            padding: clamp(5px, 0.7vw, 8px) clamp(8px, 0.9vw, 12px);
+            border-radius: clamp(12px, 1.4vw, 18px);
+        }
+
+        .tail-demo-shot .menu-panel__item {
+            font-size: clamp(10px, 1.45vw, 18px);
+        }
+
+        .tail-demo-shot .menu-panel__item--active {
+            grid-template-columns: clamp(16px, 1.6vw, 24px) minmax(0, 1fr) 12px;
+            gap: clamp(8px, 1vw, 14px);
+            padding: clamp(6px, 0.7vw, 10px) clamp(10px, 1vw, 16px);
+            font-size: clamp(12px, 1.55vw, 19px);
+        }
+
+        .tail-demo-shot .menu-panel__glyph,
+        .tail-demo-shot .menu-panel__spacer {
+            width: clamp(16px, 1.6vw, 24px);
+            height: clamp(16px, 1.6vw, 24px);
+            transform: scale(1.1);
+            transform-origin: center;
+        }
+
+        .tail-demo-shot .submenu-panel__item {
+            justify-content: flex-start;
+            gap: clamp(8px, 1vw, 12px);
+            font-size: clamp(10px, 1.35vw, 16px);
+            color: rgba(20, 24, 22, 0.88);
+        }
+
+        .tail-demo-shot .submenu-panel__thumb {
+            width: clamp(20px, 2vw, 28px);
+            height: clamp(20px, 2vw, 28px);
+            border-radius: clamp(5px, 0.7vw, 8px);
+        }
+
         @media (prefers-reduced-motion: reduce) {
 
             .app-icon,
@@ -1708,6 +1857,26 @@
             font-size: 16px;
             color: var(--text-secondary);
             margin-bottom: 32px;
+        }
+
+        .footer-cta .tail-demo-section {
+            width: min(900px, 92%);
+            margin: 0 auto 32px;
+        }
+
+        .footer-cta .tail-demo-shot {
+            border-radius: 28px;
+        }
+
+        .footer-cta .tail-demo-shot .menu-panel {
+            transform: scale(0.88);
+            transform-origin: top left;
+        }
+
+        .footer-cta .tail-demo-shot .submenu-panel {
+            top: clamp(104px, 18vw, 156px);
+            transform: scale(0.82);
+            transform-origin: top left;
         }
 
         .price-tag {
@@ -1991,7 +2160,9 @@
             }
 
             .demo-menubar {
-                padding: 0 12px;
+                top: -2px;
+                padding: 2px 12px 0;
+                height: 34px;
             }
 
             .demo-menubar__left span:nth-child(n+4),
@@ -2885,6 +3056,62 @@
                     <section id="download" class="footer-cta">
                         <h2>Make your Mac truly yours</h2>
                         <p>Try Foldr free and personalize your folders.</p>
+                        <section class="tail-demo-section" aria-label="Foldr demo screenshot">
+                            <div class="tail-demo-shot">
+                                <div class="menu-panel" aria-hidden="true">
+                                    <div class="tail-demo-menu__row">
+                                        <span class="tail-demo-menu__symbol">✓</span>
+                                        <span>Use Stacks</span>
+                                    </div>
+                                    <div class="tail-demo-menu__row">
+                                        <span class="tail-demo-menu__symbol">▦</span>
+                                        <span>Group Stacks By</span>
+                                        <span class="menu-panel__caret">›</span>
+                                    </div>
+                                    <div class="tail-demo-menu__row">
+                                        <span class="tail-demo-menu__symbol">⚙︎</span>
+                                        <span>Show View Options</span>
+                                    </div>
+                                    <div class="menu-panel__divider"></div>
+                                    <div class="tail-demo-menu__row">
+                                        <span class="tail-demo-menu__symbol">⌁</span>
+                                        <span>Import from iPhone or iPad</span>
+                                        <span class="menu-panel__caret">›</span>
+                                    </div>
+                                    <div class="menu-panel__item menu-panel__item--active">
+                                        <span class="menu-panel__glyph menu-panel__glyph--plus"></span>
+                                        <span>New folder with icon</span>
+                                        <span class="menu-panel__caret">›</span>
+                                    </div>
+                                </div>
+                                <div class="submenu-panel" aria-hidden="true">
+                                    <div class="submenu-panel__item">
+                                        <span class="submenu-panel__thumb"><img src="foldr-lab-assets/05.png" alt=""></span>
+                                        <span>05</span>
+                                    </div>
+                                    <div class="submenu-panel__item">
+                                        <span class="submenu-panel__thumb"><img src="foldr-lab-assets/09.png" alt=""></span>
+                                        <span>09</span>
+                                    </div>
+                                    <div class="submenu-panel__item">
+                                        <span class="submenu-panel__thumb"><img src="foldr-lab-assets/04.png" alt=""></span>
+                                        <span>04</span>
+                                    </div>
+                                    <div class="submenu-panel__item">
+                                        <span class="submenu-panel__thumb"><img src="foldr-lab-assets/08.png" alt=""></span>
+                                        <span>08</span>
+                                    </div>
+                                    <div class="submenu-panel__item">
+                                        <span class="submenu-panel__thumb"><img src="foldr-lab-assets/03.png" alt=""></span>
+                                        <span>03</span>
+                                    </div>
+                                    <div class="submenu-panel__item">
+                                        <span class="submenu-panel__thumb"><img src="foldr-lab-assets/01.png" alt=""></span>
+                                        <span>01</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
                         <a href="https://matijrn.gumroad.com/l/foldr" target="_blank" class="cta-button">
                             <svg viewBox="0 0 24 24" fill="currentColor">
                                 <path
