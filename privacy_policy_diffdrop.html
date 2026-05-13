@@ -1,0 +1,240 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>DiffDrop Privacy Policy</title>
+  <meta name="description" content="Privacy Policy for DiffDrop, a local file comparison app for macOS.">
+  <style>
+    :root {
+      color-scheme: dark;
+      --background: #050505;
+      --surface: #111;
+      --surface-strong: #181818;
+      --text: rgba(255, 255, 255, 0.92);
+      --muted: rgba(255, 255, 255, 0.62);
+      --faint: rgba(255, 255, 255, 0.42);
+      --line: rgba(255, 255, 255, 0.12);
+      --accent: #32d05f;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background:
+        radial-gradient(circle at 50% -10%, rgba(255, 255, 255, 0.08), transparent 34rem),
+        var(--background);
+      color: var(--text);
+      font-family: ui-rounded, "SF Pro Rounded", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+    }
+
+    main {
+      width: min(760px, calc(100% - 32px));
+      margin: 0 auto;
+      padding: 56px 0 64px;
+    }
+
+    header {
+      margin-bottom: 28px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 7px 11px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.04);
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    .dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 999px;
+      background: var(--accent);
+      box-shadow: 0 0 18px rgba(50, 208, 95, 0.45);
+    }
+
+    h1 {
+      margin: 18px 0 10px;
+      font-size: clamp(34px, 8vw, 58px);
+      line-height: 0.98;
+      letter-spacing: 0;
+    }
+
+    .lede {
+      max-width: 650px;
+      margin: 0;
+      color: var(--muted);
+      font-size: 18px;
+    }
+
+    section {
+      padding: 22px;
+      margin-top: 14px;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.055), rgba(255, 255, 255, 0.025));
+    }
+
+    h2 {
+      margin: 0 0 10px;
+      font-size: 19px;
+      letter-spacing: 0;
+    }
+
+    p {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    p + p {
+      margin-top: 10px;
+    }
+
+    ul {
+      margin: 10px 0 0;
+      padding-left: 20px;
+      color: var(--muted);
+    }
+
+    li + li {
+      margin-top: 7px;
+    }
+
+    strong {
+      color: var(--text);
+      font-weight: 700;
+    }
+
+    a {
+      color: white;
+      text-decoration-color: rgba(255, 255, 255, 0.35);
+      text-underline-offset: 3px;
+    }
+
+    footer {
+      margin-top: 28px;
+      padding-top: 18px;
+      border-top: 1px solid var(--line);
+      color: var(--faint);
+      font-size: 13px;
+    }
+
+    .mono {
+      font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <div class="badge"><span class="dot"></span> Privacy Policy</div>
+      <h1>DiffDrop</h1>
+      <p class="lede">
+        DiffDrop is a macOS utility that compares files locally on your device.
+        It does not collect, transmit, sell, or track your data.
+      </p>
+    </header>
+
+    <section>
+      <h2>Last Updated</h2>
+      <p>May 13, 2026</p>
+    </section>
+
+    <section>
+      <h2>Information We Collect</h2>
+      <p>
+        <strong>DiffDrop does not collect personal information.</strong>
+        The app does not create user accounts, does not use analytics, does not show ads,
+        and does not include tracking technologies.
+      </p>
+    </section>
+
+    <section>
+      <h2>Files You Compare</h2>
+      <p>
+        When you choose or drop files into DiffDrop, those files are processed locally on your Mac.
+        File contents, file names, metadata, previews, hashes, and comparison results are not sent
+        to the developer or to any server operated by the developer.
+      </p>
+      <p>
+        DiffDrop uses the selected files only to perform the comparison you requested.
+        The app does not upload your files and does not maintain a cloud copy of them.
+      </p>
+    </section>
+
+    <section>
+      <h2>Data Storage</h2>
+      <p>
+        DiffDrop does not store a server-side history of your comparisons.
+        Comparison information is handled on-device. You can clear the current comparison inside the app.
+      </p>
+    </section>
+
+    <section>
+      <h2>Tracking, Analytics, and Advertising</h2>
+      <ul>
+        <li>No third-party advertising SDKs are included.</li>
+        <li>No third-party analytics SDKs are included.</li>
+        <li>No data is used to track you across apps or websites.</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Permissions</h2>
+      <p>
+        DiffDrop accesses files only when you choose them through the file picker or drop them into the app.
+        The app does not request access to your camera, microphone, contacts, location, photos, or calendar.
+      </p>
+    </section>
+
+    <section>
+      <h2>Third-Party Services</h2>
+      <p>
+        DiffDrop does not send your files or personal information to third-party services.
+        Apple may process information related to App Store downloads, purchases, crash reports,
+        or diagnostics according to Apple's own privacy practices.
+      </p>
+    </section>
+
+    <section>
+      <h2>Children's Privacy</h2>
+      <p>
+        DiffDrop is not directed at children and does not knowingly collect personal information from children.
+      </p>
+    </section>
+
+    <section>
+      <h2>Changes to This Policy</h2>
+      <p>
+        This policy may be updated if DiffDrop's privacy practices change.
+        The updated version will be posted on this page with a new "Last Updated" date.
+      </p>
+    </section>
+
+    <section>
+      <h2>Contact</h2>
+      <p>
+        If you have questions about this Privacy Policy, contact:
+        <a class="mono" href="mailto:diffdrop@matisandoval.com">diffdrop@matisandoval.com</a>
+      </p>
+    </section>
+
+    <footer>
+      <span class="mono">DiffDrop - File Compare</span>
+    </footer>
+  </main>
+</body>
+</html>
+
+
