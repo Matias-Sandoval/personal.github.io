@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Privacy Policy - Bind</title>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+      line-height: 1.6;
+      max-width: 820px;
+      margin: 0 auto;
+      padding: 40px 22px;
+      color: #1d1d1f;
+      background: #ffffff;
+    }
+
+    h1, h2 {
+      color: #111111;
+      line-height: 1.25;
+    }
+
+    h1 {
+      font-size: 32px;
+      margin-bottom: 8px;
+    }
+
+    h2 {
+      font-size: 20px;
+      margin-top: 32px;
+    }
+
+    p {
+      font-size: 16px;
+      margin: 12px 0;
+    }
+
+    .date {
+      color: #6e6e73;
+      margin-bottom: 32px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Privacy Policy</h1>
+  <p class="date">Last updated: May 15, 2026</p>
+
+  <p>
+    This Privacy Policy explains how Bind handles information when you use the app.
+    Bind is designed to merge PDF files locally on your device using Apple-provided
+    system tools and frameworks.
+  </p>
+
+  <h2>Information We Collect</h2>
+  <p>
+    Bind does not collect, store, sell, share, or transmit any personal information.
+    The app does not require account registration and does not collect your name,
+    email address, location, contacts, identifiers, or usage data.
+  </p>
+
+  <h2>PDF Files and Local Processing</h2>
+  <p>
+    Any PDF files you select are processed locally on your device. The app uses the
+    selected files only for the purpose of combining them into a new merged PDF file.
+  </p>
+
+  <p>
+    Your PDF files are not uploaded to any server, cloud service, third-party service,
+    or external database by Bind.
+  </p>
+
+  <h2>File Access</h2>
+  <p>
+    Bind only accesses the files that you manually select through the app. The app does
+    not scan your device, access unrelated files, or modify your original PDF files unless
+    you choose to save or export a new merged PDF.
+  </p>
+
+  <h2>Third-Party Services</h2>
+  <p>
+    Bind does not use third-party analytics, advertising networks, tracking tools, or
+    external data processing services.
+  </p>
+
+  <h2>Tracking</h2>
+  <p>
+    Bind does not track you across apps or websites owned by other companies.
+  </p>
+
+  <h2>Data Sharing</h2>
+  <p>
+    Since Bind does not collect personal data, no personal data is shared with third parties.
+  </p>
+
+  <h2>Data Retention</h2>
+  <p>
+    Bind does not retain your personal data or your PDF files. Any output file is saved only
+    in the location you choose on your device.
+  </p>
+
+  <h2>Children's Privacy</h2>
+  <p>
+    Bind does not knowingly collect any personal information from children.
+  </p>
+
+  <h2>Changes to This Privacy Policy</h2>
+  <p>
+    This Privacy Policy may be updated from time to time. Any changes will be posted on this
+    page with an updated revision date.
+  </p>
+
+  <h2>Contact</h2>
+  <p>
+    If you have any questions about this Privacy Policy, you may contact the developer through
+    the support contact provided on the App Store listing for Bind.
+  </p>
+</body>
+</html>
+
+
