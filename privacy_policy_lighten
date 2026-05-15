@@ -1,0 +1,234 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Lighten Privacy Policy</title>
+  <meta name="description" content="Privacy Policy for Lighten, a macOS app for reducing file size locally on your Mac.">
+  <style>
+    :root {
+      color-scheme: light dark;
+      --bg: #f7f7f8;
+      --card: rgba(255,255,255,.78);
+      --text: #151518;
+      --muted: #62626a;
+      --line: rgba(0,0,0,.10);
+      --accent: #0a84ff;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #08080a;
+        --card: rgba(255,255,255,.06);
+        --text: #f4f4f5;
+        --muted: #a0a0aa;
+        --line: rgba(255,255,255,.12);
+        --accent: #5aa9ff;
+      }
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      background:
+        radial-gradient(circle at top right, rgba(10,132,255,.12), transparent 36rem),
+        var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", Arial, sans-serif;
+      line-height: 1.6;
+    }
+
+    main {
+      width: min(860px, calc(100% - 32px));
+      margin: 0 auto;
+      padding: 56px 0;
+    }
+
+    article {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      padding: clamp(24px, 5vw, 48px);
+      box-shadow: 0 24px 70px rgba(0,0,0,.08);
+      backdrop-filter: blur(18px);
+    }
+
+    h1 {
+      margin: 0 0 8px;
+      font-size: clamp(32px, 5vw, 48px);
+      line-height: 1.08;
+      letter-spacing: -0.04em;
+    }
+
+    h2 {
+      margin: 34px 0 10px;
+      font-size: 20px;
+      line-height: 1.25;
+      letter-spacing: -0.015em;
+    }
+
+    p, li { font-size: 16px; }
+    p { margin: 0 0 14px; }
+
+    ul {
+      margin: 8px 0 16px;
+      padding-left: 22px;
+    }
+
+    a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    a:hover { text-decoration: underline; }
+
+    .meta {
+      color: var(--muted);
+      font-size: 14px;
+      margin-bottom: 30px;
+    }
+
+    .notice {
+      margin: 24px 0;
+      padding: 16px 18px;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      background: rgba(127,127,127,.08);
+      color: var(--muted);
+    }
+
+    footer {
+      margin-top: 36px;
+      padding-top: 20px;
+      border-top: 1px solid var(--line);
+      color: var(--muted);
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <article>
+      <h1>Privacy Policy</h1>
+      <p class="meta">Last updated: May 15, 2026</p>
+
+      <p>
+        This Privacy Policy explains how <strong>Lighten</strong> handles information.
+        Lighten is a macOS app designed to reduce the size of images, PDFs, and videos
+        directly on your Mac.
+      </p>
+
+      <div class="notice">
+        <strong>Summary:</strong> Lighten processes your files locally on your Mac.
+        Your files are not uploaded to our servers, and the app does not track you.
+      </div>
+
+      <h2>1. Local File Processing</h2>
+      <p>
+        Lighten works locally on your Mac. When you choose, drag, drop, or save a file,
+        the app uses local macOS technologies to create a smaller copy of that file.
+      </p>
+      <p>
+        Your original files remain on your device unless you choose to move, delete, or
+        modify them yourself. Lighten is designed to create reduced copies without
+        changing your originals.
+      </p>
+
+      <h2>2. Files You Select</h2>
+      <p>
+        Lighten only accesses the files and folders that you explicitly select through
+        macOS file pickers, drag-and-drop, or save dialogs. The app uses those files only
+        to perform the requested file size reduction and to save the resulting copy.
+      </p>
+      <p>
+        We do not receive, store, upload, sell, or share the contents of your files.
+      </p>
+
+      <h2>3. Data Collection</h2>
+      <p>
+        Lighten does not collect personal data through the app. The app does not use
+        third-party analytics, advertising SDKs, tracking SDKs, or account systems.
+      </p>
+      <p>Lighten does not collect:</p>
+      <ul>
+        <li>Your files or file contents</li>
+        <li>Your photos, videos, PDFs, or documents</li>
+        <li>Usage analytics</li>
+        <li>Advertising identifiers</li>
+        <li>Location data</li>
+        <li>Contact lists</li>
+        <li>Browsing history</li>
+      </ul>
+
+      <h2>4. Internet Connection</h2>
+      <p>
+        Lighten does not require an internet connection to reduce files. File reduction
+        is performed on-device.
+      </p>
+      <p>
+        The app may include external contact links, such as a feedback email link.
+        Opening those links may use your email app or browser outside Lighten.
+      </p>
+
+      <h2>5. Feedback and Support Emails</h2>
+      <p>
+        If you choose to contact us by email, we will receive the email address you use
+        and any information you choose to include in your message. We use this information
+        only to respond to your request, provide support, improve the app, or investigate
+        reported issues.
+      </p>
+
+      <h2>6. Third-Party Services</h2>
+      <p>
+        Lighten does not include third-party analytics, third-party advertising, or
+        third-party tracking services inside the app.
+      </p>
+
+      <h2>7. Payments and App Store</h2>
+      <p>
+        If Lighten is distributed through the Apple App Store, Apple may process purchases,
+        downloads, subscriptions, refunds, and related App Store activity according to
+        Apple's own privacy practices and policies. We do not receive your full payment
+        card details from Apple.
+      </p>
+
+      <h2>8. Children's Privacy</h2>
+      <p>
+        Lighten is not designed to knowingly collect personal information from children.
+        Because the app does not collect personal data through the app, we do not knowingly
+        collect personal information from children through Lighten.
+      </p>
+
+      <h2>9. Data Sharing</h2>
+      <p>
+        We do not sell, rent, or share personal data collected through Lighten because
+        Lighten does not collect personal data through the app.
+      </p>
+
+      <h2>10. Security</h2>
+      <p>
+        Lighten is designed to minimize privacy risk by processing files locally and not
+        uploading them to our servers. However, no software or system can be guaranteed
+        to be completely secure.
+      </p>
+
+      <h2>11. Changes to This Privacy Policy</h2>
+      <p>
+        We may update this Privacy Policy from time to time. If we make changes, we will
+        update the “Last updated” date at the top of this page.
+      </p>
+
+      <h2>12. Contact</h2>
+      <p>
+        If you have questions, feedback, or bug reports, you can contact us at:
+        <a href="mailto:lighten@matisandoval.com">lighten@matisandoval.com</a>
+      </p>
+
+      <footer>
+        Lighten Privacy Policy
+      </footer>
+    </article>
+  </main>
+</body>
+</html>
